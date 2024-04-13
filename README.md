@@ -5,15 +5,15 @@
 
 1. feature
 
-   ​	feature/<feature-name>
+   ​	feature/feature-name
 
 2. bug fixing
 
-   ​	fix/<bug-description>
+   ​	fix/bug-description
 
 3. docs
 
-   ​	docs/<documentation-description>
+   ​	docs/documentation-description
 
 
 
