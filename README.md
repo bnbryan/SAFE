@@ -19,9 +19,9 @@
 
 ### CI
 
-**Add test for every functions you wrote.**
+Add test for every functions you wrote.
 
-**Ensure all tests are passed before merging to the master.**
+Ensure all tests are passed before merging to the master.
 
 
 
