@@ -1,0 +1,25 @@
+name: Java CI with Maven
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build With Maven
+        run: mvn -B package
+        working-directory: safe-server
+
+      - name: Run tests
+        run: mvn test
+        working-directory: safe-server
