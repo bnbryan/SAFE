@@ -1,7 +1,21 @@
 # SAFE
+### Dependencies
+
+JDK: 17
+
+spring-boot: 3.2.3
+
+Maven: 3.9.6
+
+Lombok: 1.18.30
+
+*For more details, see [pom.xml](./safe-server/pom.xml)*
+
+---
+
 ### Branch Creation
 
-#### Naming
+##### Naming
 
 1. feature
 
@@ -15,15 +29,15 @@
 
    ​	docs/documentation-description
 
+---
 
-
-### CI
+### CI/CD
 
 Add test for every functions you wrote.
 
 Ensure all tests are passed before merging to the master.
 
-
+---
 
 ### Project Structure
 
