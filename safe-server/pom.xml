@@ -10,7 +10,7 @@
         <version>3.2.3</version>
     </parent>
 
-    <groupId>com.nyu</groupId>
+    <groupId>team.ybj</groupId>
     <artifactId>safe-server</artifactId>
     <version>1.0-SNAPSHOT</version>
 
