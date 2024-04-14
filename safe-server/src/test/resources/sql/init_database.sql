@@ -1,4 +1,3 @@
-SET GLOBAL time_zone = 'America/New_York';
 CREATE TABLE ybj_account (
                              anum  BIGINT NOT NULL COMMENT 'Account number',
                              aname VARCHAR(20) NOT NULL COMMENT 'Account name',
@@ -26,7 +25,9 @@ ALTER TABLE ybj_address ADD CONSTRAINT ybj_address_pk PRIMARY KEY ( adid );
 CREATE TABLE ybj_checking (
                               anum    BIGINT NOT NULL COMMENT 'Account number',
                               ccharge DECIMAL(5, 2) NOT NULL,
-                              atype   VARCHAR(4) NOT NULL
+                              atype   VARCHAR(4) NOT NULL,
+                              abalance DECIMAL(20,2) NOT NULL COMMENT 'Account Balance',
+                              cvalid VARCHAR(1) NOT NULL COMMENT 'Account status'
 );
 
 ALTER TABLE ybj_checking ADD CONSTRAINT ybj_checking_pk PRIMARY KEY ( anum );
@@ -54,7 +55,17 @@ ALTER TABLE ybj_cust_addr ADD CONSTRAINT ybj_cust_addr_pk PRIMARY KEY ( cid,
 CREATE TABLE ybj_customer (
                               cid    DOUBLE NOT NULL COMMENT 'Customer id',
                               clname VARCHAR(10) NOT NULL COMMENT 'Customer''s last name',
-                              cfname VARCHAR(10) NOT NULL COMMENT 'Customer''s first name'
+                              cfname VARCHAR(10) NOT NULL COMMENT 'Customer''s first name',
+                              cemail VARCHAR(255) NOT NULL COMMENT 'Customer''s email',
+                              cpassword VARCHAR(64) NOT NULL COMMENT 'Customer''s password',
+                              security_question VARCHAR(255) NOT NULL COMMENT 'Security Question',
+                              security_answer VARCHAR(255) NOT NULL COMMENT 'Security Answer',
+                              cvalid VARCHAR(1) NOT NULL COMMENT 'Customer status valid or not'
+);
+
+CREATE TABLE ybj_admin (
+                            id VARCHAR(10) NOT NULL COMMENT 'Admin''s id',
+                            password VARCHAR(64) NOT NULL COMMENT 'Admin''s password'
 );
 
 ALTER TABLE ybj_customer ADD CONSTRAINT ybj_customer_pk PRIMARY KEY ( cid );
@@ -82,7 +93,8 @@ CREATE TABLE ybj_loan (
                           stutype      VARCHAR(1) COMMENT 'Student''s type. Grad or undergrad.',
                           stugraddate  DATETIME COMMENT 'Graduation date.',
                           `uID`        INT,
-                          atype        VARCHAR(4) NOT NULL
+                          atype        VARCHAR(4) NOT NULL,
+                          lbalance     DECIMAL(20,2) NOT NULL COMMENT 'Loan balance'
 );
 
 ALTER TABLE ybj_loan
@@ -124,7 +136,9 @@ ALTER TABLE ybj_loan ADD CONSTRAINT ybj_loan_pk PRIMARY KEY ( anum );
 CREATE TABLE ybj_savings (
                              anum  BIGINT NOT NULL COMMENT 'Account number',
                              srate DECIMAL(4, 2) NOT NULL COMMENT 'Interest rate.',
-                             atype VARCHAR(4) NOT NULL
+                             atype VARCHAR(4) NOT NULL,
+                             sbalance DECIMAL(20,2) NOT NULL COMMENT 'Account balance',
+                             svalid VARCHAR(1) NOT NULL COMMENT 'Account status'
 );
 
 ALTER TABLE ybj_savings ADD CONSTRAINT ybj_savings_pk PRIMARY KEY ( anum );
