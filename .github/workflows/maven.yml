@@ -5,6 +5,25 @@ on: push
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      TZ: 'America/New_York'
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: admin123
+          MYSQL_DATABASE: safe
+#          TZ: 'America/New_York'
+#          MYSQL_USER: root
+#          MYSQL_PASSWORD: admin123
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
 
     steps:
       - uses: actions/checkout@v3
@@ -16,10 +35,20 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+      - name: Initialize database
+        run: |
+          mysql -h 127.0.0.1 -u root -padmin123 safe < safe-server/src/test/resources/sql/init_database.sql
+        env:
+          MYSQL_ROOT_PASSWORD: admin123
+
       - name: Build With Maven
-        run: mvn -B package
+        run: mvn -B package -DskipTests
         working-directory: safe-server
 
       - name: Run tests
-        run: mvn test
+        run: mvn test -Dspring.profiles.active=test
         working-directory: safe-server
+        env:
+          SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/safe
+          SPRING_DATASOURCE_USERNAME: root
+          SPRING_DATASOURCE_PASSWORD: admin123

@@ -3,7 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace等于mapper接口类的全限定名,这样实现对应 -->
-<mapper namespace="team.ybj.mapper.AccountMapper">
-
+<mapper namespace="team.ybj.mappers.AccountMapper">
+    <select id="getAccountById" resultType="team.ybj.pojo.YbjAccount">
+        select * from ybj_account where anum = #{id}
+    </select>
 
 </mapper>
