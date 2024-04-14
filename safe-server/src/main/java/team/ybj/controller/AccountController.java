@@ -3,13 +3,13 @@ package team.ybj.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import team.ybj.pojo.YbjAccount;
-import team.ybj.service.impl.AccountServiceImpl;
+import team.ybj.service.AccountService;
 
 @RestController
 @RequestMapping("account")
 public class AccountController {
     @Autowired
-    private AccountServiceImpl accountService;
+    private AccountService accountService;
 
     @GetMapping("getAccount")
     @ResponseBody

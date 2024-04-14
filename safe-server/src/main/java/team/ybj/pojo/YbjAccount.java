@@ -13,4 +13,15 @@ public class YbjAccount {
     private Integer cid;
     private Integer adid;
 
+    public YbjAccount() {
+    }
+
+    public YbjAccount(Integer anum, String aname, Date adate, Character atype, Integer cid, Integer adid) {
+        this.anum = anum;
+        this.aname = aname;
+        this.adate = adate;
+        this.atype = atype;
+        this.cid = cid;
+        this.adid = adid;
+    }
 }
