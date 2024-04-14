@@ -1,3 +1,4 @@
+SET GLOBAL time_zone = 'America/New_York';
 CREATE TABLE ybj_account (
                              anum  BIGINT NOT NULL COMMENT 'Account number',
                              aname VARCHAR(20) NOT NULL COMMENT 'Account name',

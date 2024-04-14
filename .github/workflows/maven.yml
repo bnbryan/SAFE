@@ -12,7 +12,7 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD: admin123
           MYSQL_DATABASE: safe
-          TZ: 'America/New_York'
+#          TZ: 'America/New_York'
 #          MYSQL_USER: root
 #          MYSQL_PASSWORD: admin123
         ports:
