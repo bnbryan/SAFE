@@ -47,7 +47,7 @@ Ensure all tests are passed before merging to the master.
 
 #### Dao
 
-[mapper class](./safe-server/src/main/java/team/ybj/mapper)
+[mapper class](./safe-server/src/main/java/team/ybj/mappers)
 
 [mapper implementation](./safe-server/src/main/resources/mappers)
 
