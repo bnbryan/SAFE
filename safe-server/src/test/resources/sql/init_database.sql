@@ -223,7 +223,7 @@ BEGIN
 
     IF d IS NULL OR d <> 'L' THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'FK YBJ_LOAN_YBJ_ACCOUNT_FK in Table YBJ_LOAN violates Arc constraint on Table YBJ_ACCOUNT - discriminator column aTYPE doesn''t have value ''L''';
-END IF;
+    END IF;
 END$$
 
 CREATE TRIGGER arc_fkarc_2_ybj_loan_before_update
@@ -237,7 +237,7 @@ BEGIN
 
     IF d IS NULL OR d <> 'L' THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'FK YBJ_LOAN_YBJ_ACCOUNT_FK in Table YBJ_LOAN violates Arc constraint on Table YBJ_ACCOUNT - discriminator column aTYPE doesn''t have value ''L''';
-END IF;
+    END IF;
 END$$
 
 CREATE TRIGGER arc_fkarc_2_ybj_checking_before_insert BEFORE INSERT ON ybj_checking
@@ -250,7 +250,7 @@ BEGIN
 
     IF d IS NULL OR d <> 'C' THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'FK YBJ_CHECKING_YBJ_ACCOUNT_FK in Table YBJ_CHECKING violates Arc constraint on Table YBJ_ACCOUNT - discriminator column aTYPE doesn''t have value ''C''';
-END IF;
+    END IF;
 END$$
 CREATE TRIGGER arc_fkarc_2_ybj_checking_before_update BEFORE INSERT ON ybj_checking
     FOR EACH ROW
@@ -262,7 +262,7 @@ BEGIN
 
     IF d IS NULL OR d <> 'C' THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'FK YBJ_CHECKING_YBJ_ACCOUNT_FK in Table YBJ_CHECKING violates Arc constraint on Table YBJ_ACCOUNT - discriminator column aTYPE doesn''t have value ''C''';
-END IF;
+    END IF;
 END$$
 
 
@@ -276,7 +276,7 @@ BEGIN
 
     IF d IS NULL OR d <> 'S' THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'FK YBJ_SAVINGS_YBJ_ACCOUNT_FK in Table YBJ_SAVINGS violates Arc constraint on Table YBJ_ACCOUNT - discriminator column aTYPE doesn''t have value ''S''';
-END IF;
+    END IF;
 END$$
 CREATE TRIGGER arc_fkarc_2_ybj_savings_before_insert BEFORE INSERT ON ybj_savings
     FOR EACH ROW
@@ -288,7 +288,7 @@ BEGIN
 
     IF d IS NULL OR d <> 'S' THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'FK YBJ_SAVINGS_YBJ_ACCOUNT_FK in Table YBJ_SAVINGS violates Arc constraint on Table YBJ_ACCOUNT - discriminator column aTYPE doesn''t have value ''S''';
-END IF;
+    END IF;
 END$$
 
 CREATE TRIGGER ybj_account_adate_legal_before_update BEFORE UPDATE ON ybj_account
@@ -296,14 +296,14 @@ CREATE TRIGGER ybj_account_adate_legal_before_update BEFORE UPDATE ON ybj_accoun
 BEGIN
     IF NEW.adate>NOW() THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'aDATE cannot be later than the current time';
-END IF;
+    END IF;
 END$$
 CREATE TRIGGER ybj_account_adate_legal_before_insert BEFORE INSERT ON ybj_account
     FOR EACH ROW
 BEGIN
     IF NEW.adate>NOW() THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'aDATE cannot be later than the current time';
-END IF;
+    END IF;
 END$$
 
 CREATE TRIGGER ybj_loan_adate_legal_before_insert
@@ -313,13 +313,13 @@ BEGIN
     DECLARE accountAdate DATE;
 
     -- 假设ybj_loan表有一个名为account_id的外键列指向account表的ID
-    SELECT adate INTO accountAdate FROM account WHERE id = NEW.anum;
+    SELECT adate INTO accountAdate FROM ybj_account WHERE anum = NEW.anum;
 
     -- 现在使用accountAdate来进行你的逻辑检查
     IF accountAdate > New.stugraddate
-     THEN
+    THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'stu info is not legal';
-END IF;
+    END IF;
 END;
 CREATE TRIGGER ybj_loan_adate_legal_before_update
     BEFORE UPDATE ON ybj_loan
@@ -328,13 +328,13 @@ BEGIN
     DECLARE accountAdate DATE;
 
     -- 假设ybj_loan表有一个名为account_id的外键列指向account表的ID
-    SELECT adate INTO accountAdate FROM account WHERE id = OLD.anum;
+    SELECT adate INTO accountAdate FROM ybj_account WHERE anum = OLD.anum;
 
     -- 现在使用accountAdate来进行你的逻辑检查
     IF accountAdate > New.stugraddate
-     THEN
+    THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'stu info is not legal';
-END IF;
+    END IF;
 END;
 
 DELIMITER ;
