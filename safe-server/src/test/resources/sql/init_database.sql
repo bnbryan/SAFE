@@ -94,7 +94,7 @@ CREATE TABLE ybj_loan (
                           stugraddate  DATETIME COMMENT 'Graduation date.',
                           `uID`        INT,
                           atype        VARCHAR(4) NOT NULL,
-                          lbalance     DECIMAL(20,2) NOT NULL COMMENT 'Loan balance'
+                          lvalid       VARCHAR(1) NOT NULL COMMENT 'Loan status valid or not'
 );
 
 ALTER TABLE ybj_loan
@@ -365,133 +365,137 @@ END;
 
 
 
-INSERT INTO ybj_customer (cid, clname, cfname) VALUES
-                                                   (1, 'Smith', 'John'),
-                                                   (2, 'Johnson', 'Emily'),
-                                                   (3, 'Williams', 'Michael'),
-                                                   (4, 'Brown', 'Linda'),
-                                                   (5, 'Jones', 'Robert'),
-                                                   (6, 'Miller', 'Patricia'),
-                                                   (7, 'Davis', 'David'),
-                                                   (8, 'Garcia', 'Jennifer'),
-                                                   (9, 'Rodriguez', 'Maria'),
-                                                   (10, 'Wilson', 'James'),
-                                                   (11, 'Jesse', 'June'),
-                                                   (12, 'Tom', 'Ma');
+INSERT INTO ybj_customer (cid, clname, cfname, cemail, cpassword, security_question, security_answer, cvalid) VALUES
+(1, 'Smith', 'John', '123@gmail.com', '12345', "What's you mother's name", "Linda", 1),
+(2, 'Johnson', 'Emily', 'asde@gmai.com', '12345', "What's you mother's name", "Linda", 1),
+(3, 'Williams', 'Michael', '2433454@gmail.com', '12345', "What's you mother's name", "Linda", 1),
+(4, 'Brown', 'Linda', '1234@gmail.com', '12345', "What's you mother's name", "Linda", 1),
+(5, 'Jones', 'Robert', '2345@gmail.com', '12345', "What's you mother's name", "Linda", 1),
+(6, 'Miller', 'Patricia', '23456@gmail.com', '12345', "What's you mother's name", "Linda", 1),
+(7, 'Davis', 'David', '3456@gmail.com', '12345', "What's you mother's name", "Linda", 1),
+(8, 'Garcia', 'Jennifer', '4567@gmail.com', '12345', "What's you mother's name", "Linda", 1),
+(9, 'Rodriguez', 'Maria', '5678@gmail.com', '12345', "What's you mother's name", "Linda", 1),
+(10, 'Wilson', 'James','6789@gmail.com', '12345', "What's you mother's name", "Linda", 1),
+(11, 'Jesse', 'June', '7555@gmail.com', '12345', "What's you mother's name", "Linda", 1),
+(12, 'Tom', 'Ma', '12@gmail.com', '12345', "What's you mother's name", "Linda", 1);
 
 INSERT INTO ybj_address (adid, adstreet, adcity, adstate, adapt, adzip) VALUES
-                                                                            (1, '123 Main St', 'Downtown', 'CA', NULL, 90001),
-                                                                            (2, '456 Maple Dr', 'Springfield', 'IL', '101', 62704),
-                                                                            (3, '789 Oak Ln', 'Libertyville', 'IL', NULL, 60048),
-                                                                            (4, '101 Pine Ct', 'Metropolis', 'NY', '201', 10001),
-                                                                            (5, '202 Birch Blvd', 'Smallville', 'KS', NULL, 67005),
-                                                                            (6, '2800 Layman Court', 'Alpharetta', 'GA', '302', 30201),
-                                                                            (7, '1471 Frederick Street', 'El Paso', 'TX', '201', 79927),
-                                                                            (8, '455 Stratford Court', 'Raleigh', 'NC', NULL, 27601),
-                                                                            (9, '467 Benson Park Drive', 'Oklahoma City', 'OK', '301', 73107),
-                                                                            (10, '2368 Dogwood Lane', 'Tucson', 'AZ', NULL, 85701),
-                                                                            (11, '2340 Ashton Lane', 'Austin', 'TX', NULL, 78701);
+(1, '123 Main St', 'Downtown', 'CA', NULL, 90001),
+(2, '456 Maple Dr', 'Springfield', 'IL', '101', 62704),
+(3, '789 Oak Ln', 'Libertyville', 'IL', NULL, 60048),
+(4, '101 Pine Ct', 'Metropolis', 'NY', '201', 10001),
+(5, '202 Birch Blvd', 'Smallville', 'KS', NULL, 67005),
+(6, '2800 Layman Court', 'Alpharetta', 'GA', '302', 30201),
+(7, '1471 Frederick Street', 'El Paso', 'TX', '201', 79927),
+(8, '455 Stratford Court', 'Raleigh', 'NC', NULL, 27601),
+(9, '467 Benson Park Drive', 'Oklahoma City', 'OK', '301', 73107),
+(10, '2368 Dogwood Lane', 'Tucson', 'AZ', NULL, 85701),
+(11, '2340 Ashton Lane', 'Austin', 'TX', NULL, 78701);
 
 
 INSERT INTO ybj_company (comid, comname, adid) VALUES
-                                                   (1, 'SecureInsure', 3),
-                                                   (2, 'HouseSafe', 4),
-                                                   (3, 'PropertyProtect', 5),
-                                                   (4, 'HomeCare', 2),
-                                                   (5, 'TrustAssure', 1),
-                                                   (6, 'SecureLive', 6),
-                                                   (7, 'HouseCover', 7),
-                                                   (8, 'AssetShield', 8),
-                                                   (9, 'FirstSafety', 9),
-                                                   (10, 'ProtectFirst', 10);
+(1, 'SecureInsure', 3),
+(2, 'HouseSafe', 4),
+(3, 'PropertyProtect', 5),
+(4, 'HomeCare', 2),
+(5, 'TrustAssure', 1),
+(6, 'SecureLive', 6),
+(7, 'HouseCover', 7),
+(8, 'AssetShield', 8),
+(9, 'FirstSafety', 9),
+(10, 'ProtectFirst', 10);
 
 INSERT INTO ybj_university (`uID`, uname) VALUES
-                                              (1, 'State University'),
-                                              (2, 'Tech Institute'),
-                                              (3, 'Central College'),
-                                              (4, 'Global University'),
-                                              (5, 'Innovative University'),
-                                              (6, 'Harmony Institute'),
-                                              (7, 'Future College'),
-                                              (8, 'Pioneer Institute');
+(1, 'State University'),
+(2, 'Tech Institute'),
+(3, 'Central College'),
+(4, 'Global University'),
+(5, 'Innovative University'),
+(6, 'Harmony Institute'),
+(7, 'Future College'),
+(8, 'Pioneer Institute');
 
 
 
 INSERT INTO ybj_cust_addr (cid, adid) VALUES
-                                          (1, 1),
-                                          (2, 2),
-                                          (3, 3),
-                                          (4, 4),
-                                          (5, 6),
-                                          (6, 7),
-                                          (7, 8),
-                                          (8, 9),
-                                          (9, 10),
-                                          (10, 5),
-                                          (11, 10),
-                                          (12, 11);
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 6),
+(6, 7),
+(7, 8),
+(8, 9),
+(9, 10),
+(10, 5),
+(11, 10),
+(12, 11);
 
 INSERT INTO ybj_account (anum, aname, adate, atype, cid, adid) VALUES
-                                                                   (1, 'John Checking', '2023-01-01', 'C', 1, 1),
-                                                                   (2, 'Emily Savings', '2023-02-01', 'S', 2, 2),
-                                                                   (3, 'Michael Loan', '2023-03-01', 'L', 3, 3),
-                                                                   (4, 'Michael Savings', '2023-04-01', 'S', 3, 3),
-                                                                   (5, 'Linda Savings', '2023-05-01', 'S', 4, 4),
-                                                                   (6, 'Robert Savings', '2023-06-01', 'S', 5, 6),
-                                                                   (7, 'Patricia Savings', '2023-07-01', 'S', 6, 7),
-                                                                   (8, 'David Savings', '2023-08-01', 'S', 7, 8),
-                                                                   (9, 'Jennifer Savings', '2023-09-01', 'S', 8, 9),
-                                                                   (10, 'Maria Savings', '2023-10-01', 'S', 9, 10),
-                                                                   (11, 'James Loan', '2023-11-01', 'L', 10, 5),
-                                                                   (12, 'June Checking', '2023-10-01', 'C', 11, 10),
-                                                                   (13, 'June Savings', '2023-10-04', 'S', 11, 10),
-                                                                   (14, 'Ma Loan', '2023-12-05', 'L', 12, 11),
-                                                                   (15, 'John Savings', '2024-01-01', 'S', 1, 1),
-                                                                   (16, 'Emily Loan', '2024-01-20', 'L', 2, 2),
-                                                                   (17, 'Jennifer Loan', '2024-02-01', 'L', 8, 9),
-                                                                   (18, 'Patricia Checking', '2024-02-01', 'C', 6, 7),
-                                                                   (19, 'James Savings', '2024-03-01', 'S', 10, 5),
-                                                                   (20, 'Ma Checking', '2024-03-05', 'C', 12, 11),
-                                                                   (21, 'Linda Loan', '2024-03-06', 'L', 4, 4),
-                                                                   (22, 'Emily Checking', '2024-03-06', 'C', 2, 2),
-                                                                   (23, 'David Checking', '2024-03-10', 'C', 7, 8),
-                                                                   (24, 'David Loan', '2024-03-11', 'L', 7, 8);
+(1, 'John Checking', '2023-01-01', 'C', 1, 1),
+(2, 'Emily Savings', '2023-02-01', 'S', 2, 2),
+(3, 'Michael Loan', '2023-03-01', 'L', 3, 3),
+(4, 'Michael Savings', '2023-04-01', 'S', 3, 3),
+(5, 'Linda Savings', '2023-05-01', 'S', 4, 4),
+(6, 'Robert Savings', '2023-06-01', 'S', 5, 6),
+(7, 'Patricia Savings', '2023-07-01', 'S', 6, 7),
+(8, 'David Savings', '2023-08-01', 'S', 7, 8),
+(9, 'Jennifer Savings', '2023-09-01', 'S', 8, 9),
+(10, 'Maria Savings', '2023-10-01', 'S', 9, 10),
+(11, 'James Loan', '2023-11-01', 'L', 10, 5),
+(12, 'June Checking', '2023-10-01', 'C', 11, 10),
+(13, 'June Savings', '2023-10-04', 'S', 11, 10),
+(14, 'Ma Loan', '2023-12-05', 'L', 12, 11),
+(15, 'John Savings', '2024-01-01', 'S', 1, 1),
+(16, 'Emily Loan', '2024-01-20', 'L', 2, 2),
+(17, 'Jennifer Loan', '2024-02-01', 'L', 8, 9),
+(18, 'Patricia Checking', '2024-02-01', 'C', 6, 7),
+(19, 'James Savings', '2024-03-01', 'S', 10, 5),
+(20, 'Ma Checking', '2024-03-05', 'C', 12, 11),
+(21, 'Linda Loan', '2024-03-06', 'L', 4, 4),
+(22, 'Emily Checking', '2024-03-06', 'C', 2, 2),
+(23, 'David Checking', '2024-03-10', 'C', 7, 8),
+(24, 'David Loan', '2024-03-11', 'L', 7, 8);
 
 
 
 
-INSERT INTO ybj_checking (anum, ccharge, atype) VALUES
-                                                    (1, 25.00, 'C'),
-                                                    (12, 30.00, 'C'),
-                                                    (18, 40.00, 'C'),
-                                                    (20, 32.00, 'C'),
-                                                    (22, 30.00, 'C'),
-                                                    (23, 25.00, 'C');
+INSERT INTO ybj_checking (anum, ccharge, atype, abalance, cvalid) VALUES
+(1, 25.00, 'C', 2300, 'Y'),
+(12, 30.00, 'C', 0, 'P'),
+(18, 40.00, 'C', 10000, 'Y'),
+(20, 32.00, 'C', 25000, 'Y'),
+(22, 30.00, 'C', 6000, 'Y'),
+(23, 25.00, 'C', 21687, 'Y');
 
-INSERT INTO ybj_savings (anum, srate, atype) VALUES
-                                                 (2, 1.5, 'S'),
-                                                 (4, 1.2, 'S'),
-                                                 (5, 1.32, 'S'),
-                                                 (6, 1.3, 'S'),
-                                                 (7, 1.4, 'S'),
-                                                 (8, 1.5, 'S'),
-                                                 (9, 1.6, 'S'),
-                                                 (10, 2.0, 'S'),
-                                                 (13, 2.0, 'S'),
-                                                 (15, 2.0, 'S'),
-                                                 (19, 2.0, 'S');
+INSERT INTO ybj_savings (anum, srate, atype, sbalance, svalid) VALUES
+(2, 1.5, 'S', 52020, 'Y'),
+(4, 1.2, 'S', 0, 'P'),
+(5, 1.32, 'S', 28421, 'Y'),
+(6, 1.3, 'S', 28765, 'Y'),
+(7, 1.4, 'S', 248614, 'Y'),
+(8, 1.5, 'S', 5622, 'Y'),
+(9, 1.6, 'S', 8500, 'Y'),
+(10, 2.0, 'S', 4571, 'Y'),
+(13, 2.0, 'S', 58741, 'Y'),
+(15, 2.0, 'S', 0, 'N'),
+(19, 2.0, 'S', 24875, 'Y');
 
 INSERT INTO ybj_insurance (iid, iaccount, ipremium, comid) VALUES
-                                                               (1, 1003, 600.00, 2),
-                                                               (2, 1006, 600.00, 4),
-                                                               (3, 1020, 600.00, 5);
+(1, 1003, 600.00, 2),
+(2, 1006, 600.00, 4),
+(3, 1020, 600.00, 5);
 
 
-INSERT INTO ybj_loan (anum, lrate, lamount, lmonths, lpayment, ltype, hyear, hinsurance, iid, stuid, stutype, stugraddate, uID, atype) VALUES
-                                                                                                                                           (3, 4.5, 10000.00, 60, 200.00, 'STU', NULL, NULL, NULL,  '202300001', 'G', '2025-06-01', '1', 'L'),
-                                                                                                                                           (11, 5.5, 5000.00, 50, 100.00, 'STU', NULL, NULL, NULL,  '202200020', 'U', '2026-06-01', '1', 'L'),
-                                                                                                                                           (14, 3.5, 150000.00, 360, 500.00, 'HOME', '2017-05-01', '100002130', '1', NULL, NULL, NULL, NULL, 'L'),
-                                                                                                                                           (16, 3.5, 130000.00, 360, 800.00, 'HOME', '2016-05-01', '1000232130', '2', NULL, NULL, NULL, NULL, 'L'),
-                                                                                                                                           (17, 3.5, 200000.00, 360, 1000.00, 'HOME', '2018-05-01', '100242130', '3', NULL, NULL, NULL, NULL, 'L'),
-                                                                                                                                           (21, 5.5, 6000.00, 50, 100.00, 'STU', NULL, NULL, NULL, '202200031', 'U', '2026-06-01', '3', 'L'),
-                                                                                                                                           (24, 5.5, 5500.00, 50, 100.00, 'STU', NULL, NULL, NULL, '202200024', 'G', '2026-06-01', '4', 'L');
+INSERT INTO ybj_loan (anum, lrate, lamount, lmonths, lpayment, ltype, hyear, hinsurance, iid, stuid, stutype, stugraddate, uID, atype, lvalid) VALUES
+(3, 4.5, 10000.00, 60, 200.00, 'STU', NULL, NULL, NULL,  '202300001', 'G', '2025-06-01', '1', 'L', 'P'),
+(11, 5.5, 5000.00, 50, 100.00, 'STU', NULL, NULL, NULL,  '202200020', 'U', '2026-06-01', '1', 'L', 'Y'),
+(14, 3.5, 150000.00, 360, 500.00, 'HOME', '2017-05-01', '100002130', '1', NULL, NULL, NULL, NULL, 'L', 'P'),
+(16, 3.5, 130000.00, 360, 800.00, 'HOME', '2016-05-01', '1000232130', '2', NULL, NULL, NULL, NULL, 'L', 'Y'),
+(17, 3.5, 200000.00, 360, 1000.00, 'HOME', '2018-05-01', '100242130', '3', NULL, NULL, NULL, NULL, 'L', 'Y'),
+(21, 5.5, 6000.00, 50, 100.00, 'STU', NULL, NULL, NULL, '202200031', 'U', '2026-06-01', '3', 'L', 'Y'),
+(24, 5.5, 5500.00, 50, 100.00, 'STU', NULL, NULL, NULL, '202200024', 'G', '2026-06-01', '4', 'L', 'Y');
+
+
+INSERT INTO ybj_admin (id, password) VALUES
+('123', '123');
