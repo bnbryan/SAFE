@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace等于mapper接口类的全限定名,这样实现对应 -->
+<mapper namespace="team.ybj.mappers.AddressMapper">
+
+    <select id="getAddressByAdid" resultType="team.ybj.pojo.YbjAddress">
+        select * from ybj_address where adid = #{id}
+    </select>
+
+    <insert id="insertAddress" useGeneratedKeys="true" keyProperty="adid">
+        insert into ybj_address(adstreet, adcity, adstate, adapt, adzip) values(#{adstreet},#{adcity},#{adstate},#{adapt},#{adzip})
+    </insert>
+
+    <update id="updateAddressByAdid">
+        update ybj_address
+        set adstreet=#{address.adstreet}, adcity=#{address.adcity}, adstate=#{address.adstate}, adapt=#{address.adapt}, adzip=#{address.adzip}
+        where adid=#{adid}
+    </update>
+
+    <delete id="deleteAddressByAdid">
+        delete from ybj_address where adid=#{adid}
+    </delete>
+
+</mapper>

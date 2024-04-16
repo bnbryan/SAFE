@@ -18,7 +18,7 @@ public class AccountServiceTest {
     @Autowired
     private AccountServiceImpl accountService;
     @Autowired
-    private ObjectMapper jacksonObjectMapper;
+    private ObjectMapper objectMapper;
 
 //    @Autowired
 //    private MockMvc mockMvc;
@@ -26,10 +26,9 @@ public class AccountServiceTest {
     @Test
     public void testFindAccountById() throws JsonProcessingException {
         YbjAccount account = accountService.findAccountById(1);
-        String expectedJson = "{\"anum\":1,\"aname\":\"John Checking\",\"adate\":1672549200000,\"atype\":\"C\",\"cid\":1,\"adid\":1}";
+        String expectedJson = "{\"anum\":1,\"aname\":\"John Checking\",\"adate\":\"2023-01-01T05:00:00.000+00:00\",\"atype\":\"C\",\"cid\":1,\"adid\":1}";
 
-        ObjectMapper mapper = new ObjectMapper();
-        String actualJson = mapper.writeValueAsString(account);
+        String actualJson = objectMapper.writeValueAsString(account);
         Assertions.assertEquals(expectedJson, actualJson);
     }
 }

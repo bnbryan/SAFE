@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace等于mapper接口类的全限定名,这样实现对应 -->
+<mapper namespace="team.ybj.mappers.CheckingMapper">
+
+    <select id="getCheckingByAnum" resultType="YbjChecking">
+        select * from ybj_checking where anum = #{id}
+    </select>
+
+    <insert id="insertChecking">
+        insert into ybj_checking(anum, ccharge, atype, abalance, cvalid) values(#{anum},#{ccharge},#{atype},#{abalance},#{cvalid})
+    </insert>
+
+    <update id="updateCchargeByAnum">
+        update ybj_checking set ccharge=#{ccharge} where anum=#{anum}
+    </update>
+
+    <update id="updateAbalanceByAnum">
+        update ybj_checking set abalance=#{abalance} where anum=#{anum}
+    </update>
+
+    <update id="updateCvalidByAnum">
+        update ybj_checking set cvalid=#{cvalid} where anum=#{anum}
+    </update>
+
+    <delete id="deleteCheckingByAnum">
+        delete from ybj_checking where anum=#{anum}
+    </delete>
+
+</mapper>

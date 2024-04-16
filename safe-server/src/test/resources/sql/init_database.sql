@@ -11,6 +11,7 @@ ALTER TABLE ybj_account
     ADD CONSTRAINT ch_inh_ybj_account CHECK ( atype IN ( 'C', 'L', 'S' ) );
 
 ALTER TABLE ybj_account ADD CONSTRAINT ybj_account_pk PRIMARY KEY ( anum );
+ALTER TABLE ybj_account MODIFY anum BIGINT NOT NULL AUTO_INCREMENT COMMENT 'Account number';
 CREATE TABLE ybj_address (
                              adid     INT NOT NULL COMMENT 'Address id',
                              adstreet VARCHAR(30) NOT NULL COMMENT 'Street of the address',
@@ -21,6 +22,7 @@ CREATE TABLE ybj_address (
 );
 
 ALTER TABLE ybj_address ADD CONSTRAINT ybj_address_pk PRIMARY KEY ( adid );
+ALTER TABLE ybj_address MODIFY adid INT NOT NULL AUTO_INCREMENT COMMENT "Address id";
 
 CREATE TABLE ybj_checking (
                               anum    BIGINT NOT NULL COMMENT 'Account number',
@@ -63,12 +65,17 @@ CREATE TABLE ybj_customer (
                               cvalid VARCHAR(1) NOT NULL COMMENT 'Customer status valid or not'
 );
 
+ALTER TABLE ybj_customer ADD CONSTRAINT ybj_customer_pk PRIMARY KEY ( cid );
+ALTER TABLE ybj_customer MODIFY cid DOUBLE NOT NULL AUTO_INCREMENT COMMENT 'Customer id';
+
 CREATE TABLE ybj_admin (
-                            id VARCHAR(10) NOT NULL COMMENT 'Admin''s id',
+                            aid INT NOT NULL COMMENT 'Admin''s id',
                             password VARCHAR(64) NOT NULL COMMENT 'Admin''s password'
 );
 
-ALTER TABLE ybj_customer ADD CONSTRAINT ybj_customer_pk PRIMARY KEY ( cid );
+ALTER TABLE ybj_admin ADD CONSTRAINT ybj_admin_pk PRIMARY KEY (aid);
+ALTER TABLE ybj_admin MODIFY aid INT NOT NULL AUTO_INCREMENT COMMENT 'Admin''s id';
+
 
 CREATE TABLE ybj_insurance (
                                iid      BIGINT NOT NULL COMMENT 'Insurance id',
@@ -78,6 +85,7 @@ CREATE TABLE ybj_insurance (
 );
 
 ALTER TABLE ybj_insurance ADD CONSTRAINT ybj_insurance_pk PRIMARY KEY ( iid );
+ALTER TABLE ybj_insurance MODIFY iid BIGINT NOT NULL AUTO_INCREMENT COMMENT 'Insurance id';
 
 CREATE TABLE ybj_loan (
                           anum         BIGINT NOT NULL COMMENT 'Account number',
@@ -149,6 +157,7 @@ CREATE TABLE ybj_university (
 );
 
 ALTER TABLE ybj_university ADD CONSTRAINT ybj_university_pk PRIMARY KEY ( `uID` );
+ALTER TABLE ybj_university MODIFY uID INT NOT NULL AUTO_INCREMENT COMMENT 'University id';
 
 ALTER TABLE ybj_account
     ADD CONSTRAINT ybj_account_ybj_address_fk FOREIGN KEY ( adid )
@@ -497,5 +506,5 @@ INSERT INTO ybj_loan (anum, lrate, lamount, lmonths, lpayment, ltype, hyear, hin
 (24, 5.5, 5500.00, 50, 100.00, 'STU', NULL, NULL, NULL, '202200024', 'G', '2026-06-01', '4', 'L', 'Y');
 
 
-INSERT INTO ybj_admin (id, password) VALUES
-('123', '123');
+INSERT INTO ybj_admin (aid, password) VALUES
+(123, '123');
