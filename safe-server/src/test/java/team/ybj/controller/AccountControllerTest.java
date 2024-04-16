@@ -8,9 +8,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import team.ybj.mappers.AccountMapper;
-import team.ybj.mappers.AddressMapper;
-import team.ybj.mappers.CheckingMapper;
+import team.ybj.mappers.*;
 import team.ybj.pojo.YbjAccount;
 import team.ybj.service.AccountService;
 import java.util.Date;
@@ -34,6 +32,14 @@ public class AccountControllerTest {
 
     @MockBean
     private CheckingMapper checkingMapper;
+    @MockBean
+    private CustomerMapper customerMapper;
+    @MockBean
+    private CompanyMapper companyMapper;
+    @MockBean
+    private CusAddLinkMapper cusAddLinkMapper;
+    @MockBean
+    private InsuranceMapper insuranceMapper;
 
     @MockBean
     private YbjAccount  expectedAccount;
