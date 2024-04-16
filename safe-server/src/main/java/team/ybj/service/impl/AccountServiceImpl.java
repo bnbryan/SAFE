@@ -13,7 +13,7 @@ public class AccountServiceImpl implements AccountService {
     private AccountMapper accountMapper;
 
     @Override
-    public YbjAccount findAccountById(Integer accountId) {
+    public YbjAccount findAccountById(Long accountId) {
         YbjAccount account = accountMapper.getAccountById(accountId);
         return account;
     }

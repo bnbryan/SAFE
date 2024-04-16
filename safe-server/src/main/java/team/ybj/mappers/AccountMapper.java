@@ -9,17 +9,17 @@ import java.util.List;
 @Repository
 public interface AccountMapper {
 
-    YbjAccount getAccountById(Integer id);
+    YbjAccount getAccountById(Long id);
 
-    List<YbjAccount> getAccountsByCid(Integer cid);
+    List<YbjAccount> getAccountsByCid(Long cid);
 
     int insertAccount(YbjAccount account);
 
-    int updateAnameByAnum(@Param("anum") Integer anum, @Param("aname") String aname);
+    int updateAnameByAnum(@Param("anum") Long anum, @Param("aname") String aname);
 
-    int updateAdidByAnum(@Param("anum") Integer anum, @Param("adid") Integer adid);
+    int updateAdidByAnum(@Param("anum") Long anum, @Param("adid") Long adid);
 
-    int deleteAccountByAnum(Integer anum);
+    int deleteAccountByAnum(Long anum);
 
 
 }

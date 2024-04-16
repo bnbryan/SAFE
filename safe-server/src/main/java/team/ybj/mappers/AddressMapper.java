@@ -5,12 +5,12 @@ import team.ybj.pojo.YbjAddress;
 
 public interface AddressMapper {
 
-    YbjAddress getAddressByAdid(Integer addressId);
+    YbjAddress getAddressByAdid(Long addressId);
 
     int insertAddress(YbjAddress address);
 
-    int updateAddressByAdid(@Param("adid") Integer adid, @Param("address") YbjAddress address);
+    int updateAddressByAdid(@Param("adid") Long adid, @Param("address") YbjAddress address);
 
-    int deleteAddressByAdid(Integer adid);
+    int deleteAddressByAdid(Long adid);
 
 }

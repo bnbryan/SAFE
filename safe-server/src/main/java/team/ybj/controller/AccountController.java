@@ -13,7 +13,7 @@ public class AccountController {
 
     @GetMapping("getAccount")
     @ResponseBody
-    public YbjAccount getAccount(@RequestParam("id") Integer id) {
+    public YbjAccount getAccount(@RequestParam("id") Long id) {
         System.out.println(id);
         YbjAccount account = accountService.findAccountById(id);
         return account;

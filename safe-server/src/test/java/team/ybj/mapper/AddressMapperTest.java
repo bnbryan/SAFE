@@ -20,8 +20,8 @@ public class AddressMapperTest {
 
     @Test
     public void getAddressByAdidTest() throws JsonProcessingException {
-        YbjAddress actual = addressMapper.getAddressByAdid(1);
-        YbjAddress expected = new YbjAddress(1, "123 Main St", "Downtown", "CA", null, "90001");
+        YbjAddress actual = addressMapper.getAddressByAdid(1L);
+        YbjAddress expected = new YbjAddress(1L, "123 Main St", "Downtown", "CA", null, "90001");
 
         Assertions.assertEquals(expected, actual);
     }
@@ -37,14 +37,14 @@ public class AddressMapperTest {
 
     @Test
     public void updateAddressByAdid() {
-        YbjAddress address = new YbjAddress(1, "125 Main St", "Downtown", "CA", null, "90001");
-        int success = addressMapper.updateAddressByAdid(1, address);
+        YbjAddress address = new YbjAddress(1L, "125 Main St", "Downtown", "CA", null, "90001");
+        int success = addressMapper.updateAddressByAdid(1L, address);
         Assertions.assertEquals(1, success);
         address.setAdstreet("123 Main St");
         int success2;
         // restore data
         do{
-            success2 = addressMapper.updateAddressByAdid(1, address);
+            success2 = addressMapper.updateAddressByAdid(1L, address);
         } while (success2 != 1);
     }
 

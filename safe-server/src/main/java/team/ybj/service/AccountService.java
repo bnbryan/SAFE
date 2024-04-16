@@ -4,6 +4,6 @@ import team.ybj.pojo.YbjAccount;
 
 public interface AccountService {
 
-    YbjAccount findAccountById(Integer accountId);
+    YbjAccount findAccountById(Long accountId);
 
 }

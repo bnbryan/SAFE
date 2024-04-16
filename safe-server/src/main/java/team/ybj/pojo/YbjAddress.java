@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 @Data
 @Repository
 public class YbjAddress {
-    private Integer adid;
+    private Long adid;
     private String adstreet;
     private String adcity;
     private String adstate;
@@ -16,7 +16,7 @@ public class YbjAddress {
     public YbjAddress() {
     }
 
-    public YbjAddress(Integer adid, String adstreet, String adcity, String adstate, String adapt, String adzip) {
+    public YbjAddress(Long adid, String adstreet, String adcity, String adstate, String adapt, String adzip) {
         this.adid = adid;
         this.adstreet = adstreet;
         this.adcity = adcity;
