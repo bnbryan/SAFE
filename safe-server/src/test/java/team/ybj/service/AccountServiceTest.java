@@ -25,7 +25,7 @@ public class AccountServiceTest {
 
     @Test
     public void testFindAccountById() throws JsonProcessingException {
-        YbjAccount account = accountService.findAccountById(1);
+        YbjAccount account = accountService.findAccountById(1L);
         String expectedJson = "{\"anum\":1,\"aname\":\"John Checking\",\"adate\":\"2023-01-01T05:00:00.000+00:00\",\"atype\":\"C\",\"cid\":1,\"adid\":1}";
 
         String actualJson = objectMapper.writeValueAsString(account);

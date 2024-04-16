@@ -42,8 +42,8 @@ public class AccountControllerTest {
     void setUp() throws Exception {
         long timestamp = 1672549200000L;
         Date aDate = new Date(timestamp);
-        expectedAccount = new YbjAccount(1,"John Checking",aDate,'C',1,1);
-        when(accountService.findAccountById(any(Integer.class))).thenReturn(expectedAccount);
+        expectedAccount = new YbjAccount(1L,"John Checking",aDate,'C',1L,1L);
+        when(accountService.findAccountById(any(Long.class))).thenReturn(expectedAccount);
     }
 
     @Test

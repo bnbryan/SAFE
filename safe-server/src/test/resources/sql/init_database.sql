@@ -3,8 +3,8 @@ CREATE TABLE ybj_account (
                              aname VARCHAR(20) NOT NULL COMMENT 'Account name',
                              adate DATETIME NOT NULL COMMENT 'Date opened',
                              atype VARCHAR(4) NOT NULL COMMENT 'Account Type',
-                             cid   DOUBLE NOT NULL,
-                             adid  INT NOT NULL
+                             cid   BIGINT NOT NULL,
+                             adid  BIGINT NOT NULL
 );
 
 ALTER TABLE ybj_account
@@ -13,7 +13,7 @@ ALTER TABLE ybj_account
 ALTER TABLE ybj_account ADD CONSTRAINT ybj_account_pk PRIMARY KEY ( anum );
 ALTER TABLE ybj_account MODIFY anum BIGINT NOT NULL AUTO_INCREMENT COMMENT 'Account number';
 CREATE TABLE ybj_address (
-                             adid     INT NOT NULL COMMENT 'Address id',
+                             adid     BIGINT NOT NULL COMMENT 'Address id',
                              adstreet VARCHAR(30) NOT NULL COMMENT 'Street of the address',
                              adcity   VARCHAR(15) NOT NULL COMMENT 'City of the address',
                              adstate  VARCHAR(15) NOT NULL COMMENT 'State of the address',
@@ -22,7 +22,7 @@ CREATE TABLE ybj_address (
 );
 
 ALTER TABLE ybj_address ADD CONSTRAINT ybj_address_pk PRIMARY KEY ( adid );
-ALTER TABLE ybj_address MODIFY adid INT NOT NULL AUTO_INCREMENT COMMENT "Address id";
+ALTER TABLE ybj_address MODIFY adid BIGINT NOT NULL AUTO_INCREMENT COMMENT "Address id";
 
 CREATE TABLE ybj_checking (
                               anum    BIGINT NOT NULL COMMENT 'Account number',
@@ -35,9 +35,9 @@ CREATE TABLE ybj_checking (
 ALTER TABLE ybj_checking ADD CONSTRAINT ybj_checking_pk PRIMARY KEY ( anum );
 
 CREATE TABLE ybj_company (
-                             comid   INT NOT NULL COMMENT 'Insurance company id',
+                             comid   BIGINT NOT NULL COMMENT 'Insurance company id',
                              comname VARCHAR(30) NOT NULL COMMENT 'Insurance company''s name',
-                             adid    INT NOT NULL
+                             adid    BIGINT NOT NULL
 );
 
 CREATE UNIQUE INDEX ybj_company__idx ON
@@ -46,16 +46,17 @@ CREATE UNIQUE INDEX ybj_company__idx ON
                  ASC );
 
 ALTER TABLE ybj_company ADD CONSTRAINT ybj_company_pk PRIMARY KEY ( comid );
+ALTER TABLE ybj_company MODIFY comid BIGINT NOT NULL AUTO_INCREMENT COMMENT 'Insurance company id';
 
 CREATE TABLE ybj_cust_addr (
-                               cid  DOUBLE NOT NULL,
-                               adid INT NOT NULL
+                               cid  BIGINT NOT NULL,
+                               adid BIGINT NOT NULL
 );
 
 ALTER TABLE ybj_cust_addr ADD CONSTRAINT ybj_cust_addr_pk PRIMARY KEY ( cid,
                                                                         adid );
 CREATE TABLE ybj_customer (
-                              cid    DOUBLE NOT NULL COMMENT 'Customer id',
+                              cid    BIGINT NOT NULL COMMENT 'Customer id',
                               clname VARCHAR(10) NOT NULL COMMENT 'Customer''s last name',
                               cfname VARCHAR(10) NOT NULL COMMENT 'Customer''s first name',
                               cemail VARCHAR(255) NOT NULL COMMENT 'Customer''s email',
@@ -66,22 +67,22 @@ CREATE TABLE ybj_customer (
 );
 
 ALTER TABLE ybj_customer ADD CONSTRAINT ybj_customer_pk PRIMARY KEY ( cid );
-ALTER TABLE ybj_customer MODIFY cid DOUBLE NOT NULL AUTO_INCREMENT COMMENT 'Customer id';
+ALTER TABLE ybj_customer MODIFY cid BIGINT NOT NULL AUTO_INCREMENT COMMENT 'Customer id';
 
 CREATE TABLE ybj_admin (
-                            aid INT NOT NULL COMMENT 'Admin''s id',
+                            aid BIGINT NOT NULL COMMENT 'Admin''s id',
                             password VARCHAR(64) NOT NULL COMMENT 'Admin''s password'
 );
 
 ALTER TABLE ybj_admin ADD CONSTRAINT ybj_admin_pk PRIMARY KEY (aid);
-ALTER TABLE ybj_admin MODIFY aid INT NOT NULL AUTO_INCREMENT COMMENT 'Admin''s id';
+ALTER TABLE ybj_admin MODIFY aid BIGINT NOT NULL AUTO_INCREMENT COMMENT 'Admin''s id';
 
 
 CREATE TABLE ybj_insurance (
                                iid      BIGINT NOT NULL COMMENT 'Insurance id',
                                iaccount BIGINT NOT NULL COMMENT 'Insurance account number',
                                ipremium DECIMAL(10, 2) NOT NULL COMMENT 'Yearly insurance premium',
-                               comid    INT NOT NULL
+                               comid    BIGINT NOT NULL
 );
 
 ALTER TABLE ybj_insurance ADD CONSTRAINT ybj_insurance_pk PRIMARY KEY ( iid );
@@ -100,7 +101,7 @@ CREATE TABLE ybj_loan (
                           stuid        VARCHAR(10) COMMENT 'Student id',
                           stutype      VARCHAR(1) COMMENT 'Student''s type. Grad or undergrad.',
                           stugraddate  DATETIME COMMENT 'Graduation date.',
-                          `uID`        INT,
+                          `uID`        BIGINT,
                           atype        VARCHAR(4) NOT NULL,
                           lvalid       VARCHAR(1) NOT NULL COMMENT 'Loan status valid or not'
 );
@@ -152,12 +153,12 @@ CREATE TABLE ybj_savings (
 ALTER TABLE ybj_savings ADD CONSTRAINT ybj_savings_pk PRIMARY KEY ( anum );
 
 CREATE TABLE ybj_university (
-                                `uID` INT NOT NULL COMMENT 'University id',
+                                `uID` BIGINT NOT NULL COMMENT 'University id',
                                 uname VARCHAR(30) NOT NULL COMMENT 'University name'
 );
 
 ALTER TABLE ybj_university ADD CONSTRAINT ybj_university_pk PRIMARY KEY ( `uID` );
-ALTER TABLE ybj_university MODIFY uID INT NOT NULL AUTO_INCREMENT COMMENT 'University id';
+ALTER TABLE ybj_university MODIFY uID BIGINT NOT NULL AUTO_INCREMENT COMMENT 'University id';
 
 ALTER TABLE ybj_account
     ADD CONSTRAINT ybj_account_ybj_address_fk FOREIGN KEY ( adid )

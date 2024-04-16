@@ -24,8 +24,8 @@ public class CheckingMapperTest {
 
     @Test
     public void getCheckingByAnumTest() {
-        YbjChecking actual = checkingMapper.getCheckingByAnum("1");
-        YbjChecking expected = new YbjChecking(1, 25.00, 'C', 2300.00, 'Y');
+        YbjChecking actual = checkingMapper.getCheckingByAnum(1L);
+        YbjChecking expected = new YbjChecking(1L, 25.00, 'C', 2300.00, 'Y');
 
         Assertions.assertEquals(actual, expected);
     }
@@ -34,8 +34,8 @@ public class CheckingMapperTest {
     public void insertCheckingTest() {
         long ts1 = 1709701200;
         Random random = new Random();
-        int anum = random.nextInt();
-        YbjAccount account = new YbjAccount(anum, "Michael Checking", new Date(ts1 * 1000), 'C', 3, 3);
+        Long anum = random.nextLong();
+        YbjAccount account = new YbjAccount(anum, "Michael Checking", new Date(ts1 * 1000), 'C', 3L, 3L);
         int success = accountMapper.insertAccount(account);
         Assertions.assertEquals(1, success);
 
@@ -50,38 +50,38 @@ public class CheckingMapperTest {
 
     @Test
     public void updateCchargeByAnumTest() {
-        int success = checkingMapper.updateCchargeByAnum(1,0.00);
+        int success = checkingMapper.updateCchargeByAnum(1L,0.00);
         Assertions.assertEquals(1, success);
 
         // restore data
         int success2;
         do{
-            success2 = checkingMapper.updateCchargeByAnum(1, 25.00);
+            success2 = checkingMapper.updateCchargeByAnum(1L, 25.00);
         } while (success2 != 1);
     }
 
     @Test
     public void updateAbalanceByAnumTest() {
-        int success = checkingMapper.updateAbalanceByAnum(1,100.00);
+        int success = checkingMapper.updateAbalanceByAnum(1L,100.00);
         Assertions.assertEquals(1, success);
 
         // restore data
         int success2;
         do{
-            success2 = checkingMapper.updateAbalanceByAnum(1, 2300.00);
+            success2 = checkingMapper.updateAbalanceByAnum(1L, 2300.00);
         } while (success2 != 1);
 
     }
 
     @Test
     public void updateCvalidByAnumTest() {
-        int success = checkingMapper.updateCvalidByAnum(1,'P');
+        int success = checkingMapper.updateCvalidByAnum(1L,'P');
         Assertions.assertEquals(1, success);
 
         // restore data
         int success2;
         do{
-            success2 = checkingMapper.updateCvalidByAnum(1, 'Y');
+            success2 = checkingMapper.updateCvalidByAnum(1L, 'Y');
         } while (success2 != 1);
 
     }

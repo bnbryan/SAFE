@@ -8,17 +8,17 @@ import java.util.Date;
 @Data
 @Repository
 public class YbjAccount {
-    private Integer anum;
+    private Long anum;
     private String aname;
     private Date adate;
     private Character atype;
-    private Integer cid;
-    private Integer adid;
+    private Long cid;
+    private Long adid;
 
     public YbjAccount() {
     }
 
-    public YbjAccount(Integer anum, String aname, Date adate, Character atype, Integer cid, Integer adid) {
+    public YbjAccount(Long anum, String aname, Date adate, Character atype, Long cid, Long adid) {
         this.anum = anum;
         this.aname = aname;
         this.adate = adate;

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 @Data
 @Repository
 public class YbjChecking {
-    private Integer anum;
+    private Long anum;
     private Double ccharge;
     private Character atype;
     private Double abalance;
@@ -15,7 +15,7 @@ public class YbjChecking {
     public YbjChecking() {
     }
 
-    public YbjChecking(Integer anum, Double ccharge, Character atype, Double abalance, Character cvalid) {
+    public YbjChecking(Long anum, Double ccharge, Character atype, Double abalance, Character cvalid) {
         this.anum = anum;
         this.ccharge = ccharge;
         this.atype = atype;
