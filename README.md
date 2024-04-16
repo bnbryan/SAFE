@@ -1,4 +1,13 @@
 # SAFE
+
+### Description
+
+Port: 8080
+
+[Start Server](./safe-server/src/main/java/team/ybj/Main.java)
+
+---
+
 ### Dependencies
 
 JDK: 17
@@ -41,6 +50,10 @@ Ensure all tests are passed before merging to the master.
 
 ### Project Structure
 
+#### controller
+
+[controller code](./safe-server/src/main/java/team/ybj/controller)
+
 #### service
 
 [service code](./safe-server/src/main/java/team/ybj/service)
@@ -52,10 +65,6 @@ Ensure all tests are passed before merging to the master.
 [mapper implementation](./safe-server/src/main/resources/mappers)
 
 [entity class](./safe-server/src/main/java/team/ybj/pojo)
-
-#### controller
-
-[controller code](./safe-server/src/main/java/team/ybj/controller)
 
 #### test
 

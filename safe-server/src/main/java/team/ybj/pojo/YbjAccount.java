@@ -1,10 +1,12 @@
 package team.ybj.pojo;
 
 import lombok.Data;
+import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 
 @Data
+@Repository
 public class YbjAccount {
     private Integer anum;
     private String aname;
