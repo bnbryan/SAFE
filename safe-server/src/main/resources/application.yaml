@@ -8,7 +8,7 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mysql:///safe
     username: root
-    password: admin123
+    password: 12345678
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 mybatis:

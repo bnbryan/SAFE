@@ -39,7 +39,6 @@ CREATE TABLE ybj_company (
                              comname VARCHAR(30) NOT NULL COMMENT 'Insurance company''s name',
                              adid    BIGINT NOT NULL
 );
-
 CREATE UNIQUE INDEX ybj_company__idx ON
     ybj_company (
                  adid
