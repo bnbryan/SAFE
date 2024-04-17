@@ -35,6 +35,15 @@ public class CustomerMapperTest {
         assertNotNull(customer, "Customer should not be null");
         // 进一步断言，检查customer的其他属性是否符合预期
     }
+    @Test
+    public void testGetCustomerByEmail(){
+        Long cid = 1L;
+        YbjCustomer expectCustomer = customerMapper.getCustomerByCid(cid);
+        YbjCustomer actualCustomer = customerMapper.getCustomerByEmail(expectCustomer.getCemail());
+        assertEquals(expectCustomer,actualCustomer);
+        assertEquals(expectCustomer.getCemail(),actualCustomer.getCemail());
+
+    }
 
     @Test
     public void testGetValidAll() {
