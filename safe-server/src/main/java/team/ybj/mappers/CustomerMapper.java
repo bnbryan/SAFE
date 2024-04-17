@@ -41,4 +41,7 @@ public interface CustomerMapper {
     // use UpdateValid to imp
     @Update("UPDATE ybj_customer SET cvalid = #{valid} WHERE cid = #{id}")
     int updateValidByCid(@Param("id")Long cid,@Param("valid") String cvalid);
+
+    @Select("SELECT * from ybj_customer WHERE cemail = #{email}")
+    YbjCustomer getCustomerByEmail(@Param("email")String email);
 }
