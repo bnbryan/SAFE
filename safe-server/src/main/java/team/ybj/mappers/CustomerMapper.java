@@ -10,23 +10,35 @@ public interface CustomerMapper {
     @Insert("INSERT INTO ybj_customer (clname, cfname, cemail, cpassword, security_question, security_answer, cvalid) " +
             "VALUES (#{clname}, #{cfname}, #{cemail}, #{cpassword}, #{securityQuestion}, #{securityAnswer}, #{cvalid})")
     @Options(useGeneratedKeys = true, keyProperty = "cid")
-    int insert(YbjCustomer customer);
+    int insertCustomer(YbjCustomer customer);
 
     // Read by ID
-    @Select("SELECT * FROM ybj_customer WHERE cid = #{cid}")
-    YbjCustomer selectByCid(Long cid);
+
+    @Select("SELECT * FROM ybj_customer WHERE cid = #{cid} ")
+    YbjCustomer getCustomerByCid(Long cid);
+    //现在select的是有效的customer
+    @Select("SELECT * FROM ybj_customer WHERE cid = #{cid} AND cvalid = '1' ")
+    YbjCustomer getValidCustomerByCid(Long cid);
+
 
     // Read all
+    @Select("SELECT * FROM ybj_customer WHERE cvalid ='1'")
+    List<YbjCustomer> getValidAllCustomer();
     @Select("SELECT * FROM ybj_customer")
-    List<YbjCustomer> selectAll();
+    List<YbjCustomer> getAllCustomer();
 
     // Update
     @Update("UPDATE ybj_customer SET clname = #{clname}, cfname = #{cfname}, cemail = #{cemail}, " +
             "cpassword = #{cpassword}, security_question = #{securityQuestion}, security_answer = #{securityAnswer}, " +
             "cvalid = #{cvalid} WHERE cid = #{cid}")
-    int update(YbjCustomer customer);
+    int updateAll(YbjCustomer customer);
+
+    //不知道改密码的加密要怎么做，姑且摆个这么个东西放着
+    @Update("UPDATE ybj_customer SET cpassword = #{password} WHERE cid = #{id}")
+    int updatePasswordByCid(@Param("id")Long id,@Param("password") String password);
 
     // Delete
-    @Delete("DELETE FROM ybj_customer WHERE cid = #{cid}")
-    int deleteById(Long cid);
+    // use UpdateValid to imp
+    @Update("UPDATE ybj_customer SET cvalid = #{valid} WHERE cid = #{id}")
+    int updateValidByCid(@Param("id")Long cid,@Param("valid") String cvalid);
 }

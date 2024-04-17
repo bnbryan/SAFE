@@ -30,7 +30,7 @@ public class InsuranceMapperTest {
         // Create a test insurance record
         testInsurance = new YbjInsurance(null, 123456789L, new BigDecimal("100.00"), 1L);
         // Insert it into the database
-        insuranceMapper.insert(testInsurance);
+        insuranceMapper.insertInsurance(testInsurance);
     }
 
     @Test
@@ -40,14 +40,14 @@ public class InsuranceMapperTest {
 
     @Test
     public void testSelectByLid() {
-        YbjInsurance found = insuranceMapper.selectByLid(testInsurance.getIid());
+        YbjInsurance found = insuranceMapper.getInsuranceByLid(testInsurance.getIid());
         assertNotNull(found);
         assertEquals(testInsurance.getIpremium(), found.getIpremium());
     }
 
     @Test
     public void testSelectAll() {
-        List<YbjInsurance> allInsurances = insuranceMapper.selectAll();
+        List<YbjInsurance> allInsurances = insuranceMapper.getAllInsurance();
         assertFalse(allInsurances.isEmpty()); // The list should not be empty after insertion
     }
 
@@ -55,22 +55,14 @@ public class InsuranceMapperTest {
     public void testUpdate() {
         // Change some details of the insurance
         YbjInsurance updated = new YbjInsurance(testInsurance.getIid(), 987654321L, new BigDecimal("200.00"), 2L);
-        int result = insuranceMapper.update(updated);
+        int result = insuranceMapper.updateInsurance(updated);
         assertTrue(result > 0);
 
         // Fetch the updated record and validate changes
-        YbjInsurance updatedInsurance = insuranceMapper.selectByLid(updated.getIid());
+        YbjInsurance updatedInsurance = insuranceMapper.getInsuranceByLid(updated.getIid());
         assertNotNull(updatedInsurance);
         assertEquals(updated.getIpremium(), updatedInsurance.getIpremium());
     }
 
-    @Test
-    public void testDeleteByLid() {
-        int result = insuranceMapper.deleteByLid(testInsurance.getIid());
-        assertTrue(result > 0);
 
-        // Trying to fetch the deleted record should yield null
-        YbjInsurance deletedInsurance = insuranceMapper.selectByLid(testInsurance.getIid());
-        assertNull(deletedInsurance);
-    }
 }

@@ -29,7 +29,7 @@ public class CusAddLinkMapperTest {
         // Create a test customer-address link record
         testLink = new YbjCusAddLink(7L, 6L); // Assuming 1L for cid and adid are valid existing IDs in the DB
         // Insert it into the database
-        cusAddLinkMapper.insert(testLink);
+        cusAddLinkMapper.insertCusAddLink(testLink);
     }
 
     @Test
@@ -40,7 +40,7 @@ public class CusAddLinkMapperTest {
 
     @Test
     public void testFindAddressIdsByCustomerId() {
-        List<Long> addresses = cusAddLinkMapper.findAddressIdsByCustomerId(testLink.getCid());
+        List<Long> addresses = cusAddLinkMapper.getAddressIdsByCustomerId(testLink.getCid());
         assertNotNull(addresses);
         assertFalse(addresses.isEmpty()); // The list should contain at least one address ID
         assertTrue(addresses.contains(testLink.getAdid()));
@@ -48,19 +48,10 @@ public class CusAddLinkMapperTest {
 
     @Test
     public void testFindCustomerIdsByAddressId() {
-        List<Long> customers = cusAddLinkMapper.findCustomerIdsByAddressId(testLink.getAdid());
+        List<Long> customers = cusAddLinkMapper.getCustomerIdsByAddressId(testLink.getAdid());
         assertNotNull(customers);
         assertFalse(customers.isEmpty()); // The list should contain at least one customer ID
         assertTrue(customers.contains(testLink.getCid()));
     }
 
-    @Test
-    public void testDelete() {
-        int result = cusAddLinkMapper.delete(testLink);
-        assertTrue(result > 0);
-
-        // After deletion, trying to find the link should yield no results
-        List<Long> addressesAfterDelete = cusAddLinkMapper.findAddressIdsByCustomerId(testLink.getCid());
-        assertFalse(addressesAfterDelete.contains(testLink.getAdid()));
-    }
 }
