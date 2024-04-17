@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace等于mapper接口类的全限定名,这样实现对应 -->
+<mapper namespace="team.ybj.mappers.SavingMapper">
+
+    <select id="getSavingByAnum" resultType="YbjSaving">
+        select * from ybj_savings where anum = #{id}
+    </select>
+
+    <insert id="insertSaving">
+        insert into ybj_savings(anum, srate, atype, sbalance, svalid) values(#{anum},#{srate},#{atype},#{sbalance},#{svalid})
+    </insert>
+
+    <update id="updateSrateByAnum">
+        update ybj_savings set srate=#{srate} where anum=#{anum}
+    </update>
+
+    <update id="updateSbalanceByAnum">
+        update ybj_savings set sbalance=#{sbalance} where anum=#{anum}
+    </update>
+
+    <update id="updateSvalidByAnum">
+        update ybj_savings set svalid=#{svalid} where anum=#{anum}
+    </update>
+
+    <delete id="deleteSavingByAnum">
+        delete from ybj_savings where anum=#{anum}
+    </delete>
+
+</mapper>
