@@ -67,6 +67,7 @@ CREATE TABLE ybj_customer (
 
 ALTER TABLE ybj_customer ADD CONSTRAINT ybj_customer_pk PRIMARY KEY ( cid );
 ALTER TABLE ybj_customer MODIFY cid BIGINT NOT NULL AUTO_INCREMENT COMMENT 'Customer id';
+ALTER TABLE ybj_customer ADD UNIQUE (cemail);
 
 CREATE TABLE ybj_admin (
                             aid BIGINT NOT NULL COMMENT 'Admin''s id',
