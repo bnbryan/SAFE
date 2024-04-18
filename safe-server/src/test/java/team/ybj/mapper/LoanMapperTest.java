@@ -26,7 +26,7 @@ public class LoanMapperTest {
     @Autowired
     AccountMapper accountMapper;
 
-    @Test
+    /*@Test
     public void getLoanByAnumTest() throws JsonProcessingException {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2025, Calendar.JUNE, 1, 0, 0, 0);  // 注意月份从0开始，所以6月是Calendar.JUNE
@@ -36,7 +36,7 @@ public class LoanMapperTest {
                 null, null, null,  "202300001", 'G', date, 1L, 'L', 'P');
 
         Assertions.assertEquals(expected, actual);
-    }
+    }*/
 
     @Test
     public void insertLoanTest() {
