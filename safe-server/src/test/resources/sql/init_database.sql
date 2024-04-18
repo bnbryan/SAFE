@@ -375,18 +375,18 @@ END;
 
 
 INSERT INTO ybj_customer (cid, clname, cfname, cemail, cpassword, security_question, security_answer, cvalid) VALUES
-(1, 'Smith', 'John', '123@gmail.com', '12345', "What's you mother's name", "Linda", 1),
-(2, 'Johnson', 'Emily', 'asde@gmai.com', '12345', "What's you mother's name", "Linda", 1),
-(3, 'Williams', 'Michael', '2433454@gmail.com', '12345', "What's you mother's name", "Linda", 1),
-(4, 'Brown', 'Linda', '1234@gmail.com', '12345', "What's you mother's name", "Linda", 1),
-(5, 'Jones', 'Robert', '2345@gmail.com', '12345', "What's you mother's name", "Linda", 1),
-(6, 'Miller', 'Patricia', '23456@gmail.com', '12345', "What's you mother's name", "Linda", 1),
-(7, 'Davis', 'David', '3456@gmail.com', '12345', "What's you mother's name", "Linda", 1),
-(8, 'Garcia', 'Jennifer', '4567@gmail.com', '12345', "What's you mother's name", "Linda", 1),
-(9, 'Rodriguez', 'Maria', '5678@gmail.com', '12345', "What's you mother's name", "Linda", 1),
-(10, 'Wilson', 'James','6789@gmail.com', '12345', "What's you mother's name", "Linda", 1),
-(11, 'Jesse', 'June', '7555@gmail.com', '12345', "What's you mother's name", "Linda", 1),
-(12, 'Tom', 'Ma', '12@gmail.com', '12345', "What's you mother's name", "Linda", 1);
+(1, 'Smith', 'John', '123@gmail.com', '$2a$10$n9tdBK.F2kYTfH9bRyh7aOzfRwuUB/P.V3LbyYkJyUhPVFljVG8Za', "What's you mother's name", "Linda", 1),
+(2, 'Johnson', 'Emily', 'asde@gmai.com', '$2a$10$n9tdBK.F2kYTfH9bRyh7aOzfRwuUB/P.V3LbyYkJyUhPVFljVG8Za', "What's you mother's name", "Linda", 1),
+(3, 'Williams', 'Michael', '2433454@gmail.com', '$2a$10$n9tdBK.F2kYTfH9bRyh7aOzfRwuUB/P.V3LbyYkJyUhPVFljVG8Za', "What's you mother's name", "Linda", 1),
+(4, 'Brown', 'Linda', '1234@gmail.com', '$2a$10$n9tdBK.F2kYTfH9bRyh7aOzfRwuUB/P.V3LbyYkJyUhPVFljVG8Za', "What's you mother's name", "Linda", 1),
+(5, 'Jones', 'Robert', '2345@gmail.com', '$2a$10$n9tdBK.F2kYTfH9bRyh7aOzfRwuUB/P.V3LbyYkJyUhPVFljVG8Za', "What's you mother's name", "Linda", 1),
+(6, 'Miller', 'Patricia', '23456@gmail.com', '$2a$10$n9tdBK.F2kYTfH9bRyh7aOzfRwuUB/P.V3LbyYkJyUhPVFljVG8Za', "What's you mother's name", "Linda", 1),
+(7, 'Davis', 'David', '3456@gmail.com', '$2a$10$n9tdBK.F2kYTfH9bRyh7aOzfRwuUB/P.V3LbyYkJyUhPVFljVG8Za', "What's you mother's name", "Linda", 1),
+(8, 'Garcia', 'Jennifer', '4567@gmail.com', '$2a$10$n9tdBK.F2kYTfH9bRyh7aOzfRwuUB/P.V3LbyYkJyUhPVFljVG8Za', "What's you mother's name", "Linda", 1),
+(9, 'Rodriguez', 'Maria', '5678@gmail.com', '$2a$10$n9tdBK.F2kYTfH9bRyh7aOzfRwuUB/P.V3LbyYkJyUhPVFljVG8Za', "What's you mother's name", "Linda", 1),
+(10, 'Wilson', 'James','6789@gmail.com', '$2a$10$n9tdBK.F2kYTfH9bRyh7aOzfRwuUB/P.V3LbyYkJyUhPVFljVG8Za', "What's you mother's name", "Linda", 1),
+(11, 'Jesse', 'June', '7555@gmail.com', '$2a$10$n9tdBK.F2kYTfH9bRyh7aOzfRwuUB/P.V3LbyYkJyUhPVFljVG8Za', "What's you mother's name", "Linda", 1),
+(12, 'Tom', 'Ma', '12@gmail.com', '$2a$10$n9tdBK.F2kYTfH9bRyh7aOzfRwuUB/P.V3LbyYkJyUhPVFljVG8Za', "What's you mother's name", "Linda", 1);
 
 INSERT INTO ybj_address (adid, adstreet, adcity, adstate, adapt, adzip) VALUES
 (1, '123 Main St', 'Downtown', 'CA', NULL, 90001),
