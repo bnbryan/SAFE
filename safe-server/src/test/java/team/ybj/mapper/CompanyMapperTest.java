@@ -12,7 +12,6 @@ import team.ybj.pojo.YbjAddress;
 import team.ybj.pojo.YbjCompany;
 
 import java.util.List;
-import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -35,21 +34,21 @@ public class CompanyMapperTest {
         YbjAddress test = new YbjAddress("asda","asdasd","asdadasd","a","123");
         addressMapper.insertAddress(test);
         YbjCompany company = new YbjCompany(null, "TestCompany", test.getAdid());
-        int result = companyMapper.insert(company);
+        int result = companyMapper.insertCompany(company);
         assertTrue(result > 0);
         assertNotNull(company.getComid()); // 确保 id 被自动设置
     }
 
     @Test
     void testSelectById() {
-        YbjCompany company = companyMapper.selectById(1L);
+        YbjCompany company = companyMapper.getCompanyById(1L);
         assertNotNull(company);
         assertEquals("SecureInsure", company.getComname());
     }
 
     @Test
     void testSelectAll() {
-        List<YbjCompany> companies = companyMapper.selectAll();
+        List<YbjCompany> companies = companyMapper.getAllCompany();
         assertFalse(companies.isEmpty());
         assertEquals(10, companies.size()); // 假设初始数据有10条记录
     }
@@ -57,16 +56,10 @@ public class CompanyMapperTest {
     @Test
     void testUpdate() {
         YbjCompany company = new YbjCompany(1L, "UpdatedName", 3L);
-        int result = companyMapper.update(company);
+        int result = companyMapper.updateCompany(company);
         assertTrue(result > 0);
-        YbjCompany updatedCompany = companyMapper.selectById(1L);
+        YbjCompany updatedCompany = companyMapper.getCompanyById(1L);
         assertEquals("UpdatedName", updatedCompany.getComname());
     }
 
-    @Test
-    void testDeleteById() {
-        int result = companyMapper.deleteById(1L);
-        assertTrue(result > 0);
-        assertNull(companyMapper.selectById(1L));
-    }
 }

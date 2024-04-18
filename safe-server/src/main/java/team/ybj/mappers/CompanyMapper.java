@@ -11,23 +11,18 @@ public interface CompanyMapper {
     // Create
     @Options(useGeneratedKeys = true, keyProperty = "comid")
     @Insert("INSERT INTO ybj_company (comname, adid) VALUES (#{comname}, #{adid})")
-    int insert(YbjCompany company);
-
-    @Insert("INSERT INTO ybj_company (comid,comname, adid) VALUES (#{comid},#{comname}, #{adid})")
-    int insertWithId(YbjCompany company);
+    int insertCompany(YbjCompany company);
 
     // Read
     @Select("SELECT comid, comname, adid FROM ybj_company WHERE comid = #{comid}")
-    YbjCompany selectById(Long comid);
+    YbjCompany getCompanyById(Long comid);
 
     @Select("SELECT comid, comname, adid FROM ybj_company")
-    List<YbjCompany> selectAll();
+    List<YbjCompany> getAllCompany();
 
     // Update
     @Update("UPDATE ybj_company SET comname = #{comname}, adid = #{adid} WHERE comid = #{comid}")
-    int update(YbjCompany company);
+    int updateCompany(YbjCompany company);
 
     // Delete
-    @Delete("DELETE FROM ybj_company WHERE comid = #{comid}")
-    int deleteById(Long comid);
 }
