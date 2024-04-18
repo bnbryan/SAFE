@@ -44,6 +44,12 @@ public class AccountControllerTest {
     private CusAddLinkMapper cusAddLinkMapper;
     @MockBean
     private InsuranceMapper insuranceMapper;
+    @MockBean
+    private SavingMapper savingMapper;
+    @MockBean
+    private LoanMapper loanMapper;
+    @MockBean
+    private UniversityMapper universityMapper;
 
     @MockBean
     private YbjAccount  expectedAccount;
