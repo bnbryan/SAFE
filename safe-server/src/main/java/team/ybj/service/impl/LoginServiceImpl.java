@@ -35,8 +35,5 @@ public class LoginServiceImpl implements LoginService {
         Map<String, String> jwtMap = new HashMap<>();
         jwtMap.put("token", jwt);
         return new ResponseResult(200, "login success", jwtMap);
-
-
-
     }
 }
