@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace等于mapper接口类的全限定名,这样实现对应 -->
+<mapper namespace="team.ybj.mappers.UniversityMapper">
+
+    <select id="getUniversityByUid" resultType="YbjUniversity">
+        select * from ybj_university where uID = #{id}
+    </select>
+
+    <insert id="insertUniversity">
+        insert into ybj_university(uID, uname) values(#{uID},#{uname})
+    </insert>
+
+    <delete id="deleteUniversityByUid">
+        delete from ybj_university where uID=#{uID}
+    </delete>
+
+</mapper>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace等于mapper接口类的全限定名,这样实现对应 -->
+<mapper namespace="team.ybj.mappers.LoanMapper">
+
+    <select id="getLoanByAnum" resultType="team.ybj.pojo.YbjLoan">
+        select * from ybj_loan where anum = #{id}
+    </select>
+
+    <insert id="insertLoan">
+        insert into ybj_loan(anum, lrate, lamount, lmonths, lpayment, ltype, hyear,
+                    hinsurance, iid, stuid, stutype, stugraddate, uID, atype,
+                    lvalid) values(#{anum},#{lrate},#{lamount},#{lmonths},#{lpayment},#{ltype},
+                    #{hyear}, #{hinsurance}, #{iid}, #{stuid}, #{stutype}, #{stugraddate}, #{uID},
+                    #{atype}, #{lvalid})
+    </insert>
+
+    <update id="updateLrateByAnum">
+        update ybj_loan set lrate=#{lrate} where anum=#{anum}
+    </update>
+
+    <update id="updateLamountByAnum">
+        update ybj_loan set lamount=#{lamount} where anum=#{anum}
+    </update>
+
+    <update id="updateLvalidByAnum">
+        update ybj_loan set lvalid=#{lvalid} where anum=#{anum}
+    </update>
+
+    <update id="updateLpaymentByAnum">
+        update ybj_loan set lpayment=#{lpayment} where anum=#{anum}
+    </update>
+
+    <update id="updateLmonthsByAnum">
+        update ybj_loan set lmonths=#{lmonths} where anum=#{anum}
+    </update>
+
+    <delete id="deleteLoanByAnum">
+        delete from ybj_loan where anum=#{anum}
+    </delete>
+
+
+</mapper>
