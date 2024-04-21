@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 import team.ybj.mappers.AccountMapper;
 import team.ybj.mappers.CheckingMapper;
 import team.ybj.pojo.YbjAccount;
@@ -31,6 +32,7 @@ public class CheckingMapperTest {
     }
 
     @Test
+    @Transactional
     public void insertCheckingTest() {
         long ts1 = 1709701200;
         Random random = new Random();

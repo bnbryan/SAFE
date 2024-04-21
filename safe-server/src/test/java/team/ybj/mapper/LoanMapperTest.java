@@ -55,6 +55,7 @@ public class LoanMapperTest {
         Assertions.assertEquals(1, success2);
         // restore data
         loanMapper.deleteLoanByAnum(loan.getAnum());
+        accountMapper.deleteAccountByAnum(anum);
     }
 
     @Test
