@@ -49,10 +49,20 @@ jobs:
         run: mvn -B package -DskipTests
         working-directory: safe-server
 
-      - name: Run tests
-        run: mvn test -Dspring.profiles.active=test
+      - name: Run tests with coverage
+        run: mvn test -Pcoverage -Dspring.profiles.active=test
         working-directory: safe-server
         env:
           SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/safe
           SPRING_DATASOURCE_USERNAME: root
           SPRING_DATASOURCE_PASSWORD: admin123
+
+      - name: Generate JaCoCo Report
+        run: mvn jacoco:report
+        working-directory: safe-server
+
+      - name: Archive JaCoCo reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: jacoco-reports
+          path: safe-server/target/site/jacoco/
