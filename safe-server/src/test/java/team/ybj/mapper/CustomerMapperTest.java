@@ -45,6 +45,8 @@ public class CustomerMapperTest {
 
     }
 
+
+
     @Test
     public void testGetValidAll() {
         List<YbjCustomer> customers = customerMapper.getValidAllCustomer();

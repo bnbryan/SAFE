@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import team.ybj.exception.UsernameDuplicatedException;
 import team.ybj.pojo.ResponseResult;
 import team.ybj.pojo.YbjCustomer;
 import team.ybj.service.RegService;
@@ -20,10 +21,12 @@ public class RegController {
     @ResponseBody
     public ResponseResult reg(@RequestBody YbjCustomer customer) {
         ResponseResult responseResult = new ResponseResult<>();
-        try{
+        try {
             responseResult = regService.reg(customer);
-        }catch (Exception e) {
-            responseResult = new ResponseResult(400, "Register failed", 1);
+        }catch (UsernameDuplicatedException e){
+            responseResult = new ResponseResult(400, "Duplicate username", 1);
+        }catch (RuntimeException e) {
+            responseResult = new ResponseResult(401, "Register failed for some unknown reason", 1);
         }
         return responseResult;
     }
