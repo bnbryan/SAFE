@@ -11,25 +11,22 @@ import team.ybj.service.WithdrawService;
 
 
 @RestController
+@RequestMapping("transactions")
 public class WithdrawController {
 
     @Autowired
-    private SavingMapper savingService;
-    @Autowired
-    private CheckingMapper checkingMapper;
-    @Autowired
     WithdrawService withdrawService;
 
-    @PostMapping("/transactions/withdraw")
+    @PostMapping("withdraw")
     @ResponseBody
     public ResponseResult WithDraw(@RequestBody YbjChecking checking) {
         ResponseResult responseResult;
         try {
             responseResult = withdrawService.Withdraw(checking);
         }catch (LackBalanceException e){
-            responseResult = new ResponseResult(400, "Balance not enough", 1);
+            responseResult = new ResponseResult(400, "Balance not enough", 0);
         }catch (ServiceException e) {
-            responseResult = new ResponseResult(400, "Something went wrong when withdrawing", 1);
+            responseResult = new ResponseResult(400, "Something went wrong when withdrawing", 0);
         }
         return responseResult;
     }

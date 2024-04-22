@@ -22,6 +22,7 @@ public class WithdrawServiceImpl implements WithdrawService {
         Long anum = checking.getAnum();
         YbjChecking Checking = checkingMapper.getCheckingByAnum(anum);
         YbjSaving Saving = savingMapper.getSavingByAnum(anum);
+        if(Checking == null&&Saving == null) {throw new ServiceException("Something went wrong when withdrawing");}
         if(Checking == null) {
             Double balance = Saving.getSbalance();
             Double newBalance = balance - checking.getAbalance();
