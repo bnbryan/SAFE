@@ -24,16 +24,20 @@ Lombok: 1.18.30
 
 ### API
 
-- POST /users/login
+#### POST /users/login
+
+​	*Request*
 
 ```json
-Request:
 {
     "cemail":"email",
     "cpassword":"password"
 }
+```
 
-Reponse:
+​	*Response*
+
+```json
 {
     "code": 200,
     "msg": "login success",
@@ -43,10 +47,13 @@ Reponse:
 }
 ```
 
-- POST /users/register
+
+
+#### POST /users/register
+
+​	Request
 
 ```json
-Request:
 {
     "clname":"last name",
     "cfname":"first name",
@@ -58,22 +65,33 @@ Request:
 }
 ```
 
-- POST /transactions/transfer
+
+
+#### POST /transactions/transfer
+
+​	Request
 
 ```json
-Request:
 {
-    "fromAccountNum":From Account Number,
+    "fromAccountNum":"From Account Number",
     "fromAccountType":"Account Type/ C or S",
-    "toAccountNum":To Account Number,
-    "amount": money to transfer
+    "toAccountNum":"To Account Number",
+    "amount": "money to transfer"
 }
+```
 
-Response
+​	Response
+
+```json
 {
+  
   
 }
 ```
+
+
+
+---
 
 
 
