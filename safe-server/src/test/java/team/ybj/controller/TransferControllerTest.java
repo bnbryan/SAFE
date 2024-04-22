@@ -48,7 +48,7 @@ public class TransferControllerTest {
                         .content(successfulResultJson))
                 .andExpect(status().isUnprocessableEntity())
                 .andExpect(jsonPath("$.code").value(422))
-                .andExpect(jsonPath("$.msg").value("transfer fail"));
+                .andExpect(jsonPath("$.msg").value("exception handler: lack balance"));
     }
 
 
