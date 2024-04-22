@@ -3,6 +3,8 @@ package team.ybj.service.impl;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import team.ybj.exception.AccountTypeException;
+import team.ybj.exception.LackBalanceException;
 import team.ybj.mappers.AccountMapper;
 import team.ybj.mappers.CheckingMapper;
 import team.ybj.mappers.SavingMapper;
@@ -34,7 +36,7 @@ public class TransferServiceImpl implements TransferService {
         } else if (fromType == 'S') {
             return transferFromSaving(fromAccountNum, toAccountNum, amount);
         } else {
-            return -1;
+            throw new AccountTypeException("Invalid from account type");
         }
     }
 
@@ -45,8 +47,7 @@ public class TransferServiceImpl implements TransferService {
         Character toAccountType = getAccountType(toAccountNum);
         int fromSuccess, toSuccess;
         if (fromAccount.getAbalance() < amount) {
-            return -1;
-//            throw new RuntimeException("not enough money");
+            throw new LackBalanceException("not enough money");
         }
         fromSuccess = checkingMapper.updateAbalanceByAnum(fromAccountNum, fromAccount.getAbalance() - amount);
         if (toAccountType == 'C') {
@@ -56,7 +57,7 @@ public class TransferServiceImpl implements TransferService {
             YbjSaving toAccount = savingMapper.getSavingByAnum(toAccountNum);
             toSuccess = savingMapper.updateSbalanceByAnum(toAccountNum, toAccount.getSbalance() + amount);
         } else {
-            return -1;
+            throw new AccountTypeException("Invalid to account type");
         }
         return fromSuccess + toSuccess;
     }
@@ -68,7 +69,7 @@ public class TransferServiceImpl implements TransferService {
         Character toAccountType = getAccountType(toAccountNum);
         int fromSuccess, toSuccess;
         if (fromAccount.getSbalance() < amount) {
-            return -1;
+            throw new LackBalanceException("not enough money");
         }
         fromSuccess = savingMapper.updateSbalanceByAnum(fromAccountNum, fromAccount.getSbalance() - amount);
         if (toAccountType == 'C') {
@@ -78,7 +79,7 @@ public class TransferServiceImpl implements TransferService {
             YbjSaving toAccount = savingMapper.getSavingByAnum(toAccountNum);
             toSuccess = savingMapper.updateSbalanceByAnum(toAccountNum, toAccount.getSbalance() + amount);
         } else {
-            return -1;
+            throw new AccountTypeException("Invalid to account type");
         }
         return fromSuccess + toSuccess;
     }
