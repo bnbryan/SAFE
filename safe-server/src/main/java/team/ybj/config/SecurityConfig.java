@@ -41,8 +41,9 @@ public class SecurityConfig {
                 // 配置权限
                 .authorizeRequests()
                 // 允许匿名访问的路径
-                .requestMatchers("/login").anonymous()
-                .requestMatchers("/users").anonymous()
+                .requestMatchers("/**").anonymous()
+//                .requestMatchers("/login").anonymous()
+//                .requestMatchers("/users").anonymous()
                 // 其他所有请求都需要认证
                 .anyRequest().authenticated();
         // 可以继续添加其他安全设置，比如登录、登出处理器等
