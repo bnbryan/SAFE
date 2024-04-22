@@ -4,6 +4,7 @@ package team.ybj.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import team.ybj.exception.UsernameDuplicatedException;
 import team.ybj.mappers.CustomerMapper;
 import team.ybj.pojo.ResponseResult;
 import team.ybj.pojo.YbjCustomer;
@@ -20,7 +21,7 @@ public class RegServiceImpl implements RegService {
         String email = customer.getCemail();
         YbjCustomer checkEmail = customerMapper.getCustomerByEmail(email);
         if(checkEmail != null) {
-            throw new RuntimeException("Email already in use");
+            throw new UsernameDuplicatedException("Email already in use");
         }
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String encodePassword = encoder.encode(customer.getCpassword());

@@ -20,6 +20,8 @@ public interface CustomerMapper {
     @Select("SELECT * FROM ybj_customer WHERE cid = #{cid} AND cvalid = '1' ")
     YbjCustomer getValidCustomerByCid(Long cid);
 
+    @Select("SELECT * FROM ybj_customer WHERE cemail = #{email} AND cvalid = '1' ")
+    YbjCustomer getValidCustomerByEmail(String email);
 
     // Read all
     @Select("SELECT * FROM ybj_customer WHERE cvalid ='1'")
