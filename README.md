@@ -27,13 +27,13 @@ Lombok: 1.18.30
 - POST /users/login
 
 ```json
-Request:
+//Request:
 {
     "cemail":"email",
     "cpassword":"password"
 }
 
-Reponse:
+//Reponse:
 {
     "code": 200,
     "msg": "login success",
@@ -46,7 +46,7 @@ Reponse:
 - POST /users/register
 
 ```json
-Request:
+//Request:
 {
     "clname":"last name",
     "cfname":"first name",
@@ -61,7 +61,7 @@ Request:
 - POST /transactions/transfer
 
 ```json
-Request:
+//Request:
 {
     "fromAccountNum":From Account Number,
     "fromAccountType":"Account Type/ C or S",
@@ -69,7 +69,7 @@ Request:
     "amount": money to transfer
 }
 
-Response
+//Response
 {
   
 }
