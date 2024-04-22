@@ -22,6 +22,61 @@ Lombok: 1.18.30
 
 ---
 
+### API
+
+- POST /users/login
+
+```json
+Request:
+{
+    "cemail":"email",
+    "cpassword":"password"
+}
+
+Reponse:
+{
+    "code": 200,
+    "msg": "login success",
+    "data": {
+        "token": "token"
+    }
+}
+```
+
+- POST /users/register
+
+```json
+Request:
+{
+    "clname":"last name",
+    "cfname":"first name",
+    "cemail":"email address",
+    "cpassword":"password",
+    "securityQuestion":"question",
+    "answer":"answer",
+    "valid":1
+}
+```
+
+- POST /transactions/transfer
+
+```json
+Request:
+{
+    "fromAccountNum":From Account Number,
+    "fromAccountType":"Account Type/ C or S",
+    "toAccountNum":To Account Number,
+    "amount": money to transfer
+}
+
+Response
+{
+  
+}
+```
+
+
+
 ### Branch Creation
 
 ##### Naming
