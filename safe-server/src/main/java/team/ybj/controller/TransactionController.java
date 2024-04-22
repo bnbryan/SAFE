@@ -4,8 +4,10 @@ import jakarta.annotation.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import team.ybj.pojo.ResponseResult;
-import team.ybj.pojo.TransferRequest;
+import team.ybj.dto.DepositRequest;
+import team.ybj.dto.ResponseResult;
+import team.ybj.dto.TransferRequest;
+import team.ybj.service.DepositService;
 import team.ybj.service.TransferService;
 
 @RestController
@@ -14,6 +16,8 @@ public class TransactionController {
 
     @Resource
     private TransferService transferService;
+    @Resource
+    private DepositService depositService;
 
     @PostMapping("transfer")
     @ResponseBody
@@ -28,9 +32,11 @@ public class TransactionController {
         }
     };
 
-    @GetMapping("test")
-    public int test() {
-        return 1;
+    @PostMapping("deposit")
+    @ResponseBody
+    public ResponseResult<Double> deposit(@RequestBody DepositRequest depositRequest) {
+        Double currentBalance = depositService.deposit(depositRequest);
+        return new ResponseResult<>(200, "deposit success", currentBalance);
     }
 
 }

@@ -1,4 +1,4 @@
-package team.ybj.pojo;
+package team.ybj.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResponseResult<T> {
-    private int code;
-    private String msg;
-    private T data;
+public class DepositRequest {
+    private Long accountNum;
+    private Double amount;
 }

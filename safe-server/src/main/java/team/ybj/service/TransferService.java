@@ -1,6 +1,6 @@
 package team.ybj.service;
 
-import team.ybj.pojo.TransferRequest;
+import team.ybj.dto.TransferRequest;
 
 public interface TransferService {
 

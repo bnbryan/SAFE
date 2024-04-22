@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import team.ybj.pojo.YbjCustomer;
 import team.ybj.mappers.CustomerMapper;
 import java.util.Random;
-import team.ybj.pojo.ResponseResult;
+import team.ybj.dto.ResponseResult;
 
 @SpringBootTest
 public class RegLoginTest {

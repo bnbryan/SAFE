@@ -8,7 +8,7 @@ import team.ybj.exception.PassResetException;
 import team.ybj.exception.ServiceException;
 import team.ybj.exception.UsernameDuplicatedException;
 import team.ybj.mappers.CustomerMapper;
-import team.ybj.pojo.ResponseResult;
+import team.ybj.dto.ResponseResult;
 import team.ybj.pojo.YbjCustomer;
 import team.ybj.service.PasswordService;
 
