@@ -1,8 +1,6 @@
-/*package team.ybj.exception;
+package team.ybj.exception;
 
-import com.example.store.service.ex.ServiceException;
-
-public class UsernameDuplicatedException extends ServiceException{
+public class UsernameDuplicatedException extends RuntimeException{
     // alt + insert --- override methods
 
     public UsernameDuplicatedException() {
@@ -25,4 +23,3 @@ public class UsernameDuplicatedException extends ServiceException{
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }
-*/

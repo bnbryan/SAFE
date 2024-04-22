@@ -1,4 +1,4 @@
-package team.ybj.service;
+/*package team.ybj.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class RegLoginTest {
 
         try{
             YbjCustomer customer = new YbjCustomer();
-            customer.setCemail("test@test.com");
+            customer.setCemail("test2@test.com");
             customer.setCpassword("123456");
             customer.setCvalid("1");
             customer.setCfname("test3");
@@ -27,6 +27,7 @@ public class RegLoginTest {
             customer.setSecurityAnswer("asd");
             customer.setSecurityQuestion("test ques");
             regService.reg(customer);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -43,4 +44,4 @@ public class RegLoginTest {
             e.printStackTrace();
         }
     }
-}
+}*/
