@@ -18,8 +18,15 @@ function Register() {
     }
 
 
-    const onFinish = (data) => {
-        register(data)
+    const onFinish = (values) => {
+        //data.append('valid','1')
+        const formData = new FormData();
+        Object.keys(values).forEach(key => {
+            formData.append(key, values[key]);
+        });
+        formData.append('valid', 1); // 添加额外的数据
+        console.log(Object.fromEntries(formData)); // 查看formData的内容
+       register(Object.fromEntries(formData))
             .then(() => {
                 setDisplayModal(false)
                 message.success('Successfully signed up');
@@ -47,22 +54,50 @@ function Register() {
                     preserve={false}
                 >
                     <Form.Item
-                        name="username"
-                        rules={[{ required: true, message: 'Please input your Username!' }]}
+                        name="cemail"
+                        rules={[
+                            {
+                                type: 'email',
+                                message: 'The input is not a valid email!',
+                            },
+                            {
+                                required: true,
+                                message: 'Please input your email!',
+                            },
+                        ]}
                     >
-                        <Input prefix={<UserOutlined />} placeholder="Username" />
+                        <Input prefix={<UserOutlined />} placeholder="Email" />
                     </Form.Item>
                     <Form.Item
-                        name="password"
+                        name="cpassword"
                         rules={[{ required: true, message: 'Please input your Password!' }]}
+                        hasFeedback
                     >
-                        <Input
-                            prefix={<LockOutlined />}
-                            placeholder="Password"
-                        />
+                        <Input.Password prefix={<LockOutlined />} placeholder="Password" />
                     </Form.Item>
                     <Form.Item
-                        name="first_name"
+                        name="confirm"
+                        dependencies={['cpassword']}
+                        hasFeedback
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please confirm your password!',
+                            },
+                            ({ getFieldValue }) => ({
+                                validator(_, value) {
+                                    if (!value || getFieldValue('cpassword') === value) {
+                                        return Promise.resolve();
+                                    }
+                                    return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                                },
+                            }),
+                        ]}
+                    >
+                        <Input.Password prefix={<LockOutlined />} placeholder="Confirm Password" />
+                    </Form.Item>
+                    <Form.Item
+                        name="clname"
                         rules={[{ required: true, message: 'Please input your Firstname!' }]}
                     >
                         <Input
@@ -70,12 +105,25 @@ function Register() {
                         />
                     </Form.Item>
                     <Form.Item
-                        name="last_name"
+                        name="cfname"
                         rules={[{ required: true, message: 'Please input your Lastname!' }]}
                     >
                         <Input
                             placeholder="lastname"
                         />
+                    </Form.Item>
+                    <Form.Item
+                        name="securityQuestion"
+                        rules={[{ required: true, message: 'Please input your security question!' }]}
+                    >
+                        <Input placeholder = "security question"
+                        />
+                    </Form.Item>
+                    <Form.Item
+                        name="answer"
+                        rules={[{ required: true, message: 'Please input your security question!' }]}
+                    >
+                        <Input placeholder = "answer"/>
                     </Form.Item>
                     <Form.Item>
                         <Button type="primary" htmlType="submit">
