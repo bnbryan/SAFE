@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import team.ybj.pojo.TransferRequest;
+import team.ybj.dto.TransferRequest;
 
 @SpringBootTest
 public class TransferServiceTest {

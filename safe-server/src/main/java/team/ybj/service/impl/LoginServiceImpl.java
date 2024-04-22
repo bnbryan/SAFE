@@ -6,7 +6,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import team.ybj.pojo.LoginUser;
-import team.ybj.pojo.ResponseResult;
+import team.ybj.dto.ResponseResult;
 import team.ybj.pojo.YbjCustomer;
 import team.ybj.service.LoginService;
 import team.ybj.utils.JwtUtil;

@@ -2,13 +2,10 @@ package team.ybj.exception;
 
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import team.ybj.pojo.ResponseResult;
-
-import javax.naming.NoPermissionException;
+import team.ybj.dto.ResponseResult;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -23,5 +20,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = AccountTypeException.class)
     public ResponseResult<String> accountTypeExceptionHandler(AccountTypeException e) {
         return new ResponseResult<>(422, "exception handler: account type exception", e.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    @ExceptionHandler(value = DepositNegativeException.class)
+    public ResponseResult<String> depositNegativeExceptionHandler(DepositNegativeException e) {
+        return new ResponseResult<>(422, "exception handler: deposit negative exception", e.getMessage());
     }
 }

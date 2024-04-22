@@ -8,7 +8,7 @@ import team.ybj.exception.LackBalanceException;
 import team.ybj.mappers.AccountMapper;
 import team.ybj.mappers.CheckingMapper;
 import team.ybj.mappers.SavingMapper;
-import team.ybj.pojo.TransferRequest;
+import team.ybj.dto.TransferRequest;
 import team.ybj.pojo.YbjAccount;
 import team.ybj.pojo.YbjChecking;
 import team.ybj.pojo.YbjSaving;

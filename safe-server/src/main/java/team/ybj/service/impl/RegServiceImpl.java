@@ -6,7 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import team.ybj.exception.UsernameDuplicatedException;
 import team.ybj.mappers.CustomerMapper;
-import team.ybj.pojo.ResponseResult;
+import team.ybj.dto.ResponseResult;
 import team.ybj.pojo.YbjCustomer;
 import team.ybj.service.RegService;
 

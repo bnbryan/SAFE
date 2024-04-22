@@ -1,4 +1,4 @@
-package team.ybj.pojo;
+package team.ybj.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

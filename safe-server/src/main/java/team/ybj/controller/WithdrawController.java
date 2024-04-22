@@ -2,11 +2,9 @@ package team.ybj.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import team.ybj.dto.ResponseResult;
 import team.ybj.exception.*;
-import team.ybj.mappers.CheckingMapper;
-import team.ybj.mappers.SavingMapper;
 import team.ybj.pojo.*;
-import team.ybj.service.PasswordService;
 import team.ybj.service.WithdrawService;
 
 
