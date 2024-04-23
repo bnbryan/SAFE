@@ -48,7 +48,7 @@ const handleTokenExpiry = () => {
     // 清除存储中的token
     localStorage.removeItem('token');
     // 重定向到登录页或显示登录提示
-    redirectToLogin();
+    //redirectToLogin();
 };
 
 // 登录成功后，保存token

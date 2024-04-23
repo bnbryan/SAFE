@@ -1,6 +1,8 @@
+import tokenUse from './tokenUse'
 const SERVER_ORIGIN = "";
 
 const loginUrl = `${SERVER_ORIGIN}/safe/users/login`;
+
 
 export const login = (data) => {
     return fetch(loginUrl, {
@@ -26,6 +28,7 @@ export const login = (data) => {
             if (json.code === 200 && json.data.token) {
                 // Save the token in localStorage
                 localStorage.setItem('token', json.data.token);
+                console.log('Login successful. Token saved.');
             } else {
                 // Handle any situation where the login was not successful
                 throw Error(json.message || "Fail to login");

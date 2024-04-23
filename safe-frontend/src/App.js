@@ -17,12 +17,13 @@ function App() {
 
 
     const signoutOnClick = () => {
-        logout().then(() => {
+        message.success("to imp")
+        /*logout().then(() => {
             setLoggedIn(false)
             message.success('Successfully Signed out')
         }).catch((err) => {
             message.error(err.message)
-        })
+        })*/
     }
 
     return (
