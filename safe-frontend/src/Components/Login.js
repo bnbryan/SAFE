@@ -19,6 +19,7 @@ function Login({ onSuccess }) {
 
 
     const onFinish = (data) => {
+        console.log(data)
         login(data)
             .then(() => {
                 setDisplayModal(false)
@@ -48,14 +49,14 @@ function Login({ onSuccess }) {
                     preserve={false}
                 >
                     <Form.Item
-                        name="username"
-                        rules={[{ required: true, message: 'Please input your Username!' }]}
+                        name="cemail"
+                        rules={[{ required: true, message: 'Please input your email!' }]}
                     >
                         <Input prefix={<UserOutlined />} placeholder="Username" />
                     </Form.Item>
                     <Form.Item
-                        name="password"
-                        rules={[{ required: true, message: 'Please input your Password!' }]}
+                        name="cpassword"
+                        rules={[{ required: true, message: 'Please input your password!' }]}
                     >
                         <Input.Password
                             prefix={<LockOutlined />}
