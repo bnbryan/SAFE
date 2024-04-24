@@ -51,6 +51,8 @@ public class AccountControllerTest {
     private LoanMapper loanMapper;
     @MockBean
     private UniversityMapper universityMapper;
+    @MockBean
+    private AdminMapper adminMapper;
 
     @MockBean
     private YbjAccount  expectedAccount;
