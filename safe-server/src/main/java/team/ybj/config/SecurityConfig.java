@@ -36,24 +36,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("https://localhost:3000")); // 允许的源
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE")); // 允许的 HTTP 方法
-        configuration.setAllowedHeaders(Arrays.asList("*")); // 允许的 HTTP 头部
-        configuration.setAllowCredentials(true); // 允许证书
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration); // 为所有路径应用这个配置
-        return source;
-    }
-
-
-    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .cors().configurationSource(corsConfigurationSource())
-                .and()
                 // 禁用CSRF
                 .csrf().disable()
                 // 禁用session
