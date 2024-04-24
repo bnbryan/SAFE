@@ -13,7 +13,7 @@ public class PasswordEncoderTest {
     @Test
     public void encode() {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String s = encoder.encode("12345");
+        String s = encoder.encode("123");
         System.out.println(s);
 
 //        String token = jwtUtil.generateToken("123@gmail.com");
