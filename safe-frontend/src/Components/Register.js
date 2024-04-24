@@ -38,7 +38,7 @@ function Register() {
 
     return (
         <>
-            <Button shape="round" type="primary" onClick={signupOnClick}>
+            <Button shape="round" type="primary" onClick={signupOnClick} style={{ marginRight: '20px' }}>
                 Register</Button>
             <Modal
                 title="Register"
