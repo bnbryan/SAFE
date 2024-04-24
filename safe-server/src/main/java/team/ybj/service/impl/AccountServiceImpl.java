@@ -6,6 +6,8 @@ import team.ybj.mappers.AccountMapper;
 import team.ybj.pojo.YbjAccount;
 import team.ybj.service.AccountService;
 
+import java.util.List;
+
 @Service
 public class AccountServiceImpl implements AccountService {
 
@@ -16,6 +18,11 @@ public class AccountServiceImpl implements AccountService {
     public YbjAccount findAccountById(Long accountId) {
         YbjAccount account = accountMapper.getAccountById(accountId);
         return account;
+    }
+
+    @Override
+    public List<YbjAccount> findAllAccounts(Long cid) {
+        return accountMapper.getAccountsByCid(cid);
     }
 
 }
