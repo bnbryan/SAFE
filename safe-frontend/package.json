@@ -40,5 +40,5 @@
     "jest": "^27.5.1",
     "jest-fetch-mock": "^3.0.3"
   },
-  "proxy": "http://localhost:8080"
+  "proxy": "https://localhost:8443"
 }

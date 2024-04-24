@@ -1,7 +1,12 @@
 server:
-  port: 8080
+  port: 8443
   servlet:
     context-path: /safe
+  ssl:
+    key-store-type: JKS
+    key-store: classpath:keystore.jks
+    key-store-password: safe123
+    key-alias: safessl
 
 spring:
   datasource:
