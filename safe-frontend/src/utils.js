@@ -18,7 +18,12 @@ export const login = (data) => {
             console.log(response)
             // Check if the network response was ok
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                if(response.status===403){
+                    throw new Error('Wrong password')
+                }
+                else {
+                    throw new Error('Network response was not ok');
+                }
             }
             return response.json(); // Parse the body of the response
         })

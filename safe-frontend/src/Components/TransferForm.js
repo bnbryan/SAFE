@@ -7,10 +7,6 @@ import {passwordReset} from '../utils'
 function TransferForm(){
     const [displayModal, setDisplayModal] = useState(false)
 
-
-    const handleCancel = () => {
-        setDisplayModal(false)
-    }
     const onFinish = (data) => {
 
         console.log(data)
@@ -23,9 +19,6 @@ function TransferForm(){
         })
     }
 
-    const signinOnClick = () => {
-        setDisplayModal(true)
-    }
     return(
         <>
                 <Form

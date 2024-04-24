@@ -3,6 +3,7 @@ import {Layout, message} from 'antd';
 import PageHeader from "./Components/PageHeader";
 import {logout} from "./utils";
 import PageSider from "./Components/PageSider";
+import HomePage from "./Components/HomePage";
 
 
 const { Header, Content, Sider } = Layout;
@@ -60,7 +61,7 @@ function App() {
                             overflow: 'auto'
                         }}
                     >
-                        {'Home'}
+                        <HomePage activeMenuKey={selectedKey}/>
                     </Content>
                 </Layout>
             </Layout>
