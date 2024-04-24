@@ -1,7 +1,10 @@
-const  HomePage=(loggedIn,allAccounts)=>{
+const  HomePage=(loggedInfo,{ activeMenuKey })=>{
+    /*
+    根据
+     */
     return{
 
     }
 
 }
-export export default Home;
+export export default HomePage;

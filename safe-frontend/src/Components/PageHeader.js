@@ -13,6 +13,7 @@ function PageHeader({ loggedIn, signoutOnClick, signinOnSuccess }) {
         <Header>
             <Row justify="space-between">
                 <Col>
+                    <img src="../logo.svg" alt="Logo" style={{height: '50px'}}/>
                 </Col>
                 <Col>
                     {loggedIn && (
