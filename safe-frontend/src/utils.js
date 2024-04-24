@@ -2,6 +2,7 @@ import tokenUse from './tokenUse'
 const SERVER_ORIGIN = "";
 
 const loginUrl = `${SERVER_ORIGIN}/safe/users/login`;
+const getAuthToken = () => localStorage.getItem('token');
 
 
 export const login = (data) => {
@@ -17,7 +18,12 @@ export const login = (data) => {
             console.log(response)
             // Check if the network response was ok
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                if(response.status===403){
+                    throw new Error('Wrong password')
+                }
+                else {
+                    throw new Error('Network response was not ok');
+                }
             }
             return response.json(); // Parse the body of the response
         })
@@ -126,11 +132,12 @@ export const passwordReset = (data)=>{
 }
 const withdrawURL = `${SERVER_ORIGIN}/safe/transactions/withdraw`;
 export const withdraw=(data)=>{
+    const token = getAuthToken();
     return fetch(withdrawURL,{
         method:"POST",
         headers: {
             'Content-Type': 'application/json',
-            // Authorization header should not be included in a login request
+            'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(data),
         }).then(response=>{
@@ -147,7 +154,7 @@ export const withdraw=(data)=>{
         // and you check the status with a 'code' property
         if (json.code === 200 ) {
             // Save the token in localStorage
-            console.log('withdraw successful. Token saved.');
+            console.log('withdraw success.');
         } else {
             // Handle any situation where the login was not successful
             throw Error(json.message || "Fail to withdraw, "+json.msg);
@@ -161,12 +168,15 @@ export const withdraw=(data)=>{
     })
 
 }
-const transferURL = `${SERVER_ORIGIN}/safe/transactions/withdraw`;
+const transferURL = `${SERVER_ORIGIN}/safe/transactions/transfer`;
 export const transfer=(data)=>{
+    console.log(JSON.stringify(data))
+    const token = getAuthToken();
     return fetch(transferURL,{
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
             // Authorization header should not be included in a login request
         },
         body: JSON.stringify(data),
@@ -183,7 +193,7 @@ export const transfer=(data)=>{
         // and you check the status with a 'code' property
         if (json.code === 200 ) {
             // Save the token in localStorage
-            console.log('transfer successful. Token saved.');
+            console.log('transfer success.');
         } else {
             // Handle any situation where the login was not successful
             throw Error(json.message || "Fail to tranfer, "+json.msg);

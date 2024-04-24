@@ -13,6 +13,7 @@ function PageHeader({ loggedIn, signoutOnClick, signinOnSuccess }) {
         <Header>
             <Row justify="space-between">
                 <Col>
+
                 </Col>
                 <Col>
                     {loggedIn && (
