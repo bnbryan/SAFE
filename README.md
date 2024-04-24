@@ -168,6 +168,43 @@ Fail:
 
 
 
+#### GET /account/all/{cid}
+
+​	Request
+
+```json
+https://localhost:8443/safe/account/all/1
+```
+
+​	Response
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data": [
+        {
+            "anum": 1,
+            "aname": "John Checking",
+            "adate": "2023-01-01T05:00:00.000+00:00",
+            "atype": "C",
+            "cid": 1,
+            "adid": 1
+        },
+        {
+            "anum": 15,
+            "aname": "John Savings",
+            "adate": "2024-01-01T05:00:00.000+00:00",
+            "atype": "S",
+            "cid": 1,
+            "adid": 1
+        }
+    ]
+}
+```
+
+
+
 
 
 ---
