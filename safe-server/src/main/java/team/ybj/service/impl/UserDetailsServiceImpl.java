@@ -19,7 +19,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // get customer details
-        YbjCustomer customer = customerMapper.getCustomerByEmail(username);
+        YbjCustomer customer = customerMapper.getValidCustomerByEmail(username);
         if (customer == null) {
             throw new RuntimeException("failed to find customer by username: " + username);
         }

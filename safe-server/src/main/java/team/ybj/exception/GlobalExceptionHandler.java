@@ -27,4 +27,10 @@ public class GlobalExceptionHandler {
     public ResponseResult<String> depositNegativeExceptionHandler(DepositNegativeException e) {
         return new ResponseResult<>(422, "exception handler: deposit negative exception", e.getMessage());
     }
+
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(value = LoginException.class)
+    public ResponseResult<String> loginExceptionHandler(LoginException e) {
+        return new ResponseResult<>(422, "exception handler: login exception", e.getMessage());
+    }
 }
