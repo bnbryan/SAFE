@@ -1,68 +1,85 @@
 import React, {useState} from "react";
-import {Button, Form, Input, message, Modal} from "antd";
-import {LockOutlined, UserOutlined} from "@ant-design/icons";
-import {passwordReset} from '../utils'
+import {Button, Form, Input, message, Modal, Select} from "antd";
+import {LockOutlined, UserOutlined,CreditCardOutlined,DollarOutlined} from "@ant-design/icons";
+import {transfer} from '../utils'
 
 
 function TransferForm(){
-    const [displayModal, setDisplayModal] = useState(false)
+    const [form] = Form.useForm();
+    const handleChange = (value) => {
+        console.log(`selected ${value}`);
+    };
+    const options=[
+            {
+                value: 'C',
+                label: 'Checking Account',
+            },
+        {
+            value: 'S',
+            label: 'Saving Account'
+        }
+]
 
     const onFinish = (data) => {
 
         console.log(data)
-        passwordReset(data)
+        transfer(data)
             .then(() => {
-                setDisplayModal(false)
-                message.success(`Reset Success!`)
+                message.success(`Transfer Success!`)
             }).catch((err) => {
             message.error(err.message)
         })
+        form.resetFields();
     }
 
     return(
         <>
                 <Form
-                    name="passreset"
+                    name="transfer"
                     onFinish={onFinish}
                     preserve={false}
                 >
                     <Form.Item
-                        name="cemail"
-                        rules={[{ required: true, message: 'Please input your email!' }]}
+                        name="fromAccountNum"
+                        rules={[{ required: true, message: 'Please input your account number!' }]}
                     >
-                        <Input prefix={<UserOutlined />} placeholder="Username" />
+                        <Input prefix={<CreditCardOutlined />} placeholder="Account number" />
                     </Form.Item>
                     <Form.Item
-                        name="cpassword"
-                        rules={[{ required: true, message: 'Please input your new password!' }]}
+                        name="fromAccountType"
+                        rules={[{ required: true, message: 'Please select your account type!' }]}
                     >
-                        <Input.Password
-                            prefix={<LockOutlined />}
-                            placeholder="Password"
+                        <Select
+                            style={{
+                                width: '100%',
+                            }}
+                            placeholder="Tags Mode"
+                            onChange={handleChange}
+                            options={options}
                         />
                     </Form.Item>
                     <Form.Item
-                        name="securityQuestion"
-                        rules={[{ required: true, message: 'Please input your security question!' }]}
+                        name="toAccountNum"
+                        rules={[{ required: true, message: 'Please input the account number your send!' }]}
                     >
-                        <Input.Password
-                            prefix={<LockOutlined />}
-                            placeholder="security question"
+                        <Input
+                            prefix={<CreditCardOutlined />}
+                            placeholder="to account"
                         />
                     </Form.Item>
                     <Form.Item
-                        name="answer"
-                        rules={[{ required: true, message: 'Please input your security question answer!' }]}
+                        name="amount"
+                        rules={[{ required: true, message: 'Please input your transfer amount!' }]}
                     >
-                        <Input.Password
-                            prefix={<LockOutlined />}
-                            placeholder="answer"
+                        <Input
+                            prefix={<DollarOutlined />}
+                            placeholder="amount"
                         />
                     </Form.Item>
 
                     <Form.Item>
                         <Button type="primary" htmlType="submit">
-                            Reset
+                            Transfer
                         </Button>
                     </Form.Item>
                 </Form>

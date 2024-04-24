@@ -154,7 +154,7 @@ export const withdraw=(data)=>{
         // and you check the status with a 'code' property
         if (json.code === 200 ) {
             // Save the token in localStorage
-            console.log('withdraw successful. Token saved.');
+            console.log('withdraw success.');
         } else {
             // Handle any situation where the login was not successful
             throw Error(json.message || "Fail to withdraw, "+json.msg);
@@ -168,8 +168,9 @@ export const withdraw=(data)=>{
     })
 
 }
-const transferURL = `${SERVER_ORIGIN}/safe/transactions/withdraw`;
+const transferURL = `${SERVER_ORIGIN}/safe/transactions/transfer`;
 export const transfer=(data)=>{
+    console.log(JSON.stringify(data))
     const token = getAuthToken();
     return fetch(transferURL,{
         method: "POST",
@@ -192,7 +193,7 @@ export const transfer=(data)=>{
         // and you check the status with a 'code' property
         if (json.code === 200 ) {
             // Save the token in localStorage
-            console.log('transfer successful. Token saved.');
+            console.log('transfer success.');
         } else {
             // Handle any situation where the login was not successful
             throw Error(json.message || "Fail to tranfer, "+json.msg);
