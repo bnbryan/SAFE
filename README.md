@@ -170,12 +170,6 @@ Fail:
 
 #### GET /account/all/{cid}
 
-​	Request
-
-```json
-https://localhost:8443/safe/account/all/1
-```
-
 ​	Response
 
 ```json
