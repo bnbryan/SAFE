@@ -1,6 +1,7 @@
 import { Layout, Row, Col, Button } from 'antd'
 import Register from './Register'
 import Login from './Login'
+import PasswordReset from './passwordReset'
 import React from 'react'
 
 
@@ -14,11 +15,16 @@ function PageHeader({ loggedIn, signoutOnClick, signinOnSuccess }) {
                 <Col>
                 </Col>
                 <Col>
-                    {loggedIn && <Button shape="round" onClick={signoutOnClick}>Logout</Button>}
+                    {loggedIn && (
+                        <>
+                            <Button shape="round" onClick={signoutOnClick}>Logout</Button>
+                        </>
+                    )}
                     {!loggedIn && (
                         <>
                             <Login onSuccess={signinOnSuccess} />
                             <Register />
+                            <PasswordReset/>
                         </>
                     )}
                 </Col>

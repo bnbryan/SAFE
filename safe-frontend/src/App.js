@@ -18,8 +18,9 @@ function App() {
 
     const signoutOnClick = () => {
         message.success("to imp")
-        /*logout().then(() => {
-            setLoggedIn(false)
+        setLoggedIn(false)
+       /* logout().then(() => {
+
             message.success('Successfully Signed out')
         }).catch((err) => {
             message.error(err.message)
