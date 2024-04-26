@@ -30,8 +30,8 @@ public class LoginServiceImpl implements LoginService {
     public ResponseResult<Map<String,String>> login(YbjCustomer customer) {
         isCustomer(customer.getCemail());
 
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(customer.getCemail(), customer.getCpassword());
-
+        UsernamePasswordAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken(customer.getCemail(), customer.getCpassword());
         Authentication authenticate = authenticationManager.authenticate(authenticationToken);
         if (Objects.isNull(authenticate)) {
             throw new LoginException("Username or password is incorrect/invalid");
