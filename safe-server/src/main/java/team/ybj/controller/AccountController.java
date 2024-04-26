@@ -4,11 +4,13 @@ import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import team.ybj.dto.ResponseResult;
+import team.ybj.dto.UserGetAppsResponse;
 import team.ybj.pojo.AccountApp;
 import team.ybj.pojo.YbjAccount;
 import team.ybj.service.AccountService;
 import team.ybj.service.ApplicationService;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,11 +37,22 @@ public class AccountController {
         return new ResponseResult<>(200, "success", allAccountsOfCustomer);
     }
 
-    @PostMapping("/apply")
+    @PostMapping("/app")
     @ResponseBody
     public ResponseResult<Map<String, Long>> applyAccount(@RequestBody AccountApp app) {
-        Map<String, Long> result = applicationService.applyForAccount(app);
-        return new ResponseResult<>(200, "success", result);
+        Long appId = applicationService.applyForAccount(app);
+        Map<String, Long> data = new HashMap<>();
+        data.put("appId", appId);
+        return new ResponseResult<>(200, "success", data);
+    }
+
+    @GetMapping("/app/{cid}")
+    @ResponseBody
+    public ResponseResult<Map<String, List<UserGetAppsResponse>>> getAllActiveApps(@PathVariable Long cid) {
+        List<UserGetAppsResponse> userApps = applicationService.getUserApps(cid);
+        Map<String, List<UserGetAppsResponse>> data = new HashMap<>();
+        data.put("userApps", userApps);
+        return new ResponseResult<>(200, "success", data);
     }
 
     @GetMapping("test")

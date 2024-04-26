@@ -5,10 +5,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+import team.ybj.dto.UserGetAppsResponse;
 import team.ybj.mappers.AccountAppMapper;
 import team.ybj.pojo.AccountApp;
 
-import java.util.Map;
+import java.util.List;
 
 @SpringBootTest
 public class ApplicationServiceTest {
@@ -21,9 +22,17 @@ public class ApplicationServiceTest {
     @Transactional
     public void testApplyForAccounts() {
         AccountApp accountApp = new AccountApp(8L, 'C', 10000.00, "student");
-        Map<String, Long> actual = applicationService.applyForAccount(accountApp);
+        Long actual = applicationService.applyForAccount(accountApp);
         Assertions.assertNotNull(actual);
 
-        accountAppMapper.deleteAccountAppById(actual.get("appId"));
+        accountAppMapper.deleteAccountAppById(actual);
+    }
+
+    @Test
+    public void testGetUserApps() {
+        List<UserGetAppsResponse> actual = applicationService.getUserApps(5L);
+        UserGetAppsResponse expectedUserApp = new UserGetAppsResponse(1L, 'C', null);
+        List<UserGetAppsResponse> expected = List.of(expectedUserApp);
+        Assertions.assertEquals(expected, actual);
     }
 }

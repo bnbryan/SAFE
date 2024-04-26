@@ -33,4 +33,10 @@ public class GlobalExceptionHandler {
     public ResponseResult<String> loginExceptionHandler(LoginException e) {
         return new ResponseResult<>(422, "exception handler: login exception", e.getMessage());
     }
+
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    @ExceptionHandler(value = NoDataException.class)
+    public ResponseResult<String> noDataExceptionHandler(NoDataException e) {
+        return new ResponseResult<>(422, "exception handler: no data exception", e.getMessage());
+    }
 }
