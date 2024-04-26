@@ -168,7 +168,7 @@ Fail:
 
 
 
-#### GET /account/all/{cid}
+#### GET /account/all/{email}
 
 ​	Response
 

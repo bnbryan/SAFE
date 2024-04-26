@@ -10,4 +10,6 @@ public interface AccountService {
 
     List<YbjAccount> findAllAccounts(Long cid);
 
+    List<YbjAccount> findAllAccountsByEmail(String email);
+
 }
