@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace等于mapper接口类的全限定名,这样实现对应 -->
+<mapper namespace="team.ybj.mappers.AccountAppMapper">
+
+    <insert id="insertAccountApp" useGeneratedKeys="true" keyProperty="appId">
+        insert into account_app(cid, type, income, career)
+        values(#{cid}, #{type}, #{income}, #{career})
+    </insert>
+
+    <delete id="deleteAccountAppById">
+        delete from account_app where app_id=#{appId}
+    </delete>
+
+
+</mapper>
