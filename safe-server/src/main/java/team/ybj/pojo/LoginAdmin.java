@@ -17,6 +17,7 @@ import java.util.List;
 public class LoginAdmin implements UserDetails {
 
     YbjAdmin admin;
+    Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

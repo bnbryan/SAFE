@@ -7,6 +7,7 @@ import team.ybj.exception.*;
 import team.ybj.pojo.*;
 import team.ybj.service.*;
 
+import java.util.Map;
 
 
 @RestController
@@ -25,9 +26,8 @@ public class UserController {
 
     @PostMapping("login")
     @ResponseBody
-    public ResponseResult login(@RequestBody YbjCustomer customer) {
-        ResponseResult responseResult = loginService.login(customer);
-        return responseResult;
+    public ResponseResult<Map<String, String>> login(@RequestBody YbjCustomer customer) {
+        return loginService.login(customer);
     }
 
     @PostMapping("register")
@@ -44,7 +44,7 @@ public class UserController {
         return responseResult;
     }
 
-        @PostMapping("passreset")
+    @PostMapping("passreset")
     @ResponseBody
     public ResponseResult PassReset(@RequestBody YbjCustomer customer) {
         ResponseResult responseResult;

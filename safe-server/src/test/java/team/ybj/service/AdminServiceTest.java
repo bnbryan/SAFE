@@ -23,7 +23,7 @@ public class AdminServiceTest {
         YbjAdmin admin = new YbjAdmin(123L, "admin1", "123");
         Map<String, String> actual = adminService.login(admin);
         String token = actual.get("token");
-        String actualUsername = jwtUtil.getSubjectFromToken(token);
+        String actualUsername = JwtUtil.extractUsername(token);
         Assertions.assertEquals("admin1", actualUsername);
     }
 
