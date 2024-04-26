@@ -22,10 +22,10 @@ public class AccountController {
         return account;
     }
 
-    @GetMapping("/all/{cid}")
+    @GetMapping("/all/{email}")
     @ResponseBody
-    public ResponseResult<List<YbjAccount>> getAllAccount(@PathVariable("cid") Long cid) {
-        List<YbjAccount> allAccountsOfCustomer = accountService.findAllAccounts(cid);
+    public ResponseResult<List<YbjAccount>> getAllAccount(@PathVariable("email") String email) {
+        List<YbjAccount> allAccountsOfCustomer = accountService.findAllAccountsByEmail(email);
         return new ResponseResult<>(200, "success", allAccountsOfCustomer);
     }
 

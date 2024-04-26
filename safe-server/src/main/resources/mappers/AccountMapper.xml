@@ -13,6 +13,12 @@
         select * from ybj_account where cid = #{cid}
     </select>
 
+    <select id="getAccountsByEmail" resultType="team.ybj.pojo.YbjAccount">
+        select anum, aname, adate, atype, _account.cid, adid from safe.ybj_account _account
+        join ybj_customer _customer on _account.cid = _customer.cid
+        where cemail = #{cemail};
+    </select>
+
     <insert id="insertAccount">
         insert into ybj_account(anum, aname, adate, atype, cid, adid) values(#{anum},#{aname},#{adate},#{atype},#{cid},#{adid})
     </insert>
