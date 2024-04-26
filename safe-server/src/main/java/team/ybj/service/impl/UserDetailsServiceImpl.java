@@ -24,7 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         // get admin details
         YbjAdmin admin = adminMapper.findAdminByUsername(username);
         if (admin != null) {
-            return new LoginAdmin(admin, Role.ADMIN);
+            return new LoginAdmin(admin, Role.ROLE_ADMIN);
         }
 
         // get customer details
@@ -36,6 +36,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         // TODO: get corresponding authentication
 
 
-        return new LoginUser(customer, Role.USER);
+        return new LoginUser(customer, Role.ROLE_USER);
     }
 }

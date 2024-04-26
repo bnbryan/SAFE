@@ -45,7 +45,8 @@ public class SecurityConfig {
                 .authorizeRequests()
                 // 允许匿名访问的路径
 //                .requestMatchers("/**").permitAll()
-                .requestMatchers("/users/**").permitAll()
+                .requestMatchers("/users/**","admin/login").permitAll()
+                .requestMatchers("/transactions/**").hasRole("USER")
                 // 其他所有请求都需要认证
                 .anyRequest().authenticated()
                 // set session stateless
