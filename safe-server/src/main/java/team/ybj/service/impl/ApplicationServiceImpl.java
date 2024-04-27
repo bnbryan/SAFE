@@ -7,6 +7,7 @@ import team.ybj.dto.ResponseResult;
 import team.ybj.dto.UserGetAppsResponse;
 import team.ybj.exception.AccountTypeException;
 import team.ybj.exception.NoDataException;
+import team.ybj.exception.ServiceException;
 import team.ybj.mappers.AccountAppMapper;
 import team.ybj.mappers.AccountMapper;
 import team.ybj.mappers.CheckingMapper;
@@ -62,6 +63,16 @@ public class ApplicationServiceImpl implements ApplicationService {
             }
         }
         return userGetAppsResponses;
+    }
+
+    @Override
+    public Long rejectApp(Long appId) {
+        int success = accountAppMapper.updateAccountAppStatus(appId, 'D');
+        if (success > 0) {
+            return appId;
+        } else {
+            throw new ServiceException("Application status change failed");
+        }
     }
 
 

@@ -12,4 +12,6 @@ public interface AccountAppMapper {
     int deleteAccountAppById(Long appId);
 
     List<AccountApp> findAccountAppsByCid(Long cid);
+
+    int updateAccountAppStatus(Long appId, Character status);
 }

@@ -11,4 +11,6 @@ public interface ApplicationService {
     Long applyForAccount(AccountApp accountApp);
 
     List<UserGetAppsResponse> getUserApps(Long cid);
+
+    Long rejectApp(Long appId);
 }
