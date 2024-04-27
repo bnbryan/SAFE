@@ -24,7 +24,7 @@ function Login({ onSuccess }) {
             .then(() => {
                 setDisplayModal(false)
                 message.success(`Welcome back`)
-                onSuccess()
+                onSuccess(data.cemail)
             }).catch((err) => {
             message.error(err.message)
         })

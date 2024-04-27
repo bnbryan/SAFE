@@ -28,8 +28,10 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public ResponseResult<Map<String,String>> login(YbjCustomer customer) {
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(customer.getCemail(), customer.getCpassword());
+        isCustomer(customer.getCemail());
 
+        UsernamePasswordAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken(customer.getCemail(), customer.getCpassword());
         Authentication authenticate = authenticationManager.authenticate(authenticationToken);
         if (Objects.isNull(authenticate)) {
             throw new LoginException("Username or password is incorrect/invalid");
@@ -40,5 +42,12 @@ public class LoginServiceImpl implements LoginService {
         Map<String, String> jwtMap = new HashMap<>();
         jwtMap.put("token", jwt);
         return new ResponseResult<>(200, "login success", jwtMap);
+    }
+
+    private void isCustomer(String cemail) {
+        YbjCustomer customer = customerMapper.getCustomerByEmail(cemail);
+        if (customer == null) {
+            throw new LoginException("Account does not exist");
+        }
     }
 }

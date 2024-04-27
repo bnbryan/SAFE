@@ -179,7 +179,7 @@ Fail:
 
 
 
-#### GET /account/all/{cid}
+#### GET /account/all/{email}
 
 ​	Response
 
@@ -205,6 +205,31 @@ Fail:
             "adid": 1
         }
     ]
+}
+```
+
+
+
+#### POST admin/login
+
+​	Request
+
+```json
+{
+    "username": "admin1",
+    "password": "123"
+}
+```
+
+​	Response
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data": {
+        "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJpYXQiOjE3MTM5ODcyNTIsImV4cCI6MTcxMzk5MDg1Mn0.si92KHsc60Ho5QIzt08Lh1Af-KdeQXZZyEPbAy1FoLE"
+    }
 }
 ```
 

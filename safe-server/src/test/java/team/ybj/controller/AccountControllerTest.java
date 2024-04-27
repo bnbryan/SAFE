@@ -15,6 +15,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import team.ybj.mappers.*;
 import team.ybj.pojo.YbjAccount;
 import team.ybj.service.AccountService;
+import team.ybj.service.ApplicationService;
+import team.ybj.utils.JwtUtil;
+
 import java.util.Date;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -51,6 +54,14 @@ public class AccountControllerTest {
     private LoanMapper loanMapper;
     @MockBean
     private UniversityMapper universityMapper;
+    @MockBean
+    private AdminMapper adminMapper;
+    @MockBean
+    private JwtUtil jwtUtil;
+    @MockBean
+    private ApplicationService applicationService;
+    @MockBean
+    private AccountAppMapper accountAppMapper;
 
     @MockBean
     private YbjAccount  expectedAccount;

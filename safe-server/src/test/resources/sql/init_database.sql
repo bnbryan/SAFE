@@ -83,11 +83,14 @@ ALTER TABLE ybj_record MODIFY rid BIGINT NOT NULL AUTO_INCREMENT COMMENT "Record
 
 CREATE TABLE ybj_admin (
                             aid BIGINT NOT NULL COMMENT 'Admin''s id',
+                            username VARCHAR(64) NOT NULL COMMENT 'Admin''s username',
                             password VARCHAR(64) NOT NULL COMMENT 'Admin''s password'
 );
 
 ALTER TABLE ybj_admin ADD CONSTRAINT ybj_admin_pk PRIMARY KEY (aid);
 ALTER TABLE ybj_admin MODIFY aid BIGINT NOT NULL AUTO_INCREMENT COMMENT 'Admin''s id';
+ALTER TABLE ybj_admin
+    ADD UNIQUE (username);
 
 
 CREATE TABLE ybj_insurance (
@@ -171,6 +174,23 @@ CREATE TABLE ybj_university (
 
 ALTER TABLE ybj_university ADD CONSTRAINT ybj_university_pk PRIMARY KEY ( `uID` );
 ALTER TABLE ybj_university MODIFY uID BIGINT NOT NULL AUTO_INCREMENT COMMENT 'University id';
+
+
+CREATE TABLE account_app (
+                              app_id    BIGINT NOT NULL COMMENT 'Application id',
+                              cid BIGINT NOT NULL COMMENT 'Customer''s id',
+                              type VARCHAR(1) NOT NULL COMMENT 'Account type',
+                              income DECIMAL(20,2) NOT NULL COMMENT 'Customer''s annual income',
+                              career VARCHAR(255) NOT NULL COMMENT 'Security Answer',
+                              status VARCHAR(1) COMMENT 'Application status Pass or Declined'
+);
+
+ALTER TABLE account_app ADD CONSTRAINT account_app_pk PRIMARY KEY ( app_id );
+ALTER TABLE account_app MODIFY app_id BIGINT NOT NULL AUTO_INCREMENT COMMENT 'University id';
+ALTER TABLE account_app ADD constraint check (status in ('P', 'D') );
+ALTER TABLE account_app
+    ADD CONSTRAINT account_app_ybj_customer_fk FOREIGN KEY (cid)
+        REFERENCES ybj_customer (cid);
 
 ALTER TABLE ybj_account
     ADD CONSTRAINT ybj_account_ybj_address_fk FOREIGN KEY ( adid )
@@ -531,5 +551,8 @@ INSERT INTO ybj_loan (anum, lrate, lamount, lmonths, lpayment, ltype, hyear, hin
 (24, 5.5, 5500.00, 50, 100.00, 'STU', NULL, NULL, NULL, '202200024', 'G', '2026-06-01', '4', 'L', 'Y');
 
 
-INSERT INTO ybj_admin (aid, password) VALUES
-(123, '123');
+INSERT INTO ybj_admin (aid, username, password) VALUES
+(123, 'admin1','$2a$10$iBVWNCuhgmFbF/QXU3WDTOyUjq1JSbvrog/7PB2mvox0/9e.s9DLa');
+
+INSERT INTO account_app (cid, type, income, career) VALUES
+(5, 'C', '100000.00', 'student');

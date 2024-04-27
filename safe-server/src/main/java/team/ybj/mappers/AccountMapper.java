@@ -13,6 +13,8 @@ public interface AccountMapper {
 
     List<YbjAccount> getAccountsByCid(Long cid);
 
+    List<YbjAccount> getAccountsByEmail(String email);
+
     int insertAccount(YbjAccount account);
 
     int updateAnameByAnum(@Param("anum") Long anum, @Param("aname") String aname);

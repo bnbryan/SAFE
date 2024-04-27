@@ -44,4 +44,16 @@ public class AccountServiceTest {
         Assertions.assertEquals(expectedJson, actualJson);
 
     }
+
+    @Test
+    public void testFindAllAccountsByEmail() throws JsonProcessingException {
+        List<YbjAccount> accounts = accountService.findAllAccountsByEmail("123@gmail.com");
+        String expectedJson = "[{\"anum\":1,\"aname\":\"John Checking\",\"adate\":\"2023-01-01T05:00:00.000+00:00\",\"atype\":\"C\",\"cid\":1,\"adid\":1}," +
+                "{\"anum\":15,\"aname\":\"John Savings\",\"adate\":\"2024-01-01T05:00:00.000+00:00\",\"atype\":\"S\",\"cid\":1,\"adid\":1}]";
+
+        String actualJson = objectMapper.writeValueAsString(accounts);
+        Assertions.assertEquals(expectedJson, actualJson);
+
+    }
+
 }

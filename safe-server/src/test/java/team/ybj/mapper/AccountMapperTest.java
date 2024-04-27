@@ -44,6 +44,21 @@ public class AccountMapperTest {
     }
 
     @Test
+    public void getAccountByEmailTest() throws JsonProcessingException {
+        List<YbjAccount> actual = mapper.getAccountsByEmail("asde@gmai.com");
+        long ts1 = 1709701200;
+        long ts2 = 1705726800;
+        long ts3 = 1675227600;
+
+        YbjAccount ac1 = new YbjAccount(22L, "Emily Checking", new Date(ts1 * 1000), 'C', 2L, 2L);
+        YbjAccount ac2 = new YbjAccount(16L, "Emily Loan", new Date(ts2 * 1000), 'L', 2L, 2L);
+        YbjAccount ac3 = new YbjAccount(2L, "Emily Savings", new Date(ts3 * 1000), 'S', 2L, 2L);
+
+        List<YbjAccount> expected = Arrays.asList(ac1, ac2, ac3);
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
     public void insertAccountTest() {
         long ts1 = 1709701200;
         Random random = new Random();

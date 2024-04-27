@@ -25,4 +25,10 @@ public class AccountServiceImpl implements AccountService {
         return accountMapper.getAccountsByCid(cid);
     }
 
+    @Override
+    public List<YbjAccount> findAllAccountsByEmail(String email) {
+        return accountMapper.getAccountsByEmail(email);
+    }
+
+
 }
