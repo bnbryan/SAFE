@@ -26,4 +26,12 @@ public class YbjAccount {
         this.cid = cid;
         this.adid = adid;
     }
+
+    public YbjAccount(String aname, Date adate, Character atype, Long cid, Long adid) {
+        this.aname = aname;
+        this.adate = adate;
+        this.atype = atype;
+        this.cid = cid;
+        this.adid = adid;
+    }
 }

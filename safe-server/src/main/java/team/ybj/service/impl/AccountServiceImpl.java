@@ -2,8 +2,13 @@ package team.ybj.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import team.ybj.mappers.AccountMapper;
+import org.springframework.transaction.annotation.Transactional;
+import team.ybj.dto.ApproveAccountRequest;
+import team.ybj.exception.AccountTypeException;
+import team.ybj.mappers.*;
 import team.ybj.pojo.YbjAccount;
+import team.ybj.pojo.YbjChecking;
+import team.ybj.pojo.YbjSaving;
 import team.ybj.service.AccountService;
 
 import java.util.List;
@@ -13,6 +18,14 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private AccountMapper accountMapper;
+    @Autowired
+    private CheckingMapper checkingMapper;
+    @Autowired
+    private SavingMapper savingMapper;
+    @Autowired
+    private CustomerMapper customerMapper;
+    @Autowired
+    private CusAddLinkMapper cusAddLinkMapper;
 
     @Override
     public YbjAccount findAccountById(Long accountId) {
@@ -28,6 +41,32 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public List<YbjAccount> findAllAccountsByEmail(String email) {
         return accountMapper.getAccountsByEmail(email);
+    }
+
+    @Override
+    @Transactional
+    public Long insertAccount(ApproveAccountRequest request) {
+        Character type = request.getType();
+        request.setAname(type == 'C' ? "SAFE Checking" : "SAFE Savings");
+
+        // adid 查寻找
+        Long adid = cusAddLinkMapper.getAddressIdsByCustomerId(request.getCid()).get(0);
+        request.setAdid(adid);
+
+        YbjAccount account =
+                new YbjAccount(request.getAname(), request.getAdate(), type, request.getCid(), request.getAdid());
+        accountMapper.insertAccount(account);
+        if (type == 'C') {
+            YbjChecking checking = new YbjChecking(account.getAnum(), request.getCcharge(), 'C', 0.00, 'Y');
+            checkingMapper.insertChecking(checking);
+            return account.getAnum();
+        } else if (type == 'S') {
+            YbjSaving saving = new YbjSaving(account.getAnum(), request.getSrate(), 'S', 0.00, 'Y');
+            savingMapper.insertSaving(saving);
+            return account.getAnum();
+        } else {
+            throw new AccountTypeException("Account type not supported");
+        }
     }
 
 

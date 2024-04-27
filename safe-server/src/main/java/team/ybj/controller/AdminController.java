@@ -4,8 +4,10 @@ package team.ybj.controller;
 import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
+import team.ybj.dto.ApproveAccountRequest;
 import team.ybj.dto.ResponseResult;
 import team.ybj.pojo.YbjAdmin;
+import team.ybj.service.AccountService;
 import team.ybj.service.AdminService;
 import team.ybj.service.ApplicationService;
 
@@ -19,6 +21,8 @@ public class AdminController {
     AdminService adminService;
     @Resource
     ApplicationService applicationService;
+    @Resource
+    AccountService accountService;
 
 
     @PostMapping("login")
@@ -35,6 +39,17 @@ public class AdminController {
         Long rejectedApp = applicationService.rejectApp(appId);
         Map<String, Long> data = new HashMap<>();
         data.put("rejectedApp", rejectedApp);
+        return new ResponseResult<>(200, "success", data);
+    }
+
+    @PostMapping("/app/approve")
+    @ResponseBody
+    public ResponseResult<Map<String, Long>> approveApp(@RequestBody ApproveAccountRequest request) {
+        Long appId = applicationService.approveApp(request.getAppId());
+        Long newAnum = accountService.insertAccount(request);
+        Map<String, Long> data = new HashMap<>();
+        data.put("AccountNumber", newAnum);
+        data.put("ApprovedApp", appId);
         return new ResponseResult<>(200, "success", data);
     }
 

@@ -13,4 +13,6 @@ public interface ApplicationService {
     List<UserGetAppsResponse> getUserApps(Long cid);
 
     Long rejectApp(Long appId);
+
+    Long approveApp(Long appId);
 }
