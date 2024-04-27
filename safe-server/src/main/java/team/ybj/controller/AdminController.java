@@ -4,14 +4,12 @@ package team.ybj.controller;
 import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
-import team.ybj.dto.RejectAppRequest;
 import team.ybj.dto.ResponseResult;
 import team.ybj.pojo.YbjAdmin;
 import team.ybj.service.AdminService;
 import team.ybj.service.ApplicationService;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
