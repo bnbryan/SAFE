@@ -8,6 +8,7 @@ const getAuthToken = () => localStorage.getItem('token');
 export const login = (data) => {
     return fetch(loginUrl, {
         method: "POST",
+        credentials: 'include',
         headers: {
             'Content-Type': 'application/json',
             // Authorization header should not be included in a login request
@@ -42,7 +43,7 @@ export const login = (data) => {
             return json; // Continue with the JSON response
         })
         .catch(error => {
-            console.error('There has been a problem with your fetch operation:', error);
+            console.error('There has been a problem with your login operation:', error);
             throw error; // Re-throw the error to make sure the caller is aware of the failure
         });
 };
@@ -205,4 +206,83 @@ export const transfer=(data)=>{
 
     })
 }
+
+
+export const allAccount=(email)=>{
+    const token = getAuthToken()
+    return fetch(`safe/account/all/${email}`, {
+        method: 'GET', // GET请求方法
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        },
+    }).then(response => {
+        console.log(response);
+        // 检查网络响应是否ok
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json(); // 解析响应体
+
+    }).then(json => {
+        console.log(json);
+        // 假设你需要检查响应中的某个状态码
+        if (json.code === 200) {
+            console.log('Fetch accounts success.');
+        } else {
+            // 处理请求不成功的情况
+            throw Error(json.message || "Failed to fetch accounts, " + json.msg);
+        }
+        return json; // 继续处理响应的JSON数据
+
+    }).catch(error => {
+        console.error('There has been a problem with your fetch operation:', error);
+        throw error; // 重新抛出错误，确保调用者知道失败
+    });
+}
+
+const adminLoginURL = `${SERVER_ORIGIN}/safe/admin/login`;
+
+export const adminLogin = (data) => {
+    return fetch(adminLoginURL, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            // Authorization header should not be included in a login request
+        },
+        body: JSON.stringify(data),
+    })
+        .then(response => {
+            console.log(response)
+            // Check if the network response was ok
+            if (!response.ok) {
+                if(response.status===403){
+                    throw new Error('Wrong password')
+                }
+                else {
+                    throw new Error('Network response was not ok');
+                }
+            }
+            return response.json(); // Parse the body of the response
+        })
+        .then(json => {
+            console.log(json);
+            // Assuming the token is in the 'data' object of the response
+            // and you check the status with a 'code' property
+            if (json.code === 200 && json.data.token) {
+                // Save the token in localStorage
+                localStorage.setItem('token', json.data.token);
+                console.log('Login successful. Token saved.');
+            } else {
+                // Handle any situation where the login was not successful
+                throw Error(json.message || "Fail to login");
+            }
+            return json; // Continue with the JSON response
+        })
+        .catch(error => {
+            console.error('There has been a problem with your login operation:', error);
+            throw error; // Re-throw the error to make sure the caller is aware of the failure
+        });
+};
+
 

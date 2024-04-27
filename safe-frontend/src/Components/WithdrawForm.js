@@ -1,64 +1,72 @@
-import React, {useState} from "react";
-import {Button, Form, Input, message, Modal} from "antd";
-import {LockOutlined, UserOutlined,CreditCardOutlined,DollarOutlined} from "@ant-design/icons";
-import {withdraw} from '../utils'
+import React, { useEffect, useState } from "react";
+import { Button, Form, Input, message, Select } from "antd";
+import { DollarOutlined } from "@ant-design/icons";
+import { allAccount, withdraw } from '../utils';
 
-
-function WithdrawForm(){
-    const [displayModal, setDisplayModal] = useState(false)
-
+function WithdrawForm({ accountEmail }) {
     const [form] = Form.useForm();
-    const handleCancel = () => {
-        setDisplayModal(false)
-    }
-    const onFinish = (data) => {
+    const [accounts, setAccounts] = useState([]);
 
-        console.log(data)
-        withdraw(data)
-            .then(() => {
-                setDisplayModal(false)
-                message.success(`withdraw Success!`)
-            }).catch((err) => {
-            message.error(err.message)
-        })
-        form.resetFields();
-    }
+    useEffect(() => {
+        async function fetchAccounts() {
+            try {
+                const result = await allAccount(accountEmail);
+                setAccounts(result.data.map(account => ({
+                    label: `${account.aname} (${account.atype === 'C' ? 'Checking' : 'S' ? 'Saving' : 'Loan'})`,
+                    value: account.anum,
+                })));
+            } catch (err) {
+                message.error('Error fetching account data: ' + err.message);
+            }
+        }
 
-    const signinOnClick = () => {
-        setDisplayModal(true)
-    }
-    return(
-        <>
-                <Form
-                    name="withdraw"
-                    onFinish={onFinish}
-                    preserve={false}
-                >
+        fetchAccounts();
+    }, [accountEmail]);
 
-                    <Form.Item
-                        name="anum"
-                        rules={[{ required: true, message: 'Please input your account number!' }]}
-                    >
-                        <Input prefix={<CreditCardOutlined />} placeholder="accountnumber" />
-                    </Form.Item>
-                    <Form.Item
-                        name="abalance"
-                        rules={[{ required: true, message: 'Please input your withdraw amount!' }]}
-                    >
-                        <Input
-                            prefix={<DollarOutlined />}
-                            placeholder="withdraw amount"
-                        />
-                    </Form.Item>
-                    <Form.Item>
-                        <Button type="primary" htmlType="submit">
-                            withdraw
-                        </Button>
-                    </Form.Item>
-                </Form>
-        </>
-    )
+    const onFinish = async (values) => {
+        try {
+            await withdraw(values);
+            message.success('Withdrawal successful!');
+            form.resetFields();
+        } catch (err) {
+            message.error(err.message);
+        }
+    };
 
-
+    return (
+        <Form
+            form={form}
+            name="withdraw"
+            onFinish={onFinish}
+            layout="vertical"
+        >
+            <Form.Item
+                name="anum"
+                label="From Account"
+                rules={[{ required: false, message: 'Please select the account from which to withdraw!' }]}
+            >
+                <Select
+                    placeholder="Select account"
+                    options={accounts}
+                />
+            </Form.Item>
+            <Form.Item
+                name="abalance"
+                label="Amount"
+                rules={[{ required: false, message: 'Please input the amount to withdraw!' }]}
+            >
+                <Input
+                    prefix={<DollarOutlined />}
+                    placeholder="Amount"
+                />
+            </Form.Item>
+            <Form.Item>
+                <Button type="primary" htmlType="submit">
+                    Withdraw
+                </Button>
+            </Form.Item>
+        </Form>
+    );
 }
-export default WithdrawForm
+
+export default WithdrawForm;
