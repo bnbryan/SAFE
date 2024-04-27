@@ -69,6 +69,18 @@ ALTER TABLE ybj_customer ADD CONSTRAINT ybj_customer_pk PRIMARY KEY ( cid );
 ALTER TABLE ybj_customer MODIFY cid BIGINT NOT NULL AUTO_INCREMENT COMMENT 'Customer id';
 ALTER TABLE ybj_customer ADD UNIQUE (cemail);
 
+CREATE TABLE ybj_record (
+                            rid BIGINT NOT NULL COMMENT 'Record''s id',
+                            anum BIGINT NOT NULL COMMENT 'From some account',
+                            toanum BIGINT COMMENT 'To some account',
+                            ratype   VARCHAR(4) NOT NULL,
+                            ramount DECIMAL(10, 2) NOT NULL COMMENT 'Transfer amount',
+                            rtime TIMESTAMP NOT NULL COMMENT 'transfer time'
+);
+
+ALTER TABLE ybj_record ADD CONSTRAINT ybj_record_pk PRIMARY KEY ( rid );
+ALTER TABLE ybj_record MODIFY rid BIGINT NOT NULL AUTO_INCREMENT COMMENT "Record''s id";
+
 CREATE TABLE ybj_admin (
                             aid BIGINT NOT NULL COMMENT 'Admin''s id',
                             username VARCHAR(64) NOT NULL COMMENT 'Admin''s username',
@@ -224,6 +236,12 @@ ALTER TABLE ybj_savings
     ADD CONSTRAINT ybj_savings_ybj_account_fk FOREIGN KEY ( anum )
         REFERENCES ybj_account ( anum );
 
+ALTER TABLE ybj_record
+     ADD CONSTRAINT ybj_record_anum_fk FOREIGN KEY (anum)
+        REFERENCES ybj_account (anum);
+ALTER TABLE ybj_record
+    ADD CONSTRAINT ybj_record_toanum_fk FOREIGN KEY (toanum)
+        REFERENCES ybj_account (anum);
 
 
 
@@ -488,6 +506,12 @@ INSERT INTO ybj_account (anum, aname, adate, atype, cid, adid) VALUES
 (24, 'David Loan', '2024-03-11', 'L', 7, 8);
 
 
+INSERT INTO ybj_record (rid, anum, toanum, ratype, ramount, rtime) VALUES
+(1, 1, 2, 'C', 1500.00, '2023-09-01 14:30:00'),
+(2, 3, 4, 'L',200.00, '2023-09-02 10:00:00'),
+(3, 3, NULL, 'L',320.50, '2023-09-03 09:45:00'),
+(4, 6, 7, 'S',780.00, '2023-09-03 16:15:00'),
+(5, 8, 9, 'S',5000.00, '2023-09-04 08:00:00');
 
 
 INSERT INTO ybj_checking (anum, ccharge, atype, abalance, cvalid) VALUES

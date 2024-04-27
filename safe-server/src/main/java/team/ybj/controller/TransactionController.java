@@ -7,8 +7,13 @@ import org.springframework.web.bind.annotation.*;
 import team.ybj.dto.DepositRequest;
 import team.ybj.dto.ResponseResult;
 import team.ybj.dto.TransferRequest;
+import team.ybj.exception.LackBalanceException;
+import team.ybj.exception.ServiceException;
+import team.ybj.pojo.YbjChecking;
 import team.ybj.service.DepositService;
+import team.ybj.service.RecordService;
 import team.ybj.service.TransferService;
+import team.ybj.service.WithdrawService;
 
 @RestController
 @RequestMapping("transactions")
@@ -18,6 +23,10 @@ public class TransactionController {
     private TransferService transferService;
     @Resource
     private DepositService depositService;
+    @Resource
+    private RecordService recordService;
+    @Resource
+    private WithdrawService withdrawService;
 
     @PostMapping("transfer")
     @ResponseBody
@@ -25,6 +34,8 @@ public class TransactionController {
         int transfer = transferService.transfer(transferRequest);
         if (transfer > 0) {
             ResponseResult<Integer> successResult = new ResponseResult<>(200, "transfer success", transfer);
+            recordService.AddRe(transferRequest.getFromAccountNum(), transferRequest.getToAccountNum(),
+                    String.valueOf(transferRequest.getFromAccountType()),transferRequest.getAmount());
             return ResponseEntity.ok(successResult);
         } else {
             ResponseResult<Integer> errorResult = new ResponseResult<>(422, "transfer fail", transfer);
@@ -39,4 +50,19 @@ public class TransactionController {
         return new ResponseResult<>(200, "deposit success", currentBalance);
     }
 
+    @PostMapping("withdraw")
+    @ResponseBody
+    public ResponseResult WithDraw(@RequestBody YbjChecking checking) {
+        ResponseResult responseResult;
+        try {
+            responseResult = withdrawService.Withdraw(checking);
+            recordService.AddRe(checking.getAnum(), null,
+                    String.valueOf(checking.getAtype()),checking.getAbalance());
+        }catch (LackBalanceException e){
+            responseResult = new ResponseResult(400, "Balance not enough", 0);
+        }catch (ServiceException e) {
+            responseResult = new ResponseResult(400, "Something went wrong when withdrawing", 0);
+        }
+        return responseResult;
+    }
 }

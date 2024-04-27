@@ -62,6 +62,8 @@ public class AccountControllerTest {
     private ApplicationService applicationService;
     @MockBean
     private AccountAppMapper accountAppMapper;
+    @MockBean
+    private RecordMapper recordMapper;
 
     @MockBean
     private YbjAccount  expectedAccount;

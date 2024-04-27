@@ -5,22 +5,22 @@ import org.springframework.web.bind.annotation.*;
 import team.ybj.dto.ResponseResult;
 import team.ybj.exception.*;
 import team.ybj.pojo.*;
-import team.ybj.service.WithdrawService;
+import team.ybj.service.*;
 
 
 @RestController
-@RequestMapping("transactions")
-public class WithdrawController {
+@RequestMapping("users")
+public class RecordController {
 
     @Autowired
-    WithdrawService withdrawService;
+    RecordService recordService;
 
-    @PostMapping("withdraw")
+    @PostMapping("records")
     @ResponseBody
-    public ResponseResult WithDraw(@RequestBody YbjChecking checking) {
+    public ResponseResult ListRe(@RequestBody YbjCustomer customer) {
         ResponseResult responseResult;
         try {
-            responseResult = withdrawService.Withdraw(checking);
+            responseResult = recordService.ListRe(customer);
         }catch (LackBalanceException e){
             responseResult = new ResponseResult(400, "Balance not enough", 0);
         }catch (ServiceException e) {
