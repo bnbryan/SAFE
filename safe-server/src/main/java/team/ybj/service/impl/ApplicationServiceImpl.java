@@ -55,9 +55,11 @@ public class ApplicationServiceImpl implements ApplicationService {
         }
         List<UserGetAppsResponse> userGetAppsResponses = new ArrayList<>();
         for (AccountApp accountApp : accountApps) {
-            UserGetAppsResponse userGetAppsResponse =
-                    new UserGetAppsResponse(accountApp.getAppId(), accountApp.getType(), accountApp.getStatus());
-            userGetAppsResponses.add(userGetAppsResponse);
+            if (accountApp.getStatus() == null || accountApp.getStatus() == 'D') {
+                UserGetAppsResponse userGetAppsResponse =
+                        new UserGetAppsResponse(accountApp.getAppId(), accountApp.getType(), accountApp.getStatus());
+                userGetAppsResponses.add(userGetAppsResponse);
+            }
         }
         return userGetAppsResponses;
     }

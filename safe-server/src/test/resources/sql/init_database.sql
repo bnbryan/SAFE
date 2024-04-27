@@ -532,3 +532,5 @@ INSERT INTO ybj_admin (aid, username, password) VALUES
 
 INSERT INTO account_app (cid, type, income, career) VALUES
 (5, 'C', '100000.00', 'student');
+INSERT INTO account_app (cid, type, income, career, status)VALUES
+(8, 'C', '10000.00', 'student', 'P');

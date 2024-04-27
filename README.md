@@ -201,7 +201,9 @@ Fail:
 
 #### Get /account/app/{cid}
 
-Response
+​	Response
+
+​	success
 
 ```json
 {
@@ -216,6 +218,16 @@ Response
             }
         ]
     }
+}
+```
+
+​	fail
+
+```json
+{
+    "code": 422,
+    "msg": "exception handler: no data exception",
+    "data": "No active applications found"
 }
 ```
 
@@ -274,18 +286,6 @@ Request
     }
 }
 ```
-
-​	fail
-
-```json
-{
-    "code": 422,
-    "msg": "exception handler: no data exception",
-    "data": "No active applications found"
-}
-```
-
-
 
 
 
