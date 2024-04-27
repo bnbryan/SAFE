@@ -298,6 +298,28 @@ Request
 }
 ```
 
+#### POST admin/app/reject
+
+​	Request
+
+```json
+{
+    "appId":2
+}
+```
+
+​	Response
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data": {
+        "rejectedApp": 2
+    }
+}
+```
+
 
 
 ---

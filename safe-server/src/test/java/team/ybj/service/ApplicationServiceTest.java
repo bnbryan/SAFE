@@ -44,4 +44,13 @@ public class ApplicationServiceTest {
         List<UserGetAppsResponse> expected = new ArrayList<>();
         Assertions.assertEquals(expected, actual);
     }
+
+    @Test
+    @Transactional
+    public void testUpdateAppStatus() {
+        Long rejectedApp = applicationService.rejectApp(2L);
+        Assertions.assertEquals(2L, rejectedApp);
+        // restore data
+        accountAppMapper.updateAccountAppStatus(2L, 'P');
+    }
 }
