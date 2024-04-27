@@ -1,12 +1,11 @@
 // SiderMenu.js
-import React, {useState} from 'react';
-import {Layout, Menu, Modal, Transfer} from 'antd';
+import React from 'react';
+import {Layout, Menu} from 'antd';
 import {
     UserOutlined,
-    LaptopOutlined,
-    NotificationOutlined,
     TransactionOutlined,
     BookOutlined,
+    AccountBookOutlined
 } from '@ant-design/icons';
 
 
@@ -26,6 +25,11 @@ const PageSider = ({ onMenuClick }) => {
                 style={{ height: '100%', borderRight: 0 }}
                 onClick={handleMenuClick}
             >
+                <SubMenu key="Accounts" icon={<AccountBookOutlined/>} title="Accounts">
+                    <Menu.Item key="accountinfo">accounts Infomation</Menu.Item>
+                    <Menu.Item key="application">New Application</Menu.Item>
+                    <Menu.Item key="allApplication">View Applications</Menu.Item>
+                </SubMenu>
                 <SubMenu key="Transaction" icon={<TransactionOutlined />} title="Transaction">
                     <Menu.Item key="withdraw">withdraw</Menu.Item>
                     <Menu.Item key="transfer">transfer</Menu.Item>
@@ -35,7 +39,7 @@ const PageSider = ({ onMenuClick }) => {
                     <Menu.Item key="activityRecords">activities </Menu.Item>
                 </SubMenu>
                 <SubMenu key="User" icon={<UserOutlined />} title="User">
-                    <Menu.Item key="accountInfo"> accountInfo</Menu.Item>
+                    <Menu.Item key="userInfo"> User Info</Menu.Item>
                 </SubMenu>
 
             </Menu>

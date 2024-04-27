@@ -1,10 +1,11 @@
-import { Button, Form, Input, message, Modal } from 'antd';
+import {Button, Form, Input, message, Modal, Select} from 'antd';
 import React, { useState } from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { register } from '../utils';
+const { Option } = Select;
 
 
-function Register() {
+function Register({securityQuestions}) {
     const [displayModal, setDisplayModal] = useState(false)
 
 
@@ -116,8 +117,15 @@ function Register() {
                         name="securityQuestion"
                         rules={[{ required: true, message: 'Please input your security question!' }]}
                     >
-                        <Input placeholder = "security question"
-                        />
+                        <Select
+                            placeholder="Select a security question"
+                            style={{ width: `100%` }}
+                            allowClear
+                        >
+                            {securityQuestions.map((question, index) => (
+                                <Option key={index} value={question}>{question}</Option>
+                            ))}
+                        </Select>
                     </Form.Item>
                     <Form.Item
                         name="answer"

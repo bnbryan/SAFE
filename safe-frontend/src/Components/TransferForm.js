@@ -1,14 +1,12 @@
 import React, {useState} from "react";
-import {Button, Form, Input, message, Modal, Select} from "antd";
-import {LockOutlined, UserOutlined,CreditCardOutlined,DollarOutlined} from "@ant-design/icons";
+import {Button, Form, Input, message, Select} from "antd";
+import {CreditCardOutlined,DollarOutlined} from "@ant-design/icons";
 import {transfer} from '../utils'
 
 
-function TransferForm(){
+function TransferForm({accountEmail}){
     const [form] = Form.useForm();
-    const handleChange = (value) => {
-        console.log(`selected ${value}`);
-    };
+
     const options=[
             {
                 value: 'C',
@@ -54,7 +52,6 @@ function TransferForm(){
                                 width: '100%',
                             }}
                             placeholder="Tags Mode"
-                            onChange={handleChange}
                             options={options}
                         />
                     </Form.Item>
