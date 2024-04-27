@@ -107,6 +107,14 @@ F:
 }
 ```
 
+#### POST /users/passreset
+
+```
+{
+	"cemail":"email"
+}
+```
+
 
 
 #### POST /transactions/transfer
@@ -139,8 +147,11 @@ Checking and saving all use this one.
 
 ```json
 {
-    "anum":1,
-    "abalance":100.00
+
+    "anum":anum,
+    "atype":"type",
+    "abalance":balance
+
 }
 ```
 

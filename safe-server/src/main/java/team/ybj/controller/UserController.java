@@ -22,6 +22,9 @@ public class UserController {
     @Autowired
     PasswordService PasswordService;
 
+    @Autowired
+    DelAccService DelAccService;
+
 
     @PostMapping("login")
     @ResponseBody
@@ -56,6 +59,20 @@ public class UserController {
             responseResult = new ResponseResult(400, "Wrong security question or answer", 0);
         }catch (PassResetException e) {
             responseResult = new ResponseResult(400, "Something went wrong when trying to reset password", 0);
+        }
+        return responseResult;
+    }
+
+    @PostMapping("delacc")
+    @ResponseBody
+    public ResponseResult DelAcc(@RequestBody YbjCustomer customer) {
+        ResponseResult responseResult;
+        try {
+            responseResult = DelAccService.DelAcc(customer);
+        }catch (AccountTypeException e){
+            responseResult = new ResponseResult(400, "No Account Found", 0);
+        }catch (ServiceException e) {
+            responseResult = new ResponseResult(400, "Something went wrong when trying to delete account", 0);
         }
         return responseResult;
     }

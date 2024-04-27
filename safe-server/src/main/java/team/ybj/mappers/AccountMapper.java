@@ -21,5 +21,4 @@ public interface AccountMapper {
 
     int deleteAccountByAnum(Long anum);
 
-
 }
