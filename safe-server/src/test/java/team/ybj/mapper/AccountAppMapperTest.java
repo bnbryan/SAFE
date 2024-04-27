@@ -9,7 +9,9 @@ import team.ybj.mappers.AccountAppMapper;
 import team.ybj.pojo.AccountApp;
 import team.ybj.pojo.YbjAccount;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 @SpringBootTest
@@ -26,5 +28,15 @@ public class AccountAppMapperTest {
         Assertions.assertEquals(1, success);
         // restore data
         mapper.deleteAccountAppById(appId);
+    }
+
+    @Test
+    public void findAccountAppsByCidTest() {
+        AccountApp accountApp = new AccountApp(1L, 5L, 'C', 100000.00, "student", null);
+        List<AccountApp> expected = new ArrayList<>();
+        expected.add(accountApp);
+
+        List<AccountApp> actual = mapper.findAccountAppsByCid(5L);
+        Assertions.assertEquals(expected, actual);
     }
 }

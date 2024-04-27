@@ -4,7 +4,9 @@ import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import team.ybj.dto.ResponseResult;
+import team.ybj.dto.UserGetAppsResponse;
 import team.ybj.exception.AccountTypeException;
+import team.ybj.exception.NoDataException;
 import team.ybj.mappers.AccountAppMapper;
 import team.ybj.mappers.AccountMapper;
 import team.ybj.mappers.CheckingMapper;
@@ -12,6 +14,7 @@ import team.ybj.pojo.AccountApp;
 import team.ybj.pojo.YbjAccount;
 import team.ybj.service.ApplicationService;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +28,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     @Transactional
-    public Map<String, Long> applyForAccount(AccountApp accountApp) {
+    public Long applyForAccount(AccountApp accountApp) {
         // check if account already exist
         Character type = accountApp.getType();
         List<YbjAccount> accountsExists = accountMapper.getAccountsByCid(accountApp.getCid());
@@ -38,11 +41,28 @@ public class ApplicationServiceImpl implements ApplicationService {
         }
         int success = accountAppMapper.insertAccountApp(accountApp);
         if (success > 0) {
-            Map<String, Long> resultMap = new HashMap<>();
-            resultMap.put("appId", accountApp.getAppId());
-            return resultMap;
+            return accountApp.getAppId();
         } else {
             throw new RuntimeException("Application submission failed");
         }
     }
+
+    @Override
+    public List<UserGetAppsResponse> getUserApps(Long cid) {
+        List<AccountApp> accountApps = accountAppMapper.findAccountAppsByCid(cid);
+        if (accountApps == null || accountApps.isEmpty()) {
+            throw new NoDataException("No active applications found");
+        }
+        List<UserGetAppsResponse> userGetAppsResponses = new ArrayList<>();
+        for (AccountApp accountApp : accountApps) {
+            if (accountApp.getStatus() == null || accountApp.getStatus() == 'D') {
+                UserGetAppsResponse userGetAppsResponse =
+                        new UserGetAppsResponse(accountApp.getAppId(), accountApp.getType(), accountApp.getStatus());
+                userGetAppsResponses.add(userGetAppsResponse);
+            }
+        }
+        return userGetAppsResponses;
+    }
+
+
 }
