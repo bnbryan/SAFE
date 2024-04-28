@@ -4,6 +4,7 @@ import AccountsInfo from "./AccountsInfo";
 import {Card, Tabs} from "antd";
 import React from "react";
 import TabPane from "antd/lib/tabs/TabPane";
+import DepositForm from "./Deposit";
 const  HomePage=({ loggedIn, activeMenuKey, accountEmail })=>{
     /*
     根据
@@ -22,7 +23,7 @@ const  HomePage=({ loggedIn, activeMenuKey, accountEmail })=>{
                 case 'accountinfo':
                     return <AccountsInfo accountEmail={accountEmail}/>;
                 case 'deposit':
-                    return <div>to imp</div>
+                    return <DepositForm accountEmail={accountEmail}/>
                 case 'activityRecords':
                     return <div>to imp</div>
                 case 'allApplication':
