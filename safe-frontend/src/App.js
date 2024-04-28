@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Layout, message} from 'antd';
 import PageHeader from "./Components/PageHeader";
 import {logout} from "./utils";
@@ -27,6 +27,13 @@ function App() {
         这里要做的事是获取所有的账户信息，
          */
     }
+    useEffect(() => {
+        if (accountEmail) {
+            console.log(accountEmail); // This will log the updated email
+            // You can also perform any actions that depend on the updated accountEmail here
+        }
+    }, [accountEmail]); // Depend on accountEmail to rerun this effect
+
 
 
     const signoutOnClick = () => {
@@ -61,7 +68,7 @@ function App() {
                             overflow: 'auto'
                         }}
                     >
-                        <HomePage activeMenuKey={selectedKey}/>
+                        <HomePage activeMenuKey={selectedKey} loggedIn={loggedIn} accountEmail={accountEmail}/>
                     </Content>
                 </Layout>
             </Layout>

@@ -238,6 +238,69 @@ Fail:
 
 
 
+#### Get /account/app/{cid}
+
+​	Response
+
+​	success
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data": {
+        "userApps": [
+            {
+                "appId": 1,
+                "type": "C",
+                "status": null
+            }
+        ]
+    }
+}
+```
+
+​	fail
+
+```json
+{
+    "code": 422,
+    "msg": "exception handler: no data exception",
+    "data": "No active applications found"
+}
+```
+
+
+
+#### POST /account/app
+
+Request
+
+```json
+{
+    "cid": 8,
+    "type": "C",
+    "income": 10000.00,
+    "career": "student"
+}
+```
+
+​	Response
+
+​	success
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data": {
+        "appId": 14
+    }
+}
+```
+
+
+
 #### POST admin/login
 
 ​	Request
@@ -251,6 +314,8 @@ Fail:
 
 ​	Response
 
+​	success
+
 ```json
 {
     "code": 200,
@@ -261,7 +326,27 @@ Fail:
 }
 ```
 
+#### POST admin/app/reject
 
+​	Request
+
+```json
+{
+    "appId":2
+}
+```
+
+​	Response
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data": {
+        "rejectedApp": 2
+    }
+}
+```
 
 
 

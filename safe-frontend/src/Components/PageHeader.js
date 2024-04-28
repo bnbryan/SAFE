@@ -9,6 +9,13 @@ const { Header } = Layout
 
 
 function PageHeader({ loggedIn, signoutOnClick, signinOnSuccess }) {
+    const securityQuestions = [
+        "What's your mother's name",
+        "What was the name of your first pet",
+        "What city were you born in",
+        "What's the name of your childhood friend",
+        "What was the model of your first car"
+    ];
     return (
         <Header>
             <Row justify="space-between">
@@ -24,8 +31,8 @@ function PageHeader({ loggedIn, signoutOnClick, signinOnSuccess }) {
                     {!loggedIn && (
                         <>
                             <Login onSuccess={signinOnSuccess} />
-                            <Register />
-                            <PasswordReset/>
+                            <Register securityQuestions={securityQuestions}/>
+                            <PasswordReset securityQuestions={securityQuestions}/>
                         </>
                     )}
                 </Col>

@@ -1,10 +1,11 @@
 import React, {useState} from "react";
-import {Button, Form, Input, message, Modal} from "antd";
+import {Button, Form, Input, message, Modal, Select} from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import {passwordReset} from '../utils'
 
 
-function PasswordReset(){
+function PasswordReset({securityQuestions}){
+    const { Option } = Select;
     const [displayModal, setDisplayModal] = useState(false)
 
 
@@ -62,10 +63,15 @@ function PasswordReset(){
                     name="securityQuestion"
                     rules={[{ required: true, message: 'Please input your security question!' }]}
                 >
-                    <Input.Password
-                        prefix={<LockOutlined />}
-                        placeholder="security question"
-                    />
+                    <Select
+                        placeholder="Select a security question"
+                        style={{ width: `100%` }}
+                        allowClear
+                    >
+                        {securityQuestions.map((question, index) => (
+                            <Option key={index} value={question}>{question}</Option>
+                        ))}
+                    </Select>
                 </Form.Item>
                 <Form.Item
                     name="answer"

@@ -14,5 +14,13 @@
         delete from account_app where app_id=#{appId}
     </delete>
 
+    <select id="findAccountAppsByCid" resultType="team.ybj.pojo.AccountApp">
+        select * from account_app where cid=#{cid}
+    </select>
+
+    <update id="updateAccountAppStatus">
+        update account_app set status=#{status} where app_id=#{appId}
+    </update>
+
 
 </mapper>

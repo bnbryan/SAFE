@@ -5,11 +5,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-import team.ybj.dto.ResponseResult;
 import team.ybj.exception.LoginException;
 import team.ybj.mappers.AdminMapper;
 import team.ybj.pojo.LoginAdmin;
-import team.ybj.pojo.LoginUser;
 import team.ybj.pojo.YbjAdmin;
 import team.ybj.service.AdminService;
 import team.ybj.utils.JwtUtil;
@@ -36,8 +34,8 @@ public class AdminServiceImpl implements AdminService {
             throw new LoginException("Username or password is incorrect/invalid");
         }
         LoginAdmin loginAdmin = (LoginAdmin) authenticate.getPrincipal();
-        String cemail = loginAdmin.getAdmin().getUsername();
-        String jwt = JwtUtil.generateToken(cemail);
+        String id = loginAdmin.getAdmin().getUsername();
+        String jwt = JwtUtil.generateToken(id);
         Map<String, String> jwtMap = new HashMap<>();
         jwtMap.put("token", jwt);
         return jwtMap;

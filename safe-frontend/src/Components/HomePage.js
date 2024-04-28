@@ -1,21 +1,39 @@
 import WithdrawForm from "./WithdrawForm";
 import TransferForm from "./TransferForm";
+import AccountsInfo from "./AccountsInfo";
 import {Card, Tabs} from "antd";
 import React from "react";
 import TabPane from "antd/lib/tabs/TabPane";
-const  HomePage=({ activeMenuKey })=>{
+const  HomePage=({ loggedIn, activeMenuKey, accountEmail })=>{
     /*
     根据
      */
     const renderContent = (key) => {
-        switch (key) {
-            case 'withdraw':
-                return <WithdrawForm/>;
-            case 'transfer':
-                return <TransferForm/>;
-            // ...更多case...
-            default:
-                return <div>Select a service from the sider</div>;
+        if(!loggedIn) {
+            return <div>Please log in or register to get start!</div>
+        }
+        else {
+            switch (key) {
+                case 'withdraw':
+                    return <WithdrawForm accountEmail={accountEmail}/>;
+                case 'transfer':
+                    return <TransferForm accountEmail={accountEmail}/>;
+                // ...更多case...
+                case 'accountinfo':
+                    return <AccountsInfo accountEmail={accountEmail}/>;
+                case 'deposit':
+                    return <div>to imp</div>
+                case 'activityRecords':
+                    return <div>to imp</div>
+                case 'allApplication':
+                    return <div>to imp</div>
+                case 'userInfo':
+                    return <div>to imp</div>
+                case 'application':
+                    return <div>to imp</div>
+                default:
+                    return <AccountsInfo accountEmail={accountEmail}/>;
+            }
         }
     }
     return(
