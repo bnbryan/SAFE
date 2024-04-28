@@ -2,6 +2,7 @@ package team.ybj.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import team.ybj.dto.RegRequest;
 import team.ybj.dto.ResponseResult;
 import team.ybj.exception.*;
 import team.ybj.pojo.*;
@@ -26,6 +27,8 @@ public class UserController {
     @Autowired
     DelAccService DelAccService;
 
+    @Autowired
+    RecordService recordService;
 
     @PostMapping("login")
     @ResponseBody
@@ -35,13 +38,13 @@ public class UserController {
 
     @PostMapping("register")
     @ResponseBody
-    public ResponseResult reg(@RequestBody YbjCustomer customer) {
+    public ResponseResult reg(@RequestBody RegRequest regRequest) {
         ResponseResult responseResult = new ResponseResult<>();
         try {
-            responseResult = regService.reg(customer);
+            responseResult = regService.reg(regRequest);
         }catch (UsernameDuplicatedException e){
             responseResult = new ResponseResult(400, "Duplicate username", 1);
-        }catch (RuntimeException e) {
+        }catch (ServiceException e) {
             responseResult = new ResponseResult(401, "Register failed for some unknown reason", 1);
         }
         return responseResult;
@@ -73,6 +76,20 @@ public class UserController {
             responseResult = new ResponseResult(400, "No Account Found", 0);
         }catch (ServiceException e) {
             responseResult = new ResponseResult(400, "Something went wrong when trying to delete account", 0);
+        }
+        return responseResult;
+    }
+
+    @GetMapping("records")
+    @ResponseBody
+    public ResponseResult ListRe(@RequestParam("email") String email) {
+        ResponseResult responseResult;
+        try {
+            responseResult = recordService.ListRe(email);
+        }catch (LackBalanceException e){
+            responseResult = new ResponseResult(400, "Balance not enough", 0);
+        }catch (ServiceException e) {
+            responseResult = new ResponseResult(400, "Something went wrong when withdrawing", 0);
         }
         return responseResult;
     }

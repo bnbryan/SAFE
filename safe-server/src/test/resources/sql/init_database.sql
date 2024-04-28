@@ -71,7 +71,7 @@ ALTER TABLE ybj_customer ADD UNIQUE (cemail);
 
 CREATE TABLE ybj_record (
                             rid BIGINT NOT NULL COMMENT 'Record''s id',
-                            anum BIGINT NOT NULL COMMENT 'From some account',
+                            anum BIGINT COMMENT 'From some account',
                             toanum BIGINT COMMENT 'To some account',
                             ratype   VARCHAR(4) NOT NULL,
                             ramount DECIMAL(10, 2) NOT NULL COMMENT 'Transfer amount',
@@ -119,6 +119,24 @@ CREATE TABLE ybj_loan (
                           `uID`        BIGINT,
                           atype        VARCHAR(4) NOT NULL,
                           lvalid       VARCHAR(1) NOT NULL COMMENT 'Loan status valid or not'
+);
+
+CREATE TABLE ybj_loan_app (
+                          cid         BIGINT NOT NULL COMMENT 'customer number',
+                          lrate        DECIMAL(4, 2) NOT NULL COMMENT 'Loan rate',
+                          lamount      DECIMAL(10, 2) NOT NULL COMMENT 'Loan amount',
+                          lmonths      SMALLINT NOT NULL COMMENT 'Loan months',
+                          lpayment     DECIMAL(10, 2) NOT NULL COMMENT 'Loan payment',
+                          ltype        VARCHAR(4) NOT NULL COMMENT 'Loan type',
+                          hyear        DATETIME,
+                          hinsurance   DECIMAL(20) COMMENT 'Home insurance account number',
+                          laiaccount      BIGINT COMMENT 'Insurance account number',
+                          lacomname       VARCHAR(30) COMMENT 'Insurance company''s name',
+                          ipremium      DECIMAL(10, 2) COMMENT 'Yearly insurance premium',
+                          stuid        VARCHAR(10) COMMENT 'Student id',
+                          stutype      VARCHAR(1) COMMENT 'Student''s type. Grad or undergrad.',
+                          stugraddate  DATETIME COMMENT 'Graduation date.',
+                          lavalid       VARCHAR(1) NOT NULL COMMENT 'Loan application status valid or not'
 );
 
 ALTER TABLE ybj_loan
@@ -239,11 +257,14 @@ ALTER TABLE ybj_savings
 ALTER TABLE ybj_record
      ADD CONSTRAINT ybj_record_anum_fk FOREIGN KEY (anum)
         REFERENCES ybj_account (anum);
+
 ALTER TABLE ybj_record
     ADD CONSTRAINT ybj_record_toanum_fk FOREIGN KEY (toanum)
         REFERENCES ybj_account (anum);
 
-
+ALTER TABLE ybj_loan_app
+    ADD CONSTRAINT ybj_loan_app_cid_fk FOREIGN KEY (cid)
+        REFERENCES ybj_customer (cid);
 
 
 ALTER TABLE ybj_savings

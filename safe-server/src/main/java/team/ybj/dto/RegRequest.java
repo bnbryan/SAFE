@@ -1,23 +1,24 @@
-package team.ybj.pojo;
+package team.ybj.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class YbjCustomer {
-    private Long cid;
+public class RegRequest {
+
     private String clname;
     private String cfname;
     private String cemail;
     private String cpassword;
     private String securityQuestion;
-    @JsonProperty("answer")
-    private String securityAnswer;
-    @JsonProperty("valid")
-    private String cvalid;
+    private String answer;
+    private String valid;
+    private String adstreet;
+    private String adcity;
+    private String adstate;
+    private String adapt;
+    private String adzip;
 }

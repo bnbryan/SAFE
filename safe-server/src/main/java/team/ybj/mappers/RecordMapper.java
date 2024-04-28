@@ -19,6 +19,9 @@ public interface RecordMapper {
     @Select("SELECT * FROM ybj_record WHERE anum = #{anum}")
     List<YbjRecord> getRecordByAcc(Long anum);
 
+    @Select("SELECT * FROM ybj_record WHERE toanum = #{toanum}")
+    List<YbjRecord> getRecordByToAcc(Long toanum);
+
     @Delete("DELETE FROM ybj_record WHERE rid = #{rid}")
     int deleteRecordByRid(Long rid);
 }

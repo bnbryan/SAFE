@@ -46,4 +46,7 @@ public interface CustomerMapper {
 
     @Select("SELECT * from ybj_customer WHERE cemail = #{email}")
     YbjCustomer getCustomerByEmail(@Param("email")String email);
+
+    @Select("SELECT LAST_INSERT_ID()")
+    Long getLastInsertId();
 }

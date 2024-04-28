@@ -1,6 +1,7 @@
 package team.ybj.mappers;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import team.ybj.pojo.YbjAddress;
 
 public interface AddressMapper {
@@ -12,5 +13,8 @@ public interface AddressMapper {
     int updateAddressByAdid(@Param("adid") Long adid, @Param("address") YbjAddress address);
 
     int deleteAddressByAdid(Long adid);
+
+    @Select("SELECT LAST_INSERT_ID()")
+    Long getLastInsertId();
 
 }
