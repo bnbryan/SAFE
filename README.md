@@ -55,13 +55,18 @@ Lombok: 1.18.30
 
 ```json
 {
-    "clname":"last name",
-    "cfname":"first name",
+    "clname":"first name",
+    "cfname":"last name",
     "cemail":"email address",
     "cpassword":"password",
     "securityQuestion":"question",
     "answer":"answer",
-    "valid":1
+    "valid":1,
+    "adstreet":"street",
+    "adcity":"city",
+    "adstate":"state",
+    "adapt":"apt",
+    "adzip":12332
 }
 ```
 
@@ -107,11 +112,36 @@ F:
 }
 ```
 
-#### POST /users/passreset
+#### GET /users/record
+
+```
+email=123@gmail.com
+```
+
+Response
 
 ```
 {
-	"cemail":"email"
+    "code": 200,
+    "msg": "Query success",
+    "data": [
+        {
+            "rid": 1,
+            "anum": 1,
+            "toanum": 2,
+            "ratype": "C",
+            "ramount": 1500.0,
+            "rtime": "2023-09-01T14:30:00"
+        },
+        {
+            "rid": 6,
+            "anum": null,
+            "toanum": 1,
+            "ratype": "C",
+            "ramount": 10.0,
+            "rtime": "2024-04-27T10:06:47"
+        }
+    ]
 }
 ```
 
@@ -147,11 +177,9 @@ Checking and saving all use this one.
 
 ```json
 {
-
     "anum":anum,
     "atype":"type",
     "abalance":balance
-
 }
 ```
 

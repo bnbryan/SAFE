@@ -47,6 +47,8 @@ public class TransactionController {
     @ResponseBody
     public ResponseResult<Double> deposit(@RequestBody DepositRequest depositRequest) {
         Double currentBalance = depositService.deposit(depositRequest);
+        recordService.AddRe(null, depositRequest.getAccountNum(),
+                null,depositRequest.getAmount());
         return new ResponseResult<>(200, "deposit success", currentBalance);
     }
 
