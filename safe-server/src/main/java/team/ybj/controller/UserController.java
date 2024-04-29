@@ -1,15 +1,13 @@
 package team.ybj.controller;
 
-import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import team.ybj.dto.CustomerBasic;
+import team.ybj.dto.RegRequest;
 import team.ybj.dto.ResponseResult;
 import team.ybj.exception.*;
 import team.ybj.pojo.*;
 import team.ybj.service.*;
 
-import java.util.HashMap;
 import java.util.Map;
 
 
@@ -29,9 +27,8 @@ public class UserController {
     @Autowired
     DelAccService DelAccService;
 
-    @Resource
-    UserService userService;
-
+    @Autowired
+    RecordService recordService;
 
     @PostMapping("login")
     @ResponseBody
@@ -41,13 +38,13 @@ public class UserController {
 
     @PostMapping("register")
     @ResponseBody
-    public ResponseResult reg(@RequestBody YbjCustomer customer) {
+    public ResponseResult reg(@RequestBody RegRequest regRequest) {
         ResponseResult responseResult = new ResponseResult<>();
         try {
-            responseResult = regService.reg(customer);
+            responseResult = regService.reg(regRequest);
         }catch (UsernameDuplicatedException e){
             responseResult = new ResponseResult(400, "Duplicate username", 1);
-        }catch (RuntimeException e) {
+        }catch (ServiceException e) {
             responseResult = new ResponseResult(401, "Register failed for some unknown reason", 1);
         }
         return responseResult;
@@ -83,14 +80,17 @@ public class UserController {
         return responseResult;
     }
 
-    @GetMapping("email/{email}")
+    @GetMapping("records")
     @ResponseBody
-    public ResponseResult<Map<String, CustomerBasic>> getEmail(@PathVariable("email") String email) {
-        CustomerBasic customer = userService.findCustomerByEmail(email);
-        Map<String, CustomerBasic> data = new HashMap<>();
-        data.put("customer", customer);
-        return new ResponseResult<>(200, "OK", data);
+    public ResponseResult ListRe(@RequestParam("email") String email) {
+        ResponseResult responseResult;
+        try {
+            responseResult = recordService.ListRe(email);
+        }catch (LackBalanceException e){
+            responseResult = new ResponseResult(400, "Balance not enough", 0);
+        }catch (ServiceException e) {
+            responseResult = new ResponseResult(400, "Something went wrong when withdrawing", 0);
+        }
+        return responseResult;
     }
-
-
 }

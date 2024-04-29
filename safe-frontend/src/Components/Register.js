@@ -133,6 +133,38 @@ function Register({securityQuestions}) {
                     >
                         <Input placeholder = "answer"/>
                     </Form.Item>
+                    <Form.Item
+                        name="adstreet"
+                        rules={[{ required: true, message: 'Please input your street!' }]}
+                    >
+                        <Input
+                            placeholder="street"
+                        />
+                    </Form.Item>
+                    <Form.Item
+                        name="adcity"
+                        rules={[{ required: true, message: 'Please input your city!' }]}
+                    >
+                        <Input
+                            placeholder="city"
+                        />
+                    </Form.Item>
+                    <Form.Item
+                        name="adstate"
+                        rules={[{ required: true, message: 'Please input your state!' }]}
+                    >
+                        <Input
+                            placeholder="state"
+                        />
+                    </Form.Item>
+                    <Form.Item
+                        name="adzip"
+                        rules={[{ required: true, message: 'Please input your zip code!' }]}
+                    >
+                        <Input
+                            placeholder="zipcode"
+                        />
+                    </Form.Item>
                     <Form.Item>
                         <Button type="primary" htmlType="submit">
                             Register

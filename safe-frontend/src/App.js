@@ -4,6 +4,7 @@ import PageHeader from "./Components/PageHeader";
 import {logout} from "./utils";
 import PageSider from "./Components/PageSider";
 import HomePage from "./Components/HomePage";
+import WelcomePage from "./Components/WelcomePage";
 
 
 const { Header, Content, Sider } = Layout;
@@ -13,6 +14,7 @@ function App() {
     const [loggedIn, setLoggedIn] = useState(false)
     const [selectedKey, setSelectedKey] = useState('')
     const [accountEmail, setAccountEmail] = useState("")
+    const [adminLoggedIn,setAdminLoggedIn] = useState(false)
     const handleMenuClick = (key) => {
         console.log(key)
         setSelectedKey(key);
@@ -37,8 +39,11 @@ function App() {
 
 
     const signoutOnClick = () => {
-        message.success("to imp")
+
         setLoggedIn(false)
+        setAccountEmail("")
+        setAdminLoggedIn(false)
+        message.success("Logged Out!")
        /* logout().then(() => {
 
             message.success('Successfully Signed out')
@@ -54,11 +59,19 @@ function App() {
                              signoutOnClick={signoutOnClick}
                              signinOnSuccess={signinOnSuccess}></PageHeader>
             </Header>
-            <Layout>
+            {/* to imp  welcomepage*/}
+            {!loggedIn?
+                (WelcomePage):(
+                <Layout>
                 <Sider width={300} className="site-layout-background">
-                   <PageSider onMenuClick={handleMenuClick}></PageSider>
+                    {adminLoggedIn ? (
+                        <div> to imp</div>
+                    ) : (
+
+                        <PageSider onMenuClick={handleMenuClick}></PageSider>
+                    )}
                 </Sider>
-                <Layout style={{ padding: '24px' }}>
+                <Layout style={{padding: '24px'}}>
                     <Content
                         className="site-layout-background"
                         style={{
@@ -68,10 +81,15 @@ function App() {
                             overflow: 'auto'
                         }}
                     >
-                        <HomePage activeMenuKey={selectedKey} loggedIn={loggedIn} accountEmail={accountEmail}/>
+                        {adminLoggedIn ? (
+                            <div> to imp</div>
+                        ) : (
+                            <HomePage activeMenuKey={selectedKey} loggedIn={loggedIn} accountEmail={accountEmail}/>
+                        )
+                        }
                     </Content>
                 </Layout>
-            </Layout>
+            </Layout>)}
         </Layout>
     )
 }
