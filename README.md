@@ -202,6 +202,31 @@ Response
 }
 ```
 
+
+
+#### POST /transactions/deposit
+
+​	Request
+
+```json
+{
+    "accountNum":1,
+    "amount": 100.00
+}
+```
+
+​	Response
+
+```json
+{
+    "code": 200,
+    "msg": "deposit success",
+    "data": 2400.0
+}
+```
+
+
+
 #### POST /transactions/withdraw
 
 Checking and saving all use this one.
