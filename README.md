@@ -24,7 +24,7 @@ Lombok: 1.18.30
 
 ### API
 
-#### POST /users/email/{email}
+#### GET /users/email/{email}
 
 ​	Response
 
