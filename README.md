@@ -24,6 +24,39 @@ Lombok: 1.18.30
 
 ### API
 
+#### POST /users/email/{email}
+
+​	Response
+
+success
+
+```json
+{
+    "code": 200,
+    "msg": "OK",
+    "data": {
+        "customer": {
+            "cid": 1,
+            "clname": "Smith",
+            "cfname": "John",
+            "cemail": "123@gmail.com"
+        }
+    }
+}
+```
+
+fail
+
+```json
+{
+    "code": 422,
+    "msg": "exception handler: no data exception",
+    "data": "Can't find customer by email: 478677878@gmail.com"
+}
+```
+
+
+
 #### POST /users/login
 
 ​	*Request*
