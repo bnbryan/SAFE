@@ -26,17 +26,17 @@ const PageSider = ({ onMenuClick }) => {
                 onClick={handleMenuClick}
             >
                 <SubMenu key="Accounts" icon={<AccountBookOutlined/>} title="Accounts">
-                    <Menu.Item key="accountinfo">accounts Infomation</Menu.Item>
+                    <Menu.Item key="accountinfo">Accounts Infomation</Menu.Item>
                     <Menu.Item key="application">New Application</Menu.Item>
                     <Menu.Item key="allApplication">View Applications</Menu.Item>
                 </SubMenu>
                 <SubMenu key="Transaction" icon={<TransactionOutlined />} title="Transaction">
-                    <Menu.Item key="withdraw">withdraw</Menu.Item>
-                    <Menu.Item key="transfer">transfer</Menu.Item>
-                    <Menu.Item key="deposit">deposit</Menu.Item>
+                    <Menu.Item key="withdraw">Withdraw</Menu.Item>
+                    <Menu.Item key="transfer">Transfer</Menu.Item>
+                    <Menu.Item key="deposit">Deposit</Menu.Item>
                 </SubMenu>
                 <SubMenu key="Record" icon={<BookOutlined />} title="Record">
-                    <Menu.Item key="activityRecords">activities </Menu.Item>
+                    <Menu.Item key="activityRecords">Activities </Menu.Item>
                 </SubMenu>
                 <SubMenu key="User" icon={<UserOutlined />} title="User">
                     <Menu.Item key="userInfo"> User Info</Menu.Item>

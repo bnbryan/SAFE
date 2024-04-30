@@ -24,6 +24,39 @@ Lombok: 1.18.30
 
 ### API
 
+#### GET /users/email/{email}
+
+​	Response
+
+success
+
+```json
+{
+    "code": 200,
+    "msg": "OK",
+    "data": {
+        "customer": {
+            "cid": 1,
+            "clname": "Smith",
+            "cfname": "John",
+            "cemail": "123@gmail.com"
+        }
+    }
+}
+```
+
+fail
+
+```json
+{
+    "code": 422,
+    "msg": "exception handler: no data exception",
+    "data": "Can't find customer by email: 478677878@gmail.com"
+}
+```
+
+
+
 #### POST /users/login
 
 ​	*Request*
@@ -169,6 +202,31 @@ Response
 }
 ```
 
+
+
+#### POST /transactions/deposit
+
+​	Request
+
+```json
+{
+    "accountNum":1,
+    "amount": 100.00
+}
+```
+
+​	Response
+
+```json
+{
+    "code": 200,
+    "msg": "deposit success",
+    "data": 2400.0
+}
+```
+
+
+
 #### POST /transactions/withdraw
 
 Checking and saving all use this one.
@@ -217,20 +275,40 @@ Fail:
     "msg": "success",
     "data": [
         {
-            "anum": 1,
-            "aname": "John Checking",
-            "adate": "2023-01-01T05:00:00.000+00:00",
+            "anum": 22,
+            "aname": "Emily Checking",
+            "date": "2024-03-06T05:00:00.000+00:00",
             "atype": "C",
-            "cid": 1,
-            "adid": 1
+            "cid": 2,
+            "adid": 2,
+            "balance": 6000.0,
+            "rate": null,
+            "charge": 30.0,
+            "loanType": null
         },
         {
-            "anum": 15,
-            "aname": "John Savings",
-            "adate": "2024-01-01T05:00:00.000+00:00",
+            "anum": 16,
+            "aname": "Emily Loan",
+            "date": "2024-01-20T05:00:00.000+00:00",
+            "atype": "L",
+            "cid": 2,
+            "adid": 2,
+            "balance": 130000.0,
+            "rate": 3.5,
+            "charge": null,
+            "loanType": "HOME"
+        },
+        {
+            "anum": 2,
+            "aname": "Emily Savings",
+            "date": "2023-02-01T05:00:00.000+00:00",
             "atype": "S",
-            "cid": 1,
-            "adid": 1
+            "cid": 2,
+            "adid": 2,
+            "balance": 52020.0,
+            "rate": 1.5,
+            "charge": null,
+            "loanType": null
         }
     ]
 }

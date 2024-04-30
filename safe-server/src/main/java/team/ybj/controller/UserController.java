@@ -1,13 +1,16 @@
 package team.ybj.controller;
 
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import team.ybj.dto.CustomerBasic;
 import team.ybj.dto.RegRequest;
 import team.ybj.dto.ResponseResult;
 import team.ybj.exception.*;
 import team.ybj.pojo.*;
 import team.ybj.service.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -29,6 +32,9 @@ public class UserController {
 
     @Autowired
     RecordService recordService;
+
+    @Resource
+    UserService userService;
 
     @PostMapping("login")
     @ResponseBody
@@ -92,5 +98,14 @@ public class UserController {
             responseResult = new ResponseResult(400, "Something went wrong when withdrawing", 0);
         }
         return responseResult;
+    }
+
+    @GetMapping("/email/{email}")
+    @ResponseBody
+    public ResponseResult<Map<String, CustomerBasic>> findCustomerByEmail(@PathVariable("email") String email) {
+        CustomerBasic customer = userService.findCustomerByEmail(email);
+        Map<String, CustomerBasic> data = new HashMap<>();
+        data.put("customer", customer);
+        return new ResponseResult<>(200, "OK", data);
     }
 }
