@@ -1,5 +1,6 @@
 package team.ybj.service;
 
+import team.ybj.dto.AccountDetail;
 import team.ybj.pojo.YbjAccount;
 
 import java.util.List;
@@ -10,6 +11,6 @@ public interface AccountService {
 
     List<YbjAccount> findAllAccounts(Long cid);
 
-    List<YbjAccount> findAllAccountsByEmail(String email);
+    List<AccountDetail> findAllAccountsByEmail(String email);
 
 }
