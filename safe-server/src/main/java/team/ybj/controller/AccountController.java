@@ -3,6 +3,7 @@ package team.ybj.controller;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import team.ybj.dto.AccountDetail;
 import team.ybj.dto.ResponseResult;
 import team.ybj.dto.UserGetAppsResponse;
 import team.ybj.pojo.AccountApp;
@@ -32,8 +33,8 @@ public class AccountController {
 
     @GetMapping("/all/{email}")
     @ResponseBody
-    public ResponseResult<List<YbjAccount>> getAllAccount(@PathVariable("email") String email) {
-        List<YbjAccount> allAccountsOfCustomer = accountService.findAllAccountsByEmail(email);
+    public ResponseResult<List<AccountDetail>> getAllAccount(@PathVariable("email") String email) {
+        List<AccountDetail> allAccountsOfCustomer = accountService.findAllAccountsByEmail(email);
         return new ResponseResult<>(200, "success", allAccountsOfCustomer);
     }
 

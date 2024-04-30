@@ -275,20 +275,40 @@ Fail:
     "msg": "success",
     "data": [
         {
-            "anum": 1,
-            "aname": "John Checking",
-            "adate": "2023-01-01T05:00:00.000+00:00",
+            "anum": 22,
+            "aname": "Emily Checking",
+            "date": "2024-03-06T05:00:00.000+00:00",
             "atype": "C",
-            "cid": 1,
-            "adid": 1
+            "cid": 2,
+            "adid": 2,
+            "balance": 6000.0,
+            "rate": null,
+            "charge": 30.0,
+            "loanType": null
         },
         {
-            "anum": 15,
-            "aname": "John Savings",
-            "adate": "2024-01-01T05:00:00.000+00:00",
+            "anum": 16,
+            "aname": "Emily Loan",
+            "date": "2024-01-20T05:00:00.000+00:00",
+            "atype": "L",
+            "cid": 2,
+            "adid": 2,
+            "balance": 130000.0,
+            "rate": 3.5,
+            "charge": null,
+            "loanType": "HOME"
+        },
+        {
+            "anum": 2,
+            "aname": "Emily Savings",
+            "date": "2023-02-01T05:00:00.000+00:00",
             "atype": "S",
-            "cid": 1,
-            "adid": 1
+            "cid": 2,
+            "adid": 2,
+            "balance": 52020.0,
+            "rate": 1.5,
+            "charge": null,
+            "loanType": null
         }
     ]
 }
