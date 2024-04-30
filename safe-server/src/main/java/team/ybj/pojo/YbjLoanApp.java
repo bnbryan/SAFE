@@ -11,12 +11,13 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class YbjLoanApp {
+    private Long laid;
     private Long cid;
     private Double lrate;
     private Double lamount;
     private Short lmonths;
     private Double lpayment;
-    private String ltype;
+    private Character ltype;
     private Date hyear;
     private Double hinsurance;
     private Long laiaccount;
@@ -25,6 +26,7 @@ public class YbjLoanApp {
     private String stuid;
     private Character stutype;
     private Date stugraddate;
-    private Character lvalid;
+    private String uname;
+    private Character lavalid;
 
 }

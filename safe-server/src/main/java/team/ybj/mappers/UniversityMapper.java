@@ -8,6 +8,8 @@ public interface UniversityMapper {
 
     int insertUniversity(YbjUniversity university);
 
+    YbjUniversity getUniversityByUname(String uname);
+
     int deleteUniversityByUid(Long uID);
 
 }

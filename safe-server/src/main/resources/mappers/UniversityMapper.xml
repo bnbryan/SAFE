@@ -9,6 +9,10 @@
         select * from ybj_university where uID = #{id}
     </select>
 
+    <select id="getUniversityByUname" resultType="YbjUniversity">
+        select * from ybj_university where uname = #{uname}
+    </select>
+
     <insert id="insertUniversity">
         insert into ybj_university(uID, uname) values(#{uID},#{uname})
     </insert>
