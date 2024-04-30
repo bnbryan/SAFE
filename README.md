@@ -24,6 +24,39 @@ Lombok: 1.18.30
 
 ### API
 
+#### GET /users/email/{email}
+
+​	Response
+
+success
+
+```json
+{
+    "code": 200,
+    "msg": "OK",
+    "data": {
+        "customer": {
+            "cid": 1,
+            "clname": "Smith",
+            "cfname": "John",
+            "cemail": "123@gmail.com"
+        }
+    }
+}
+```
+
+fail
+
+```json
+{
+    "code": 422,
+    "msg": "exception handler: no data exception",
+    "data": "Can't find customer by email: 478677878@gmail.com"
+}
+```
+
+
+
 #### POST /users/login
 
 ​	*Request*
@@ -55,13 +88,18 @@ Lombok: 1.18.30
 
 ```json
 {
-    "clname":"last name",
-    "cfname":"first name",
+    "clname":"first name",
+    "cfname":"last name",
     "cemail":"email address",
     "cpassword":"password",
     "securityQuestion":"question",
     "answer":"answer",
-    "valid":1
+    "valid":1,
+    "adstreet":"street",
+    "adcity":"city",
+    "adstate":"state",
+    "adapt":"apt",
+    "adzip":12332
 }
 ```
 
@@ -107,11 +145,36 @@ F:
 }
 ```
 
-#### POST /users/passreset
+#### GET /users/record
+
+```
+email=123@gmail.com
+```
+
+Response
 
 ```
 {
-	"cemail":"email"
+    "code": 200,
+    "msg": "Query success",
+    "data": [
+        {
+            "rid": 1,
+            "anum": 1,
+            "toanum": 2,
+            "ratype": "C",
+            "ramount": 1500.0,
+            "rtime": "2023-09-01T14:30:00"
+        },
+        {
+            "rid": 6,
+            "anum": null,
+            "toanum": 1,
+            "ratype": "C",
+            "ramount": 10.0,
+            "rtime": "2024-04-27T10:06:47"
+        }
+    ]
 }
 ```
 
@@ -139,6 +202,31 @@ F:
 }
 ```
 
+
+
+#### POST /transactions/deposit
+
+​	Request
+
+```json
+{
+    "accountNum":1,
+    "amount": 100.00
+}
+```
+
+​	Response
+
+```json
+{
+    "code": 200,
+    "msg": "deposit success",
+    "data": 2400.0
+}
+```
+
+
+
 #### POST /transactions/withdraw
 
 Checking and saving all use this one.
@@ -147,11 +235,9 @@ Checking and saving all use this one.
 
 ```json
 {
-
     "anum":anum,
     "atype":"type",
     "abalance":balance
-
 }
 ```
 
@@ -189,20 +275,40 @@ Fail:
     "msg": "success",
     "data": [
         {
-            "anum": 1,
-            "aname": "John Checking",
-            "adate": "2023-01-01T05:00:00.000+00:00",
+            "anum": 22,
+            "aname": "Emily Checking",
+            "date": "2024-03-06T05:00:00.000+00:00",
             "atype": "C",
-            "cid": 1,
-            "adid": 1
+            "cid": 2,
+            "adid": 2,
+            "balance": 6000.0,
+            "rate": null,
+            "charge": 30.0,
+            "loanType": null
         },
         {
-            "anum": 15,
-            "aname": "John Savings",
-            "adate": "2024-01-01T05:00:00.000+00:00",
+            "anum": 16,
+            "aname": "Emily Loan",
+            "date": "2024-01-20T05:00:00.000+00:00",
+            "atype": "L",
+            "cid": 2,
+            "adid": 2,
+            "balance": 130000.0,
+            "rate": 3.5,
+            "charge": null,
+            "loanType": "HOME"
+        },
+        {
+            "anum": 2,
+            "aname": "Emily Savings",
+            "date": "2023-02-01T05:00:00.000+00:00",
             "atype": "S",
-            "cid": 1,
-            "adid": 1
+            "cid": 2,
+            "adid": 2,
+            "balance": 52020.0,
+            "rate": 1.5,
+            "charge": null,
+            "loanType": null
         }
     ]
 }

@@ -26,7 +26,7 @@ function WithdrawForm({ accountEmail }) {
     const onFinish = async (values) => {
         try {
             await withdraw(values);
-            message.success('Withdrawal successful!');
+            message.success('Withdraw successful!');
             form.resetFields();
         } catch (err) {
             message.error(err.message);

@@ -6,6 +6,11 @@ import { allAccount, transfer } from '../utils';
 function TransferForm({ accountEmail }) {
     const [form] = Form.useForm();
     const [accounts, setAccounts] = useState([]);
+    const accountTypeMap = {
+        'S': 'Saving',
+        'L': 'Loan',
+        'C': 'Checking',
+    };
 
     useEffect(() => {
         async function fetchAccounts() {
@@ -15,7 +20,7 @@ function TransferForm({ accountEmail }) {
                     // Combine all accounts into one array
                     const allAccounts = result.data.map(account => ({
                         ...account,
-                        label: `${account.aname} - ${account.atype === 'C' ? 'Checking' : 'S' ? 'Saving' : 'Loan'}`,
+                        label: `${account.aname} - ${accountTypeMap[account.atype]}`,
                         value: account.anum,
                     }));
                     setAccounts(allAccounts); // Set combined accounts
@@ -45,10 +50,12 @@ function TransferForm({ accountEmail }) {
             name="transfer"
             onFinish={onFinish}
             preserve={false}
+            layout="vertical"
         >
             <Form.Item
                 name="fromAccountNum"
-                rules={[{ required: true, message: 'Please select your account!' }]}
+                label="From Account"
+                rules={[{ required: false, message: 'Please select your account!' }]}
             >
                 <Select
                     placeholder="Select Account"
@@ -62,26 +69,28 @@ function TransferForm({ accountEmail }) {
                 />
             </Form.Item>
             <Form.Item
-                shouldUpdate={(prevValues, currentValues) => prevValues.fromAccountNum !== currentValues.fromAccountNum}
+                shouldUpdate={(prevValues, currentValues) => prevValues.fromAccountType !== currentValues.fromAccountType}
                 noStyle
             >
                 {() => (
                     <Form.Item
                         name="fromAccountType"
                         rules={[{ required: true, message: 'Please input your account type!' }]}
+                        hidden
                     >
                         <Input
                             prefix={<CreditCardOutlined />}
                             placeholder="Account type"
                             disabled
-                            value={form.getFieldValue('fromAccountType')}
+                            value={accountTypeMap[form.getFieldValue('fromAccountType')] || ''}
                         />
                     </Form.Item>
                 )}
             </Form.Item>
             <Form.Item
                 name="toAccountNum"
-                rules={[{ required: true, message: 'Please input your receiver account number !' }]}
+                label="To Account"
+                rules={[{ required: false, message: 'Please input your receiver account number !' }]}
             >
                 <Input
                     prefix={<CreditCardOutlined />}
@@ -91,7 +100,8 @@ function TransferForm({ accountEmail }) {
 
             <Form.Item
             name="amount"
-            rules={[{ required: true, message: 'Please input your transfer amount!' }]}
+            label="Transfer Amount"
+            rules={[{ required: false, message: 'Please input your transfer amount!' }]}
         >
             <Input
                 prefix={<DollarOutlined />}

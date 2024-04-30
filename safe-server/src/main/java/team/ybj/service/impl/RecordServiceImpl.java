@@ -29,8 +29,7 @@ public class RecordServiceImpl implements RecordService {
 
 
     @Override
-    public ResponseResult ListRe(YbjCustomer customer) {
-        String email = customer.getCemail();
+    public ResponseResult ListRe(String email) {
         Long cid = customerMapper.getCustomerByEmail(email).getCid();
         List<YbjAccount> accounts = accountMapper.getAccountsByCid(cid);
         List<YbjRecord> records = new ArrayList<>();
@@ -38,6 +37,7 @@ public class RecordServiceImpl implements RecordService {
             List<YbjRecord> record = new ArrayList<>();
             if(RecordMapper.getRecordByAcc(account.getAnum())!=null){
             record.addAll(RecordMapper.getRecordByAcc(account.getAnum()));
+            record.addAll(RecordMapper.getRecordByToAcc(account.getAnum()));
             records.addAll(record);}
         }
         return new ResponseResult(200, "Query success", records);
@@ -45,11 +45,13 @@ public class RecordServiceImpl implements RecordService {
 
     @Override
     public int AddRe(Long anum, Long toanum, String ratype, Double ramount) {
-         LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
         LocalDateTime formattedDateTime = LocalDateTime.parse(now.format(formatter));
+        if(ratype==null){
+            ratype = String.valueOf(accountMapper.getAccountById(toanum).getAtype());
+        }
         YbjRecord record = new YbjRecord(null, anum, toanum, ratype,ramount, formattedDateTime);
-        System.out.println(record);
         try{
             int success = RecordMapper.insertRecord(record);
         } catch(Exception e){throw new RuntimeException("Something went wrong when trying to insert record");}
