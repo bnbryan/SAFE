@@ -10,6 +10,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ApproveAccountRequest {
+    // *
     private Long appId;
     private Long anum;
     private String aname;

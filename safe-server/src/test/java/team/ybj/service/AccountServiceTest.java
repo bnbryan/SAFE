@@ -2,14 +2,21 @@ package team.ybj.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 import team.ybj.dto.AccountDetail;
+import team.ybj.dto.ApproveAccountRequest;
+import team.ybj.mappers.AccountAppMapper;
+import team.ybj.mappers.CheckingMapper;
+import team.ybj.pojo.AccountApp;
 import team.ybj.pojo.YbjAccount;
 import team.ybj.service.impl.AccountServiceImpl;
 
+import java.util.Date;
 import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -22,6 +29,10 @@ public class AccountServiceTest {
     private AccountServiceImpl accountService;
     @Autowired
     private ObjectMapper objectMapper;
+    @Resource
+    private AccountAppMapper accountAppMapper;
+    @Autowired
+    private CheckingMapper checkingMapper;
 
 //    @Autowired
 //    private MockMvc mockMvc;
@@ -58,6 +69,22 @@ public class AccountServiceTest {
 
         String actualJson = objectMapper.writeValueAsString(accounts);
         Assertions.assertEquals(expectedJson, actualJson);
+
+    }
+
+    @Test
+    @Transactional
+    public void testInsertAccount() throws JsonProcessingException {
+        AccountApp app = new AccountApp(4L, 'C', 10000.00, "student");
+        accountAppMapper.insertAccountApp(app);
+        ApproveAccountRequest approveRequest = new ApproveAccountRequest(app.getAppId(), null, null,
+                'C', new Date(), app.getCid(), 4L, 10.00, null, null);
+
+        Long accountNum = accountService.insertAccount(approveRequest);
+        Assertions.assertNotNull(accountNum);
+
+        checkingMapper.deleteCheckingByAnum(accountNum);
+        accountAppMapper.deleteAccountAppById(app.getAppId());
 
     }
 
