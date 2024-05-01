@@ -10,9 +10,9 @@ import java.util.List;
 @Repository
 public interface LoanAppMapper {
     @Insert("INSERT INTO ybj_loan_app (cid, lrate, lamount, lmonths, lpayment, ltype, hyear, hinsurance, laiaccount, " +
-            "lacomname, ipremium, stuid, stutype, stugraddate, uname, lavalid)" + "VALUES (#{cid}, #{lrate}, #{lamount}, " +
+            "lacomname, ipremium,comname, stuid, stutype, stugraddate, uname, lavalid)" + "VALUES (#{cid}, #{lrate}, #{lamount}, " +
             "#{lmonths}, #{lpayment}, #{ltype}, #{hyear}, #{hinsurance}, #{laiaccount}, #{lacomname}, #{ipremium}, " +
-            "#{stuid}, #{stutype}, #{stugraddate},#{uname}, #{lavalid})")
+            "#{comname}, #{stuid}, #{stutype}, #{stugraddate},#{uname}, #{lavalid})")
     @Options(useGeneratedKeys = true, keyProperty = "laid")
     int insertLoanApp(YbjLoanApp loanApp);
 
@@ -25,6 +25,6 @@ public interface LoanAppMapper {
     @Select("SELECT * FROM ybj_loan_app WHERE laid=#{laid}")
     YbjLoanApp findLoanAppByLaid(Long laid);
 
-    @Update("UPDATE ybj_laon_app SET lvalid=#{lvalid} WHERE laid=#{laid}")
-    int updateLoanAppStatus(Long laid, Character lvalid);
+    @Update("UPDATE ybj_loan_app SET lavalid=#{lavalid} WHERE laid=#{laid}")
+    int updateLoanAppStatus(Long laid, Character lavalid);
 }

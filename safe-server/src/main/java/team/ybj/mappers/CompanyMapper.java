@@ -17,6 +17,9 @@ public interface CompanyMapper {
     @Select("SELECT comid, comname, adid FROM ybj_company WHERE comid = #{comid}")
     YbjCompany getCompanyById(Long comid);
 
+    @Select("SELECT * FROM ybj_company WHERE comname = #{comname}")
+    YbjCompany getCompanyByCom(String comname);
+
     @Select("SELECT comid, comname, adid FROM ybj_company")
     List<YbjCompany> getAllCompany();
 

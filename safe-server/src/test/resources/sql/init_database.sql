@@ -134,6 +134,7 @@ CREATE TABLE ybj_loan_app (
                           laiaccount      BIGINT COMMENT 'Insurance account number',
                           lacomname       VARCHAR(30) COMMENT 'Insurance company''s name',
                           ipremium      DECIMAL(10, 2) COMMENT 'Yearly insurance premium',
+                          comname      VARCHAR(30) COMMENT 'company name',
                           stuid        VARCHAR(10) COMMENT 'Student id',
                           stutype      VARCHAR(1) COMMENT 'Student''s type. Grad or undergrad.',
                           stugraddate  DATETIME COMMENT 'Graduation date.',

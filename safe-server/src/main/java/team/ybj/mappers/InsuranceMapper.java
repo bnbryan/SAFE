@@ -16,6 +16,8 @@ public interface InsuranceMapper {
     @Select("SELECT * FROM ybj_insurance WHERE iid = #{iid}")
     YbjInsurance getInsuranceByLid(Long lid);
 
+    @Select("SELECT * FROM ybj_insurance WHERE iaccount = #{iaccount}")
+    YbjInsurance getInsuranceByAccount(Long account);
     // Read all
     @Select("SELECT * FROM ybj_insurance")
     List<YbjInsurance> getAllInsurance();
