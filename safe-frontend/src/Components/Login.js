@@ -1,7 +1,8 @@
 import { Button, Form, Input, message, Modal } from 'antd'
 import React, { useState } from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { login } from '../utils'
+import {getIdByEmail, login} from '../utils'
+
 
 
 function Login({ onSuccess }) {
@@ -22,9 +23,14 @@ function Login({ onSuccess }) {
         console.log(data)
         login(data)
             .then(() => {
-                setDisplayModal(false)
-                message.success(`Welcome back`)
-                onSuccess(data.cemail)
+                getIdByEmail(data.cemail).then((userInfo) => {
+                    setDisplayModal(false); // 关闭模态框
+                    message.success('Welcome back'); // 显示欢迎信息
+                    console.log(userInfo);
+                    onSuccess(data.cemail, userInfo.customer.cid); // 调用 onSuccess
+                }).catch((err) => {
+                    message.error('Error fetching account data: ' + err.message); // 错误处理
+                });
             }).catch((err) => {
             message.error(err.message)
         })

@@ -15,26 +15,31 @@ function App() {
     const [selectedKey, setSelectedKey] = useState('')
     const [accountEmail, setAccountEmail] = useState("")
     const [adminLoggedIn,setAdminLoggedIn] = useState(false)
+    const [userId,setUserId] = useState('')
     const handleMenuClick = (key) => {
         console.log(key)
         setSelectedKey(key);
     };
 
 
-    const signinOnSuccess = (email) => {
+    const signinOnSuccess = (email,id) => {
         setLoggedIn(true);
         setAccountEmail(email)
+        setUserId(id)
         console.log(accountEmail)
+        console.log(userId)
+
         /*
         这里要做的事是获取所有的账户信息，
          */
     }
     useEffect(() => {
         if (accountEmail) {
-            console.log(accountEmail); // This will log the updated email
+            console.log(accountEmail);
+            console.log(userId)// This will log the updated email
             // You can also perform any actions that depend on the updated accountEmail here
         }
-    }, [accountEmail]); // Depend on accountEmail to rerun this effect
+    }, [accountEmail,userId]); // Depend on accountEmail to rerun this effect
 
 
 
@@ -43,6 +48,8 @@ function App() {
         setLoggedIn(false)
         setAccountEmail("")
         setAdminLoggedIn(false)
+        setUserId("")
+        localStorage.removeItem("token")
         message.success("Logged Out!")
        /* logout().then(() => {
 
@@ -84,7 +91,7 @@ function App() {
                         {adminLoggedIn ? (
                             <div> to imp</div>
                         ) : (
-                            <HomePage activeMenuKey={selectedKey} loggedIn={loggedIn} accountEmail={accountEmail}/>
+                            <HomePage activeMenuKey={selectedKey} loggedIn={loggedIn} accountEmail={accountEmail} userId={userId}/>
                         )
                         }
                     </Content>

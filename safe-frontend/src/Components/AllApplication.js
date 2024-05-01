@@ -1,10 +1,33 @@
 import React, {useEffect, useState} from "react";
 import {allAccount, allApplication} from "../utils";
-import {message} from "antd";
+import {message, Table} from "antd";
 import { List, Card } from 'antd';
 
 function AllApplication({accountID}){
     const [applications, setApplications] = useState([]);
+    const accountTypeMap = {
+        'S': 'Saving',
+        'L': 'Loan',
+        'C': 'Checking',
+    };
+    const colomns =[
+        {
+            title: 'Application Number',
+            dataIndex: 'appid',
+            key: 'appid',
+        },
+        {
+            title: 'Account Type',
+            dataIndex: 'type',
+            key: 'appid',
+        },
+        {
+            title: 'Application Number',
+            dataIndex: 'appid',
+            key: 'appid',
+        },
+
+    ]
     useEffect(() => {
         async function fetchApplications() {
             try {
@@ -23,17 +46,7 @@ function AllApplication({accountID}){
     }, [accountID]);
 
     return (
-        <List
-            dataSource={applications}
-            renderItem={item => (
-                <List.Item>
-                    <Card title={`Application ID: ${item.appId}`}>
-                        <p>Type: {item.type}</p>
-                        <p>Status: {item.status || 'N/A'}</p>
-                    </Card>
-                </List.Item>
-            )}
-        />
+        <Table dataSource={applications} columns={colomns}></Table>
     );
 
 }

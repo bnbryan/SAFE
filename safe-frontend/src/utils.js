@@ -427,5 +427,30 @@ export const allActivites=(id)=>{
     });
 }
 
+export const getIdByEmail=(email)=>{
+    const token = getAuthToken();
+    return fetch(`safe/users/email/${email}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        },
+    }).then(response => {
+        if (!response.ok) {
+            console.log(response)
+            throw new Error('Network response was not ok');
 
+        }
+
+        return response.json();
+    }).then(json => {
+        if (json.code !== 200) {
+            throw new Error(json.message || "Failed to get informations, " + json.msg);
+        }
+        return json.data;
+    }).catch(error => {
+        console.error('There has been a problem with your get operation:', error);
+        throw error;
+    });
+}
 

@@ -5,15 +5,14 @@ import {Card, Tabs} from "antd";
 import React from "react";
 import TabPane from "antd/lib/tabs/TabPane";
 import DepositForm from "./Deposit";
-const  HomePage=({ loggedIn, activeMenuKey, accountEmail })=>{
+import userInfo from "./userInfo";
+import UserInfo from "./userInfo";
+import AllApplication from "./AllApplication";
+const  HomePage=({ loggedIn, activeMenuKey, accountEmail, userId})=>{
     /*
     根据
      */
     const renderContent = (key) => {
-        if(!loggedIn) {
-            return <div>Please log in or register to get start!</div>
-        }
-        else {
             switch (key) {
                 case 'withdraw':
                     return <WithdrawForm accountEmail={accountEmail}/>;
@@ -27,15 +26,14 @@ const  HomePage=({ loggedIn, activeMenuKey, accountEmail })=>{
                 case 'activityRecords':
                     return <div>to imp</div>
                 case 'allApplication':
-                    return <div>to imp</div>
+                    return <AllApplication accountID={userId}/>
                 case 'userInfo':
-                    return <div>to imp</div>
+                    return <UserInfo accountEmail={accountEmail}/>
                 case 'application':
                     return <div>to imp</div>
                 default:
                     return <AccountsInfo accountEmail={accountEmail}/>;
             }
-        }
     }
     return(
         <div>{renderContent(activeMenuKey)}</div>
