@@ -377,6 +377,10 @@ Request
 }
 ```
 
+POST /account/loanapp
+
+
+
 
 
 #### POST admin/login
@@ -403,6 +407,33 @@ Request
     }
 }
 ```
+
+POST admin/apploan/approve
+
+Request
+
+```
+{
+    "cid":2,
+    "lrate":2.3,
+    "lamount":1000,
+    "lmonths":60,
+    "lpayment":200.00,
+    "ltype":"S",        		//S for student or H for home
+    "hyear":"2023-09-01T14:30:00",   //only year needed
+    "hinsurance":21323,
+    "laiaccount":123423,
+    "lacomname":"HouseCover",
+    "ipremium":1232,
+    "stuid":123123,
+    "stutype":"U",				//U or G
+    "stugraddate":"2025-09-01T14:30:00",
+    "uname":"test",
+    "lavalid":"P"
+}
+```
+
+
 
 #### POST admin/app/reject
 

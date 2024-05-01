@@ -26,5 +26,6 @@ public interface InsuranceMapper {
     @Update("UPDATE ybj_insurance SET iaccount = #{iaccount}, ipremium = #{ipremium}, comid = #{comid} WHERE iid = #{iid}")
     int updateInsurance(YbjInsurance insurance);
 
+
     // Delete
 }

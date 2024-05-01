@@ -81,19 +81,19 @@ public class LoanApplicationServiceImpl implements LoanAppService {
     @Transactional
     public Long acceptLoanApp(Long laid) {
         YbjLoanApp loanApp = loanAppMapper.findLoanAppByLaid(laid);
+        Date currentDate = new Date();
+        Instant instant = currentDate.toInstant();
+        instant = instant.plus(-1, ChronoUnit.SECONDS); // 加上一秒
+        Date now = Date.from(instant);
         if(loanApp.getLtype() == 'S') {
-            Long uID = 0L;
+            Long uID;
             if(universityMapper.getUniversityByUname(loanApp.getUname()) == null){
-                YbjUniversity university = new YbjUniversity();
-                university.setUname(loanApp.getUname());
+                YbjUniversity university = new YbjUniversity(null, loanApp.getUname());
                 universityMapper.insertUniversity(university);
-                uID = university.getUID();
+                uID = universityMapper.getLastInsertId();
+            }else{
+                uID = universityMapper.getUniversityByUname(loanApp.getUname()).getUID();
             }
-            Date currentDate = new Date();
-            Instant instant = currentDate.toInstant();
-            instant = instant.plus(10, ChronoUnit.SECONDS); // 加上一秒
-            Date now = Date.from(instant);
-            System.out.println(now);
 
             YbjAccount account = new YbjAccount(null,
                         customerMapper.getCustomerByCid(loanApp.getCid()).getCfname()+" Loan", now,
@@ -106,28 +106,29 @@ public class LoanApplicationServiceImpl implements LoanAppService {
             try{loanMapper.insertLoan(loan);
             loanAppMapper.updateLoanAppStatus(laid, 'P');}
             catch(Exception e){throw new ServiceException(e.getMessage());}
-            return laid;
+            return anum;
         }
-        if(loanApp.getLtype() == 'H') {
+        else {
             if(insuranceMapper.getInsuranceByAccount(loanApp.getLaiaccount()) == null){
                 YbjInsurance insurance = new YbjInsurance(null, loanApp.getLaiaccount(), loanApp.getIpremium(),
-                        companyMapper.getCompanyByCom(loanApp.getComname()).getComid());
+                        companyMapper.getCompanyByCom(loanApp.getLacomname()).getComid());
+                insuranceMapper.insertInsurance(insurance);
                 YbjAccount account = new YbjAccount(null,
-                        customerMapper.getCustomerByCid(loanApp.getCid()).getCfname()+" Loan", new Date(),
+                        customerMapper.getCustomerByCid(loanApp.getCid()).getCfname()+" Loan", now,
                         'L', loanApp.getCid(), cusAddLinkMapper.getAddressIdsByCustomerId(loanApp.getCid()).get(0));
                 accountMapper.insertAccount(account);
                 Long anum = account.getAnum();
                 YbjLoan loan = new YbjLoan(anum, loanApp.getLrate(), loanApp.getLamount(), loanApp.getLmonths(),
                     loanApp.getLpayment(), "HOME", loanApp.getHyear(), loanApp.getHinsurance(), insurance.getIid(), null,
                     null, null, null, 'L', 'Y');
+                System.out.println(loan);
             try{loanMapper.insertLoan(loan);
             loanAppMapper.updateLoanAppStatus(laid, 'P');}
             catch(Exception e){throw new ServiceException(e.getMessage());}
-            return laid;
+            return anum;
             }else{
                 throw new ServiceException("Insurance already exist");
             }
         }
-        return laid;
     }
 }

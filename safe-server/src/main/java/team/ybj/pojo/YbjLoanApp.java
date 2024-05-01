@@ -23,7 +23,6 @@ public class YbjLoanApp {
     private Long laiaccount;
     private String lacomname;
     private Double ipremium;
-    private String comname;
     private String stuid;
     private Character stutype;
     private Date stugraddate;

@@ -67,7 +67,7 @@ public class AdminController {
         return new ResponseResult<>(200, "success", data);
     }
 
-    @PostMapping("/apploan/accept")
+    @PostMapping("/apploan/approve")
     @ResponseBody
     public ResponseResult<Map<String, Long>> acceptLoanApp(@RequestBody YbjLoanApp loanApp) {
         Long acceptedApp = loanAppService.acceptLoanApp(loanApp.getLaid());
