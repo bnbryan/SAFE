@@ -34,18 +34,18 @@ public class SavingMapperTest {
     public void insertSavingTest() {
         long ts1 = 1709701200;
         Random random = new Random();
-        Long anum = random.nextLong();
-        YbjAccount account = new YbjAccount(anum, "Ma Saving", new Date(ts1 * 1000), 'S', 12L, 3L);
+//        Long anum = random.nextLong();
+        YbjAccount account = new YbjAccount("Ma Saving", new Date(ts1 * 1000), 'S', 12L, 3L);
         int success = accountMapper.insertAccount(account);
         Assertions.assertEquals(1, success);
 
-        YbjSaving saving = new YbjSaving(anum, 1.4, 'S', 2300.00, 'Y');
+        YbjSaving saving = new YbjSaving(account.getAnum(), 1.4, 'S', 2300.00, 'Y');
         int savingSuccess = savingMapper.insertSaving(saving);
         Assertions.assertEquals(1, savingSuccess);
 
         // restore data
-        savingMapper.deleteSavingByAnum(anum);
-        accountMapper.deleteAccountByAnum(anum);
+        savingMapper.deleteSavingByAnum(account.getAnum());
+        accountMapper.deleteAccountByAnum(account.getAnum());
     }
 
     @Test

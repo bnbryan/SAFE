@@ -75,5 +75,15 @@ public class ApplicationServiceImpl implements ApplicationService {
         }
     }
 
+    @Override
+    public Long approveApp(Long appId) {
+        int success = accountAppMapper.updateAccountAppStatus(appId, 'P');
+        if (success > 0) {
+            return appId;
+        } else {
+            throw new ServiceException("Application status change failed");
+        }
+    }
+
 
 }
