@@ -426,7 +426,34 @@ Request
 }
 ```
 
+#### POST admin/app/approve
 
+​	Request
+
+```json
+{
+    "appId": 3,
+    "type": "C",
+    "adate": {% mock 'timestamp', 'ms' %},
+    "cid": 4,
+    "ccharge": 100.00
+}
+```
+
+​	Response
+
+success
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data": {
+        "ApprovedApp": 3,
+        "AccountNumber": 8944320536460720208
+    }
+}
+```
 
 ---
 

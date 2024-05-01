@@ -62,12 +62,12 @@ public class AccountMapperTest {
     public void insertAccountTest() {
         long ts1 = 1709701200;
         Random random = new Random();
-        long anum = random.nextLong();
-        YbjAccount account = new YbjAccount(anum, "John loan", new Date(ts1 * 1000), 'L', 1L, 1L);
+//        long anum = random.nextLong();
+        YbjAccount account = new YbjAccount("John loan", new Date(ts1 * 1000), 'L', 1L, 1L);
         int success = mapper.insertAccount(account);
         Assertions.assertEquals(1, success);
         // restore data
-        mapper.deleteAccountByAnum(anum);
+        mapper.deleteAccountByAnum(account.getAnum());
     }
 
     @Test

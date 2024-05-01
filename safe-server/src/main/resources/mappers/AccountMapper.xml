@@ -19,7 +19,7 @@
         where cemail = #{cemail};
     </select>
 
-    <insert id="insertAccount">
+    <insert id="insertAccount" useGeneratedKeys="true" keyProperty="anum">
         insert into ybj_account(anum, aname, adate, atype, cid, adid) values(#{anum},#{aname},#{adate},#{atype},#{cid},#{adid})
     </insert>
 
