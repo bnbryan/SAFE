@@ -72,7 +72,8 @@ public class AdminController {
     public ResponseResult<Map<String, Long>> acceptLoanApp(@RequestBody YbjLoanApp loanApp) {
         Long acceptedApp = loanAppService.acceptLoanApp(loanApp.getLaid());
         Map<String, Long> data = new HashMap<>();
-        data.put("acceptedApp", acceptedApp);
+        data.put("AccountNumber", acceptedApp);
+        data.put("ApprovedApp", loanApp.getLaid());
         return new ResponseResult<>(200, "success", data);
     }
 

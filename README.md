@@ -88,8 +88,8 @@ fail
 
 ```json
 {
-    "clname":"first name",
-    "cfname":"last name",
+    "clname":"last name",
+    "cfname":"first name",
     "cemail":"email address",
     "cpassword":"password",
     "securityQuestion":"question",
@@ -377,11 +377,45 @@ Request
 }
 ```
 
-POST /account/loanapp
+#### POST account/apploan
 
+Request
 
+```
+{
+    "cid":2,
+    "lrate":2.3,
+    "lamount":1000,
+    "lmonths":60,
+    "lpayment":200.00,
+    "ltype":"S",        				//S for student or H for home
+    "hyear":"2023-09-01T14:30:00",   	//only year needed, 其他随意
+    "hinsurance":21323,
+    "laiaccount":123423,
+    "lacomname":"HouseCover",			//公司名字只能选择，做一个下拉框，不能自己填
+    "ipremium":1232,
+    "stuid":123123,
+    "stutype":"U",						//U or G
+    "stugraddate":"2025-09-01T14:30:00",
+    "uname":"test",
+    "lavalid":"P"
+}
+```
 
+Response
 
+```
+{
+    "code": 200,
+    "msg": "success",
+    "data": {
+        "laid": 1
+    }
+}
+
+```
+
+#### 
 
 #### POST admin/login
 
@@ -408,32 +442,56 @@ POST /account/loanapp
 }
 ```
 
-POST admin/apploan/approve
+#### POST admin/apploan/approve
 
-Request
+​	Request
 
-```
+```json
 {
-    "cid":2,
-    "lrate":2.3,
-    "lamount":1000,
-    "lmonths":60,
-    "lpayment":200.00,
-    "ltype":"S",        		//S for student or H for home
-    "hyear":"2023-09-01T14:30:00",   //only year needed
-    "hinsurance":21323,
-    "laiaccount":123423,
-    "lacomname":"HouseCover",
-    "ipremium":1232,
-    "stuid":123123,
-    "stutype":"U",				//U or G
-    "stugraddate":"2025-09-01T14:30:00",
-    "uname":"test",
-    "lavalid":"P"
+    "laid": 3,
+}
+```
+
+​	Response
+
+success
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data": {
+        "ApprovedApp": 3,
+        "AccountNumber": 
+    }
 }
 ```
 
 
+
+#### POST admin/apploan/reject
+
+​	Request
+
+```json
+{
+    "laid":2
+}
+```
+
+​	Response
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data": {
+        "rejectedApp": 2
+    }
+}
+```
+
+#### 
 
 #### POST admin/app/reject
 
