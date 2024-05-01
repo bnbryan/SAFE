@@ -28,7 +28,7 @@ public class InsuranceMapperTest {
     @BeforeEach
     public void setUp() {
         // Create a test insurance record
-        testInsurance = new YbjInsurance(null, 123456789L, 100.00, 1L);
+        testInsurance = new YbjInsurance(null, 123456789L, new BigDecimal("100.00"), 1L);
         // Insert it into the database
         insuranceMapper.insertInsurance(testInsurance);
     }
@@ -54,7 +54,7 @@ public class InsuranceMapperTest {
     @Test
     public void testUpdate() {
         // Change some details of the insurance
-        YbjInsurance updated = new YbjInsurance(testInsurance.getIid(), 987654321L, 200.00, 2L);
+        YbjInsurance updated = new YbjInsurance(testInsurance.getIid(), 987654321L, new BigDecimal("200.00"), 2L);
         int result = insuranceMapper.updateInsurance(updated);
         assertTrue(result > 0);
 

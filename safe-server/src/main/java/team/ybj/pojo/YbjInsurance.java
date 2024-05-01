@@ -12,6 +12,6 @@ import java.math.BigDecimal;
 public class YbjInsurance {
     private Long iid;
     private Long iaccount;
-    private Double ipremium;
+    private BigDecimal ipremium;
     private Long comid;
 }

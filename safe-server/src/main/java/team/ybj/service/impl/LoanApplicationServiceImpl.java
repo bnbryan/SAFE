@@ -12,6 +12,7 @@ import team.ybj.mappers.*;
 import team.ybj.pojo.*;
 import team.ybj.service.LoanAppService;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -110,7 +111,7 @@ public class LoanApplicationServiceImpl implements LoanAppService {
         }
         else {
             if(insuranceMapper.getInsuranceByAccount(loanApp.getLaiaccount()) == null){
-                YbjInsurance insurance = new YbjInsurance(null, loanApp.getLaiaccount(), loanApp.getIpremium(),
+                YbjInsurance insurance = new YbjInsurance(null, loanApp.getLaiaccount(), BigDecimal.valueOf(loanApp.getIpremium()),
                         companyMapper.getCompanyByCom(loanApp.getLacomname()).getComid());
                 insuranceMapper.insertInsurance(insurance);
                 YbjAccount account = new YbjAccount(null,
@@ -121,7 +122,6 @@ public class LoanApplicationServiceImpl implements LoanAppService {
                 YbjLoan loan = new YbjLoan(anum, loanApp.getLrate(), loanApp.getLamount(), loanApp.getLmonths(),
                     loanApp.getLpayment(), "HOME", loanApp.getHyear(), loanApp.getHinsurance(), insurance.getIid(), null,
                     null, null, null, 'L', 'Y');
-                System.out.println(loan);
             try{loanMapper.insertLoan(loan);
             loanAppMapper.updateLoanAppStatus(laid, 'P');}
             catch(Exception e){throw new ServiceException(e.getMessage());}
