@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 import team.ybj.mappers.LoanMapper;
 import team.ybj.pojo.YbjAccount;
 import team.ybj.pojo.YbjLoan;
@@ -39,23 +40,22 @@ public class LoanMapperTest {
     }*/
 
     @Test
+    @Transactional
     public void insertLoanTest() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2025, Calendar.JUNE, 1, 0, 0, 0);  // 注意月份从0开始，所以6月是Calendar.JUNE
         Date date = calendar.getTime();
         long ts1 = 1709701200;
-        Random random = new Random();
-        Long anum = random.nextLong();
-        YbjAccount account = new YbjAccount(anum, "John Loan", new Date(ts1 * 1000), 'L', 1L, 3L);
+        YbjAccount account = new YbjAccount("John Loan", new Date(ts1 * 1000), 'L', 1L, 3L);
         int success = accountMapper.insertAccount(account);
         Assertions.assertEquals(1, success);
 
-        YbjLoan loan = new YbjLoan(anum, 5.7, 3000.00, (short) 50, 100.00, "STU", null, null, null,  "230230013", 'U', date, 3L, 'L', 'Y');
+        YbjLoan loan = new YbjLoan(account.getAnum(), 5.7, 3000.00, (short) 50, 100.00, "STU", null, null, null,  "230230013", 'U', date, 3L, 'L', 'Y');
         int success2 = loanMapper.insertLoan(loan);
         Assertions.assertEquals(1, success2);
         // restore data
         loanMapper.deleteLoanByAnum(loan.getAnum());
-        accountMapper.deleteAccountByAnum(anum);
+        accountMapper.deleteAccountByAnum(account.getAnum());
     }
 
     @Test

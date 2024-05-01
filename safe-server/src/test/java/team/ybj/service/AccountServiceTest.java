@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import team.ybj.dto.AccountDetail;
 import team.ybj.dto.ApproveAccountRequest;
 import team.ybj.mappers.AccountAppMapper;
+import team.ybj.mappers.AccountMapper;
 import team.ybj.mappers.CheckingMapper;
 import team.ybj.pojo.AccountApp;
 import team.ybj.pojo.YbjAccount;
@@ -33,6 +34,8 @@ public class AccountServiceTest {
     private AccountAppMapper accountAppMapper;
     @Autowired
     private CheckingMapper checkingMapper;
+    @Resource
+    private AccountMapper accountMapper;
 
 //    @Autowired
 //    private MockMvc mockMvc;
@@ -78,13 +81,15 @@ public class AccountServiceTest {
         AccountApp app = new AccountApp(4L, 'C', 10000.00, "student");
         accountAppMapper.insertAccountApp(app);
         ApproveAccountRequest approveRequest = new ApproveAccountRequest(app.getAppId(), null, null,
-                'C', new Date(), app.getCid(), 4L, 10.00, null, null);
+                'C', new Date(170408520), app.getCid(), 4L, 10.00, null, null);
 
         Long accountNum = accountService.insertAccount(approveRequest);
         Assertions.assertNotNull(accountNum);
 
         checkingMapper.deleteCheckingByAnum(accountNum);
         accountAppMapper.deleteAccountAppById(app.getAppId());
+        accountMapper.deleteAccountByAnum(accountNum);
+
 
     }
 

@@ -35,19 +35,19 @@ public class CheckingMapperTest {
     @Transactional
     public void insertCheckingTest() {
         long ts1 = 1709701200;
-        Random random = new Random();
-        Long anum = random.nextLong();
-        YbjAccount account = new YbjAccount(anum, "Michael Checking", new Date(ts1 * 1000), 'C', 3L, 3L);
+//        Random random = new Random();
+//        Long anum = random.nextLong();
+        YbjAccount account = new YbjAccount("Michael Checking", new Date(ts1 * 1000), 'C', 3L, 3L);
         int success = accountMapper.insertAccount(account);
         Assertions.assertEquals(1, success);
 
-        YbjChecking checking = new YbjChecking(anum, 25.00, 'C', 2300.00, 'Y');
+        YbjChecking checking = new YbjChecking(account.getAnum(), 25.00, 'C', 2300.00, 'Y');
         int checkingSuccess = checkingMapper.insertChecking(checking);
         Assertions.assertEquals(1, checkingSuccess);
 
         // restore data
-        checkingMapper.deleteCheckingByAnum(anum);
-        accountMapper.deleteAccountByAnum(anum);
+        checkingMapper.deleteCheckingByAnum(account.getAnum());
+        accountMapper.deleteAccountByAnum(account.getAnum());
     }
 
     @Test
