@@ -322,10 +322,10 @@ export const adminLogin = (data) => {
             throw error; // Re-throw the error to make sure the caller is aware of the failure
         });
 };
-const postAllicationURL = `${SERVER_ORIGIN}/safe/account/app`;
-export const postAllication = (data) => {
+const postApplicationURL = `${SERVER_ORIGIN}/safe/account/app`;
+export const postApplication = (data) => {
     const token = getAuthToken()
-    return fetch(adminLoginURL, {
+    return fetch(postApplicationURL, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
@@ -335,12 +335,14 @@ export const postAllication = (data) => {
         body: JSON.stringify(data),
     })
         .then(response => {
-            console.log(response)
-            // Check if the network response was ok
+            console.log(response);
             if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                return response.json().then(json => {
+                    // 显示更具体的错误信息
+                    throw new Error(json.message || 'Network response was not ok');
+                });
             }
-            return response.json(); // Parse the body of the response
+            return response.json();
         })
         .then(json => {
             console.log(json);
@@ -370,11 +372,12 @@ export const allApplication=(id)=>{
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
         },
+
     }).then(response => {
         console.log(response);
         // 检查网络响应是否ok
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
+        if (!response.ok&&response.status===422) {
+            throw new Error('You do not have any application');
         }
         return response.json(); // 解析响应体
 
@@ -382,21 +385,21 @@ export const allApplication=(id)=>{
         console.log(json);
         // 假设你需要检查响应中的某个状态码
         if (json.code === 200) {
-            console.log('Fetch applications success.');
+            console.log('Checking applications success.');
         } else {
             // 处理请求不成功的情况
-            throw Error(json.message || "Failed to fetch applications, " + json.msg);
+            throw Error(json.message || "Failed to checking applications, " + json.msg);
         }
         return json; // 继续处理响应的JSON数据
 
     }).catch(error => {
-        console.error('There has been a problem with your fetch operation:', error);
+        console.error('There has been a problem with your checking operation:', error);
         throw error; // 重新抛出错误，确保调用者知道失败
     });
 }
-export const allActivites=(id)=>{
+export const allActivites=(email)=>{
     const token = getAuthToken()
-    return fetch(`safe/account/app/${id}`, {
+    return fetch(`safe/users/record/${email}`, {
         method: 'GET', // GET请求方法
         headers: {
             'Content-Type': 'application/json',

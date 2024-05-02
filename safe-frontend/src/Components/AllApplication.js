@@ -10,31 +10,42 @@ function AllApplication({accountID}){
         'L': 'Loan',
         'C': 'Checking',
     };
-    const colomns =[
+    const columns = [
         {
-            title: 'Application Number',
-            dataIndex: 'appid',
-            key: 'appid',
+            title: 'App ID',
+            dataIndex: 'appId',
+            key: 'appId',
         },
         {
-            title: 'Account Type',
+            title: 'Type',
             dataIndex: 'type',
-            key: 'appid',
+            key: 'type',
+            render: type => accountTypeMap[type] || type
         },
         {
-            title: 'Application Number',
-            dataIndex: 'appid',
-            key: 'appid',
-        },
+            title: 'Status',
+            dataIndex: 'status',
+            key: 'status',
+            render: status => {
+                let color = 'black'; // 默认颜色
+                if (status === null) {
+                    color = 'gray'; // 灰色对应null
+                } else if (status === 'p') {
+                    color = 'green'; // 绿色对应'p'
+                } else if (status === 'd') {
+                    color = 'red'; // 红色对应'd'
+                }
+                return <span style={{ color }}>{status === null ? 'Pending' : status}</span>;
 
-    ]
+            }
+        },
+    ];
     useEffect(() => {
         async function fetchApplications() {
             try {
                 const result = await allApplication(accountID);
-                if (result.data && Array.isArray(result.data)){
                     setApplications(result.data.userApps)
-                }
+                    console.log(applications)
             }
             catch (err) {
                 message.error('Error fetching account data: ' + err.message);
@@ -46,7 +57,7 @@ function AllApplication({accountID}){
     }, [accountID]);
 
     return (
-        <Table dataSource={applications} columns={colomns}></Table>
+        <Table dataSource={applications} columns={columns} rowKey="appId" />
     );
 
 }

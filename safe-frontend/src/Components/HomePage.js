@@ -8,6 +8,8 @@ import DepositForm from "./Deposit";
 import userInfo from "./userInfo";
 import UserInfo from "./userInfo";
 import AllApplication from "./AllApplication";
+import AllActivities from "./AllActivities";
+import Application from "./Application";
 const  HomePage=({ loggedIn, activeMenuKey, accountEmail, userId})=>{
     /*
     根据
@@ -24,13 +26,13 @@ const  HomePage=({ loggedIn, activeMenuKey, accountEmail, userId})=>{
                 case 'deposit':
                     return <DepositForm accountEmail={accountEmail}/>
                 case 'activityRecords':
-                    return <div>to imp</div>
+                    return <AllActivities email={accountEmail}/>
                 case 'allApplication':
                     return <AllApplication accountID={userId}/>
                 case 'userInfo':
                     return <UserInfo accountEmail={accountEmail}/>
                 case 'application':
-                    return <div>to imp</div>
+                    return <Application accountID={userId}/>
                 default:
                     return <AccountsInfo accountEmail={accountEmail}/>;
             }
