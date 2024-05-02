@@ -36,7 +36,7 @@ public class TransactionController {
         int transfer = transferService.transfer(transferRequest);
         if (transfer > 0) {
             ResponseResult<Integer> successResult = new ResponseResult<>(200, "transfer success", transfer);
-            recordService.AddRe(30L, transferRequest.getToAccountNum(),
+           recordService.AddRe(transferRequest.getFromAccountNum(), transferRequest.getToAccountNum(),
                     String.valueOf(transferRequest.getFromAccountType()),transferRequest.getAmount());
             return ResponseEntity.ok(successResult);
         } else {
