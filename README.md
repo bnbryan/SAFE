@@ -348,6 +348,40 @@ Fail:
 }
 ```
 
+#### Get /account/apploan/{cid}
+
+​	Response
+
+​	success
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data": {
+        "userApps": [
+            {
+                "laid": 1,
+                "type": "H",					//H或S
+                "status": null
+            }
+        ]
+    }
+}
+```
+
+​	fail
+
+```json
+{
+    "code": 422,
+    "msg": "exception handler: no data exception",
+    "data": "No active applications found"
+}
+```
+
+
+
 
 
 #### POST /account/app
@@ -441,6 +475,40 @@ Response
     }
 }
 ```
+
+#### GET admin/apploan/
+
+Response
+
+```
+{
+    "code": 200,
+    "msg": "success",
+    "data": [
+        {
+            "laid": 2,
+            "cid": 9,
+            "lrate": 2.3,
+            "lamount": 1000.0,
+            "lmonths": 60,
+            "lpayment": 200.0,
+            "ltype": "H",
+            "hyear": "2023-09-01T14:30:00.000+00:00",
+            "hinsurance": 21323.0,
+            "laiaccount": 123423,
+            "lacomname": "HouseCover",
+            "ipremium": 1232.0,
+            "stuid": null,
+            "stutype": null,
+            "stugraddate": null,
+            "uname": null,
+            "lavalid": null
+        }											//会返回所有待审核的loan app
+    ]
+}
+```
+
+
 
 #### POST admin/apploan/approve
 

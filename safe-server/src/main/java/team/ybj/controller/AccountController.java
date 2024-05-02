@@ -21,7 +21,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("account")
 public class AccountController {
-    @Autowired
+    @Resource
     private AccountService accountService;
     @Resource
     private ApplicationService applicationService;
@@ -66,13 +66,19 @@ public class AccountController {
     @ResponseBody
     public ResponseResult<Map<String, List<UserGetAppsResponse>>> getAllActiveApps(@PathVariable Long cid) {
         List<UserGetAppsResponse> userApps = applicationService.getUserApps(cid);
-        //userApps.addAll(loanAppService.getUserLoanApps(cid));
         Map<String, List<UserGetAppsResponse>> data = new HashMap<>();
         data.put("userApps", userApps);
         return new ResponseResult<>(200, "success", data);
     }
 
-
+    @GetMapping("/apploan/{cid}")
+    @ResponseBody
+    public ResponseResult<Map<String, List<UserGetAppsResponse>>> getAllActiveLoanApps(@PathVariable Long cid) {
+        List<UserGetAppsResponse> userApps = loanAppService.getUserLoanApps(cid);
+        Map<String, List<UserGetAppsResponse>> data = new HashMap<>();
+        data.put("userLoanApps", userApps);
+        return new ResponseResult<>(200, "success", data);
+    }
 
     @GetMapping("test")
     public Integer test() {

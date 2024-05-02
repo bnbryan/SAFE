@@ -25,6 +25,9 @@ public interface LoanAppMapper {
     @Select("SELECT * FROM ybj_loan_app WHERE laid=#{laid}")
     YbjLoanApp findLoanAppByLaid(Long laid);
 
+    @Select("SELECT * FROM ybj_loan_app WHERE lavalid IS NULL")
+    List<YbjLoanApp> findAllLoanApp();
+
     @Update("UPDATE ybj_loan_app SET lavalid=#{lavalid} WHERE laid=#{laid}")
     int updateLoanAppStatus(Long laid, Character lavalid);
 }

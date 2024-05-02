@@ -69,6 +69,12 @@ public class LoanApplicationServiceImpl implements LoanAppService {
     }
 
     @Override
+    public List<YbjLoanApp> getAllLoanApps(){
+        List<YbjLoanApp> loanApps = loanAppMapper.findAllLoanApp();
+        return loanApps;
+    }
+
+    @Override
     public Long rejectLoanApp(Long laid) {
         int success = loanAppMapper.updateLoanAppStatus(laid, 'D');
         if (success > 0) {

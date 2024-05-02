@@ -14,6 +14,7 @@ import team.ybj.service.ApplicationService;
 import team.ybj.service.LoanAppService;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -75,6 +76,13 @@ public class AdminController {
         data.put("AccountNumber", acceptedApp);
         data.put("ApprovedApp", loanApp.getLaid());
         return new ResponseResult<>(200, "success", data);
+    }
+
+    @GetMapping("apploan/")
+    @ResponseBody
+    public ResponseResult getAllLoanApp() {
+        List<YbjLoanApp> loanApps = loanAppService.getAllLoanApps();
+        return new ResponseResult<>(200, "success", loanApps);
     }
 
     @GetMapping("test")
