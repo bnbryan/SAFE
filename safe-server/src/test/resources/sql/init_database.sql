@@ -116,18 +116,19 @@ CREATE TABLE ybj_loan (
                           stuid        VARCHAR(10) COMMENT 'Student id',
                           stutype      VARCHAR(1) COMMENT 'Student''s type. Grad or undergrad.',
                           stugraddate  DATETIME COMMENT 'Graduation date.',
-                          `uID`        BIGINT,
+                          uID        BIGINT,
                           atype        VARCHAR(4) NOT NULL,
                           lvalid       VARCHAR(1) NOT NULL COMMENT 'Loan status valid or not'
 );
 
 CREATE TABLE ybj_loan_app (
+                          laid          BIGINT NOT NULL COMMENT 'loan application number',
                           cid         BIGINT NOT NULL COMMENT 'customer number',
                           lrate        DECIMAL(4, 2) NOT NULL COMMENT 'Loan rate',
                           lamount      DECIMAL(10, 2) NOT NULL COMMENT 'Loan amount',
                           lmonths      SMALLINT NOT NULL COMMENT 'Loan months',
                           lpayment     DECIMAL(10, 2) NOT NULL COMMENT 'Loan payment',
-                          ltype        VARCHAR(4) NOT NULL COMMENT 'Loan type',
+                          ltype        VARCHAR(1) NOT NULL COMMENT 'Loan type',
                           hyear        DATETIME,
                           hinsurance   DECIMAL(20) COMMENT 'Home insurance account number',
                           laiaccount      BIGINT COMMENT 'Insurance account number',
@@ -136,8 +137,12 @@ CREATE TABLE ybj_loan_app (
                           stuid        VARCHAR(10) COMMENT 'Student id',
                           stutype      VARCHAR(1) COMMENT 'Student''s type. Grad or undergrad.',
                           stugraddate  DATETIME COMMENT 'Graduation date.',
-                          lavalid       VARCHAR(1) NOT NULL COMMENT 'Loan application status valid or not'
+                          uname         VARCHAR(30) COMMENT 'University name',
+                          lavalid       VARCHAR(1) COMMENT 'Loan application status valid or not'
 );
+
+ALTER TABLE ybj_loan_app ADD CONSTRAINT ybj_loan_app_pk PRIMARY KEY ( laid );
+ALTER TABLE ybj_loan_app MODIFY laid BIGINT NOT NULL AUTO_INCREMENT COMMENT 'Loan application id';
 
 ALTER TABLE ybj_loan
     ADD CONSTRAINT ch_inh_ybj_loan CHECK ( ltype IN ( 'HOME', 'L', 'STU' ) );
@@ -150,7 +155,7 @@ ALTER TABLE ybj_loan
         AND stuid IS NULL
         AND stutype IS NULL
         AND stugraddate IS NULL
-        AND `uID` IS NULL )
+        AND uID IS NULL )
         OR ( ltype = 'L'
             AND hyear IS NULL
             AND hinsurance IS NULL
@@ -158,7 +163,7 @@ ALTER TABLE ybj_loan
             AND stuid IS NULL
             AND stutype IS NULL
             AND stugraddate IS NULL
-            AND `uID` IS NULL )
+            AND uID IS NULL )
         OR ( ltype = 'STU'
             AND hyear IS NULL
             AND hinsurance IS NULL
@@ -166,7 +171,7 @@ ALTER TABLE ybj_loan
             AND stuid IS NOT NULL
             AND stutype IS NOT NULL
             AND stugraddate IS NOT NULL
-            AND `uID` IS NOT NULL ) );
+            AND uID IS NOT NULL ) );
 
 CREATE UNIQUE INDEX ybj_loan__idx ON
     ybj_loan (
@@ -186,11 +191,11 @@ CREATE TABLE ybj_savings (
 ALTER TABLE ybj_savings ADD CONSTRAINT ybj_savings_pk PRIMARY KEY ( anum );
 
 CREATE TABLE ybj_university (
-                                `uID` BIGINT NOT NULL COMMENT 'University id',
+                                uID BIGINT NOT NULL COMMENT 'University id',
                                 uname VARCHAR(30) NOT NULL COMMENT 'University name'
 );
 
-ALTER TABLE ybj_university ADD CONSTRAINT ybj_university_pk PRIMARY KEY ( `uID` );
+ALTER TABLE ybj_university ADD CONSTRAINT ybj_university_pk PRIMARY KEY ( uID );
 ALTER TABLE ybj_university MODIFY uID BIGINT NOT NULL AUTO_INCREMENT COMMENT 'University id';
 
 
@@ -247,8 +252,8 @@ ALTER TABLE ybj_loan
         REFERENCES ybj_insurance ( iid );
 
 ALTER TABLE ybj_loan
-    ADD CONSTRAINT ybj_loan_ybj_university_fk FOREIGN KEY ( `uID` )
-        REFERENCES ybj_university ( `uID` );
+    ADD CONSTRAINT ybj_loan_ybj_university_fk FOREIGN KEY ( uID )
+        REFERENCES ybj_university ( uID );
 
 ALTER TABLE ybj_savings
     ADD CONSTRAINT ybj_savings_ybj_account_fk FOREIGN KEY ( anum )
@@ -474,7 +479,7 @@ INSERT INTO ybj_company (comid, comname, adid) VALUES
 (9, 'FirstSafety', 9),
 (10, 'ProtectFirst', 10);
 
-INSERT INTO ybj_university (`uID`, uname) VALUES
+INSERT INTO ybj_university (uID, uname) VALUES
 (1, 'State University'),
 (2, 'Tech Institute'),
 (3, 'Central College'),

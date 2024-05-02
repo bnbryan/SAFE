@@ -3,6 +3,7 @@ package team.ybj.controller;
 import jakarta.annotation.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import team.ybj.dto.DepositRequest;
 import team.ybj.dto.ResponseResult;
@@ -30,11 +31,12 @@ public class TransactionController {
 
     @PostMapping("transfer")
     @ResponseBody
+    @Transactional
     public ResponseEntity<ResponseResult<Integer>> transfer(@RequestBody TransferRequest transferRequest) {
         int transfer = transferService.transfer(transferRequest);
         if (transfer > 0) {
             ResponseResult<Integer> successResult = new ResponseResult<>(200, "transfer success", transfer);
-            recordService.AddRe(transferRequest.getFromAccountNum(), transferRequest.getToAccountNum(),
+           recordService.AddRe(transferRequest.getFromAccountNum(), transferRequest.getToAccountNum(),
                     String.valueOf(transferRequest.getFromAccountType()),transferRequest.getAmount());
             return ResponseEntity.ok(successResult);
         } else {
@@ -45,6 +47,7 @@ public class TransactionController {
 
     @PostMapping("deposit")
     @ResponseBody
+    @Transactional
     public ResponseResult<Double> deposit(@RequestBody DepositRequest depositRequest) {
         Double currentBalance = depositService.deposit(depositRequest);
         recordService.AddRe(null, depositRequest.getAccountNum(),
@@ -54,6 +57,7 @@ public class TransactionController {
 
     @PostMapping("withdraw")
     @ResponseBody
+    @Transactional
     public ResponseResult WithDraw(@RequestBody YbjChecking checking) {
         ResponseResult responseResult;
         try {

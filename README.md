@@ -88,8 +88,8 @@ fail
 
 ```json
 {
-    "clname":"first name",
-    "cfname":"last name",
+    "clname":"last name",
+    "cfname":"first name",
     "cemail":"email address",
     "cpassword":"password",
     "securityQuestion":"question",
@@ -348,6 +348,40 @@ Fail:
 }
 ```
 
+#### Get /account/apploan/{cid}
+
+​	Response
+
+​	success
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data": {
+        "userApps": [
+            {
+                "laid": 1,
+                "type": "H",					//H或S
+                "status": null
+            }
+        ]
+    }
+}
+```
+
+​	fail
+
+```json
+{
+    "code": 422,
+    "msg": "exception handler: no data exception",
+    "data": "No active applications found"
+}
+```
+
+
+
 
 
 #### POST /account/app
@@ -377,7 +411,45 @@ Request
 }
 ```
 
+#### POST account/apploan
 
+Request
+
+```
+{
+    "cid":2,
+    "lrate":2.3,
+    "lamount":1000,
+    "lmonths":60,
+    "lpayment":200.00,
+    "ltype":"S",        				//S for student or H for home
+    "hyear":"2023-09-01T14:30:00",   	//only year needed, 其他随意
+    "hinsurance":21323,
+    "laiaccount":123423,
+    "lacomname":"HouseCover",			//公司名字只能选择，做一个下拉框，不能自己填
+    "ipremium":1232,
+    "stuid":123123,
+    "stutype":"U",						//U or G
+    "stugraddate":"2025-09-01T14:30:00",
+    "uname":"test",
+    "lavalid":"P"
+}
+```
+
+Response
+
+```
+{
+    "code": 200,
+    "msg": "success",
+    "data": {
+        "laid": 1
+    }
+}
+
+```
+
+#### 
 
 #### POST admin/login
 
@@ -403,6 +475,91 @@ Request
     }
 }
 ```
+
+#### GET admin/apploan/
+
+Response
+
+```
+{
+    "code": 200,
+    "msg": "success",
+    "data": [
+        {
+            "laid": 2,
+            "cid": 9,
+            "lrate": 2.3,
+            "lamount": 1000.0,
+            "lmonths": 60,
+            "lpayment": 200.0,
+            "ltype": "H",
+            "hyear": "2023-09-01T14:30:00.000+00:00",
+            "hinsurance": 21323.0,
+            "laiaccount": 123423,
+            "lacomname": "HouseCover",
+            "ipremium": 1232.0,
+            "stuid": null,
+            "stutype": null,
+            "stugraddate": null,
+            "uname": null,
+            "lavalid": null
+        }											//会返回所有待审核的loan app
+    ]
+}
+```
+
+
+
+#### POST admin/apploan/approve
+
+​	Request
+
+```json
+{
+    "laid": 3,
+}
+```
+
+​	Response
+
+success
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data": {
+        "ApprovedApp": 3,
+        "AccountNumber": 
+    }
+}
+```
+
+
+
+#### POST admin/apploan/reject
+
+​	Request
+
+```json
+{
+    "laid":2
+}
+```
+
+​	Response
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data": {
+        "rejectedApp": 2
+    }
+}
+```
+
+#### 
 
 #### POST admin/app/reject
 
