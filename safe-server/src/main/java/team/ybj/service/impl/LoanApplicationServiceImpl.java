@@ -2,6 +2,7 @@ package team.ybj.service.impl;
 
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import team.ybj.dto.UserGetAppsResponse;
@@ -52,6 +53,7 @@ public class LoanApplicationServiceImpl implements LoanAppService {
     }
 
     @Override
+    @Cacheable("loanApps")
     public List<UserGetAppsResponse> getUserLoanApps(Long cid) {
         List<YbjLoanApp> loanApps = loanAppMapper.findLoanAppsByCid(cid);
         if (loanApps == null || loanApps.isEmpty()) {
