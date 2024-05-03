@@ -322,25 +322,28 @@ export const adminLogin = (data) => {
             throw error; // Re-throw the error to make sure the caller is aware of the failure
         });
 };
-const postAllicationURL = `${SERVER_ORIGIN}/safe/account/app`;
-export const postAllication = (data) => {
+const postApplicationURL = `${SERVER_ORIGIN}/safe/account/app`;
+export const postApplication = (data) => {
     const token = getAuthToken()
-    return fetch(adminLoginURL, {
+    console.log()
+    return fetch(postApplicationURL, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
             // Authorization header should not be included in a login request
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(data)
     })
         .then(response => {
-            console.log(response)
-            // Check if the network response was ok
-            if (!response.ok) {
-                    throw new Error('Network response was not ok');
+            console.log(response);
+            if (!response.ok&&response.status===422) {
+                return response.json().then(json => {
+                    // 显示更具体的错误信息
+                    throw new Error(json.message || "Your account in this type has reached the maxium number!");
+                });
             }
-            return response.json(); // Parse the body of the response
+            return response.json();
         })
         .then(json => {
             console.log(json);
@@ -370,11 +373,12 @@ export const allApplication=(id)=>{
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
         },
+
     }).then(response => {
         console.log(response);
         // 检查网络响应是否ok
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
+        if (!response.ok&&response.status===422) {
+            throw new Error('You do not have any application for Checking or Saving');
         }
         return response.json(); // 解析响应体
 
@@ -382,21 +386,54 @@ export const allApplication=(id)=>{
         console.log(json);
         // 假设你需要检查响应中的某个状态码
         if (json.code === 200) {
-            console.log('Fetch applications success.');
+            console.log('Checking applications success.');
         } else {
             // 处理请求不成功的情况
-            throw Error(json.message || "Failed to fetch applications, " + json.msg);
+            throw Error(json.message || "Failed to checking applications, " + json.msg);
         }
         return json; // 继续处理响应的JSON数据
 
     }).catch(error => {
-        console.error('There has been a problem with your fetch operation:', error);
+        console.error('There has been a problem with your checking operation:', error);
         throw error; // 重新抛出错误，确保调用者知道失败
     });
 }
-export const allActivites=(id)=>{
+export const allLoanApplication=(id)=>{
     const token = getAuthToken()
-    return fetch(`safe/account/app/${id}`, {
+    return fetch(`safe/account/apploan/${id}`, {
+        method: 'GET', // GET请求方法
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        },
+
+    }).then(response => {
+        console.log(response);
+        // 检查网络响应是否ok
+        if (!response.ok&&response.status===422) {
+            throw new Error('You do not have any application for Loan');
+        }
+        return response.json(); // 解析响应体
+
+    }).then(json => {
+        console.log(json);
+        // 假设你需要检查响应中的某个状态码
+        if (json.code === 200) {
+            console.log('Checking applications success.');
+        } else {
+            // 处理请求不成功的情况
+            throw Error(json.message || "Failed to checking applications, " + json.msg);
+        }
+        return json; // 继续处理响应的JSON数据
+
+    }).catch(error => {
+        console.error('There has been a problem with your checking operation:', error);
+        throw error; // 重新抛出错误，确保调用者知道失败
+    });
+}
+export const allActivites=(email)=>{
+    const token = getAuthToken()
+    return fetch(`safe/users/records/${email}`, {
         method: 'GET', // GET请求方法
         headers: {
             'Content-Type': 'application/json',
@@ -427,5 +464,30 @@ export const allActivites=(id)=>{
     });
 }
 
+export const getIdByEmail=(email)=>{
+    const token = getAuthToken();
+    return fetch(`safe/users/email/${email}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        },
+    }).then(response => {
+        if (!response.ok) {
+            console.log(response)
+            throw new Error('Network response was not ok');
 
+        }
+
+        return response.json();
+    }).then(json => {
+        if (json.code !== 200) {
+            throw new Error(json.message || "Failed to get informations, " + json.msg);
+        }
+        return json.data;
+    }).catch(error => {
+        console.error('There has been a problem with your get operation:', error);
+        throw error;
+    });
+}
 

@@ -6,25 +6,41 @@ import { allAccount, withdraw } from '../utils';
 function WithdrawForm({ accountEmail }) {
     const [form] = Form.useForm();
     const [accounts, setAccounts] = useState([]);
-
+    const accountTypeMap = {
+        'S': 'Saving',
+        'L': 'Loan',
+        'C': 'Checking',
+    };
+/*
+have some bug to fix
+ */
     useEffect(() => {
         async function fetchAccounts() {
             try {
                 const result = await allAccount(accountEmail);
-                setAccounts(result.data.map(account => ({
-                    label: `${account.aname} (${account.atype === 'C' ? 'Checking' : 'S' ? 'Saving' : 'Loan'})`,
-                    value: account.anum,
-                })));
+                if (result.data && Array.isArray(result.data)) {
+                    // Combine all accounts into one array
+                    const allAccounts = result.data.map(account => ({
+                        ...account,
+                        label: `${account.aname} - ${accountTypeMap[account.atype]}`,
+                        value: account.anum,
+                    }));
+                    setAccounts(allAccounts);
+                    // Set combined accounts
+                } else {
+                    throw new Error('Data is not in expected format');
+                }
             } catch (err) {
                 message.error('Error fetching account data: ' + err.message);
             }
         }
-
         fetchAccounts();
     }, [accountEmail]);
 
+
     const onFinish = async (values) => {
         try {
+            console.log(values)
             await withdraw(values);
             message.success('Withdraw successful!');
             form.resetFields();
@@ -32,7 +48,10 @@ function WithdrawForm({ accountEmail }) {
             message.error(err.message);
         }
     };
-
+    const onAccountChange = (anum) => {
+        const account = accounts.find(acc => acc.value === anum);
+        form.setFieldsValue({ atype: account ? account.atype : '' });
+    };
     return (
         <Form
             form={form}
@@ -48,7 +67,14 @@ function WithdrawForm({ accountEmail }) {
                 <Select
                     placeholder="Select account"
                     options={accounts}
+                    onChange={onAccountChange}
                 />
+            </Form.Item>
+            <Form.Item
+                name="atype"
+                noStyle
+            >
+                <Input type="hidden" />
             </Form.Item>
             <Form.Item
                 name="abalance"

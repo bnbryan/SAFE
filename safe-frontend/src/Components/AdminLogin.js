@@ -23,6 +23,7 @@ function Login({ onSuccess }) {
         adminLogin(data)
             .then(() => {
                 setDisplayModal(false)
+                onSuccess()
                 message.success(`Welcome back`)
             }).catch((err) => {
             message.error(err.message)
@@ -49,23 +50,23 @@ function Login({ onSuccess }) {
                     preserve={false}
                 >
                     <Form.Item
-                        name="cemail"
+                        name="username"
                         rules={[{ required: true, message: 'Please input your admin account!' }]}
                     >
-                        <Input prefix={<UserOutlined />} placeholder="Username" />
+                        <Input prefix={<UserOutlined />} placeholder="Admin account" />
                     </Form.Item>
                     <Form.Item
-                        name="cpassword"
+                        name="password"
                         rules={[{ required: true, message: 'Please input your password!' }]}
                     >
                         <Input.Password
                             prefix={<LockOutlined />}
-                            placeholder="Password"
+                            placeholder="Admin password"
                         />
                     </Form.Item>
                     <Form.Item>
                         <Button type="primary" htmlType="submit">
-                            Login
+                            ADMIN
                         </Button>
                     </Form.Item>
                 </Form>
