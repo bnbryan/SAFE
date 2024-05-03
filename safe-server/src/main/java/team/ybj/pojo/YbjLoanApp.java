@@ -13,10 +13,8 @@ import java.util.Date;
 public class YbjLoanApp {
     private Long laid;
     private Long cid;
-    private Double lrate;
     private Double lamount;
     private Short lmonths;
-    private Double lpayment;
     private Character ltype;
     private Date hyear;
     private Double hinsurance;
