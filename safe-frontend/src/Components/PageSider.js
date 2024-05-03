@@ -19,7 +19,7 @@ const PageSider = ({ onMenuClick }) => {
     };
 
     return (
-        <Sider width={300} className="site-layout-background">
+        <Sider width={300} className="site-layout-background" >
             <Menu
                 mode="inline"
                 style={{ height: '100%', borderRight: 0 }}

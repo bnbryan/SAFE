@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {Layout, message} from 'antd';
 import PageHeader from "./Components/PageHeader";
-import {logout} from "./utils";
 import PageSider from "./Components/PageSider";
 import HomePage from "./Components/HomePage";
 import WelcomePage from "./Components/WelcomePage";
 import AdminPageSider from "./Components/AdminPageSider";
+import AdminHomePage from "./Components/AdminHomePage";
 
 
 const { Header, Content, Sider } = Layout;
@@ -88,7 +88,7 @@ function App() {
                         }}
                     >
                         {adminLoggedIn ? (
-                            <div> to imp</div>
+                           <AdminHomePage activeMenuKey={selectedKey}/>
                         ) : (
                             <HomePage activeMenuKey={selectedKey} loggedIn={loggedIn} accountEmail={accountEmail} userId={userId}/>
                         )

@@ -1,7 +1,7 @@
 import { Button, Form, Input, message, Modal } from 'antd'
 import React, { useState } from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import {adminLogin, login} from '../utils'
+import {adminLogin} from '../utils'
 
 
 function Login({ onSuccess }) {
@@ -35,7 +35,7 @@ function Login({ onSuccess }) {
     return (
         <>
             <Button shape="round" onClick={signinOnClick} style={{ marginRight: '20px' }}>
-                Login
+                ADMIN
             </Button>
             <Modal
                 title="Log in"
@@ -66,7 +66,7 @@ function Login({ onSuccess }) {
                     </Form.Item>
                     <Form.Item>
                         <Button type="primary" htmlType="submit">
-                            ADMIN
+                            Login
                         </Button>
                     </Form.Item>
                 </Form>

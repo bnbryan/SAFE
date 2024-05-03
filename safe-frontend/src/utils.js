@@ -322,7 +322,7 @@ export const adminLogin = (data) => {
         });
 };
 const adminApproveURL = `${SERVER_ORIGIN}/safe/admin/app/approve`;
-export const adminApprove = (aid) => {
+export const adminApprove = (data) => {
     const token = getAuthToken()
     return fetch(adminApproveURL, {
         method: "POST",
@@ -360,7 +360,7 @@ export const adminApprove = (aid) => {
         });
 };
 const adminRejectURL = `${SERVER_ORIGIN}/safe/admin/app/reject`;
-export const adminReject = (aid) => {
+export const adminReject = (data) => {
     const token = getAuthToken()
     return fetch(adminApproveURL, {
         method: "POST",
