@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 import team.ybj.dto.ApproveAccountRequest;
+import team.ybj.dto.ApproveLoanAccRequest;
 import team.ybj.dto.ResponseResult;
 import team.ybj.pojo.YbjAdmin;
 import team.ybj.pojo.YbjLoanApp;
@@ -70,11 +71,11 @@ public class AdminController {
 
     @PostMapping("/apploan/approve")
     @ResponseBody
-    public ResponseResult<Map<String, Long>> acceptLoanApp(@RequestBody YbjLoanApp loanApp) {
-        Long acceptedApp = loanAppService.acceptLoanApp(loanApp.getLaid());
+    public ResponseResult<Map<String, Long>> acceptLoanApp(@RequestBody ApproveLoanAccRequest request) {
+        Long acceptedApp = loanAppService.acceptLoanApp(request);
         Map<String, Long> data = new HashMap<>();
         data.put("AccountNumber", acceptedApp);
-        data.put("ApprovedApp", loanApp.getLaid());
+        data.put("ApprovedApp", request.getLaid());
         return new ResponseResult<>(200, "success", data);
     }
 

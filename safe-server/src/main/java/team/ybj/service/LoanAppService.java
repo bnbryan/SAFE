@@ -1,6 +1,7 @@
 package team.ybj.service;
 
 import org.springframework.stereotype.Service;
+import team.ybj.dto.ApproveLoanAccRequest;
 import team.ybj.dto.TransferRequest;
 import team.ybj.dto.UserGetAppsResponse;
 import team.ybj.pojo.YbjLoanApp;
@@ -15,7 +16,7 @@ public interface LoanAppService {
 
     Long rejectLoanApp(Long laid);
 
-    Long acceptLoanApp(Long laid);
+    Long acceptLoanApp(ApproveLoanAccRequest request);
 
     List<YbjLoanApp> getAllLoanApps();
 
