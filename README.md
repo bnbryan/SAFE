@@ -418,10 +418,8 @@ Request
 ```
 {
     "cid":2,
-    "lrate":2.3,
     "lamount":1000,
     "lmonths":60,
-    "lpayment":200.00,
     "ltype":"S",        				//S for student or H for home
     "hyear":"2023-09-01T14:30:00",   	//only year needed, 其他随意
     "hinsurance":21323,
@@ -516,7 +514,9 @@ Response
 
 ```json
 {
-    "laid": 3,
+    "laid":1,
+    "lrate":2.3,
+    "lpayment":123
 }
 ```
 

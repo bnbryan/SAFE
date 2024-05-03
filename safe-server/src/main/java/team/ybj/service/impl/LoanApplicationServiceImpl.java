@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import team.ybj.dto.ApproveLoanAccRequest;
 import team.ybj.dto.UserGetAppsResponse;
 import team.ybj.exception.AccountTypeException;
 import team.ybj.exception.NoDataException;
@@ -88,8 +89,8 @@ public class LoanApplicationServiceImpl implements LoanAppService {
 
     @Override
     @Transactional
-    public Long acceptLoanApp(Long laid) {
-        YbjLoanApp loanApp = loanAppMapper.findLoanAppByLaid(laid);
+    public Long acceptLoanApp(ApproveLoanAccRequest request) {
+        YbjLoanApp loanApp = loanAppMapper.findLoanAppByLaid(request.getLaid());
         Date currentDate = new Date();
         Instant instant = currentDate.toInstant();
         instant = instant.plus(-1, ChronoUnit.SECONDS); // 加上一秒
@@ -109,11 +110,11 @@ public class LoanApplicationServiceImpl implements LoanAppService {
                         'L', loanApp.getCid().longValue(), cusAddLinkMapper.getAddressIdsByCustomerId(loanApp.getCid()).get(0));
             accountMapper.insertAccount(account);
             Long anum = account.getAnum();
-            YbjLoan loan = new YbjLoan(anum, loanApp.getLrate(), loanApp.getLamount(), loanApp.getLmonths(),
-                    loanApp.getLpayment(), "STU", null, null, null, loanApp.getStuid(),
+            YbjLoan loan = new YbjLoan(anum, request.getLrate(), loanApp.getLamount(), loanApp.getLmonths(),
+                    request.getLpayment(), "STU", null, null, null, loanApp.getStuid(),
                     loanApp.getStutype(), loanApp.getStugraddate(), uID, 'L', 'Y');
             try{loanMapper.insertLoan(loan);
-            loanAppMapper.updateLoanAppStatus(laid, 'P');}
+            loanAppMapper.updateLoanAppStatus(request.getLaid(), 'P');}
             catch(Exception e){throw new ServiceException(e.getMessage());}
             return anum;
         }
@@ -127,11 +128,11 @@ public class LoanApplicationServiceImpl implements LoanAppService {
                         'L', loanApp.getCid(), cusAddLinkMapper.getAddressIdsByCustomerId(loanApp.getCid()).get(0));
                 accountMapper.insertAccount(account);
                 Long anum = account.getAnum();
-                YbjLoan loan = new YbjLoan(anum, loanApp.getLrate(), loanApp.getLamount(), loanApp.getLmonths(),
-                    loanApp.getLpayment(), "HOME", loanApp.getHyear(), loanApp.getHinsurance(), insurance.getIid(), null,
+                YbjLoan loan = new YbjLoan(anum, request.getLrate(), loanApp.getLamount(), loanApp.getLmonths(),
+                    request.getLpayment(), "HOME", loanApp.getHyear(), loanApp.getHinsurance(), insurance.getIid(), null,
                     null, null, null, 'L', 'Y');
             try{loanMapper.insertLoan(loan);
-            loanAppMapper.updateLoanAppStatus(laid, 'P');}
+            loanAppMapper.updateLoanAppStatus(request.getLaid(), 'P');}
             catch(Exception e){throw new ServiceException(e.getMessage());}
             return anum;
             }else{

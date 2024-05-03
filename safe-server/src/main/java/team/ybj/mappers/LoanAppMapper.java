@@ -9,9 +9,9 @@ import java.util.List;
 
 @Repository
 public interface LoanAppMapper {
-    @Insert("INSERT INTO ybj_loan_app (cid, lrate, lamount, lmonths, lpayment, ltype, hyear, hinsurance, laiaccount, " +
-            "lacomname, ipremium,stuid, stutype, stugraddate, uname, lavalid)" + "VALUES (#{cid}, #{lrate}, #{lamount}, " +
-            "#{lmonths}, #{lpayment}, #{ltype}, #{hyear}, #{hinsurance}, #{laiaccount}, #{lacomname}, #{ipremium}, " +
+    @Insert("INSERT INTO ybj_loan_app (cid, lamount, lmonths, ltype, hyear, hinsurance, laiaccount, " +
+            "lacomname, ipremium,stuid, stutype, stugraddate, uname, lavalid)" + "VALUES (#{cid},  #{lamount}, " +
+            "#{lmonths},  #{ltype}, #{hyear}, #{hinsurance}, #{laiaccount}, #{lacomname}, #{ipremium}, " +
             " #{stuid}, #{stutype}, #{stugraddate},#{uname}, #{lavalid})")
     @Options(useGeneratedKeys = true, keyProperty = "laid")
     int insertLoanApp(YbjLoanApp loanApp);

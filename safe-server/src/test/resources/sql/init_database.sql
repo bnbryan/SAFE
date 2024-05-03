@@ -124,10 +124,8 @@ CREATE TABLE ybj_loan (
 CREATE TABLE ybj_loan_app (
                           laid          BIGINT NOT NULL COMMENT 'loan application number',
                           cid         BIGINT NOT NULL COMMENT 'customer number',
-                          lrate        DECIMAL(4, 2) NOT NULL COMMENT 'Loan rate',
                           lamount      DECIMAL(10, 2) NOT NULL COMMENT 'Loan amount',
                           lmonths      SMALLINT NOT NULL COMMENT 'Loan months',
-                          lpayment     DECIMAL(10, 2) NOT NULL COMMENT 'Loan payment',
                           ltype        VARCHAR(1) NOT NULL COMMENT 'Loan type',
                           hyear        DATETIME,
                           hinsurance   DECIMAL(20) COMMENT 'Home insurance account number',
