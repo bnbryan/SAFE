@@ -3,10 +3,10 @@ import {allActivites, allApplication} from "../utils";
 import {message, Table} from "antd";
 import { List, Card } from 'antd';
 
-function AllApplication({email}){
+function AllActivities({email}){
     const [activities, setActivites] = useState([]);
     useEffect(() => {
-        async function fetchApplications() {
+        async function fetchActivities() {
             try {
                 const result = await allActivites(email);
                     setActivites(result.data)
@@ -16,12 +16,12 @@ function AllApplication({email}){
             }
 
         }
-        fetchApplications();
+        fetchActivities();
 
     }, [email]);
     const columns = [
         {
-            title: 'RID',
+            title: 'Record Id',
             dataIndex: 'rid',
             key: 'rid',
         },
@@ -30,29 +30,33 @@ function AllApplication({email}){
             key: 'transactionType',
             render: (_, record) => {
                 if (record.anum === null) {
-                    return record.ramount > 0 ? 'Deposit' : 'Withdraw';
-                } else {
+                    return 'Deposit';
+                }
+                else if(record.toanum===null){
+                    return 'Withdraw'
+
+                }else {
                     return 'Transfer';
                 }
             }
         },
         {
-            title: 'Ramount',
+            title: 'Amount',
             dataIndex: 'ramount',
             key: 'ramount',
         },
         {
-            title: 'Ratype',
+            title: 'Account Type',
             dataIndex: 'ratype',
             key: 'ratype',
             render: ratype => {
                 switch (ratype) {
                     case 'C':
-                        return 'Credit';
-                    case 'D':
-                        return 'Debit';
-                    default:
-                        return ratype;
+                        return 'Checking';
+                    case 'S':
+                        return 'Saving';
+                    case 'L':
+                        return 'Loan';
                 }
             }
         },
@@ -69,4 +73,4 @@ function AllApplication({email}){
     );
 
 }
-export default AllApplication
+export default AllActivities

@@ -12,7 +12,7 @@ function AllApplication({accountID}){
         'C': 'Checking',
     };
     const LoanTypeMap = {
-        'S': 'Studen',
+        'S': 'Student',
         'H': 'House',
     };
     const columnsForApp = [
@@ -53,8 +53,8 @@ function AllApplication({accountID}){
     const columnsForLoan = [
         {
             title: 'Loan Application ID',
-            dataIndex: 'laid',
-            key: 'laid',
+            dataIndex: 'appId',
+            key: 'appId',
         },
         {
             title: 'Type',
@@ -103,8 +103,7 @@ function AllApplication({accountID}){
             try {
                 const result = await allLoanApplication(accountID);
 
-                setLoanApps(result.data.userApps)
-                console.log(applications)
+                setLoanApps(result.data.userLoanApps)
             }
             catch (err) {
                 message.error('Error fetching account data: ' + err.message);
@@ -121,7 +120,7 @@ function AllApplication({accountID}){
             <h2>Checking&Saving applications</h2>
             <Table dataSource={applications} columns={columnsForApp} rowKey="appId"/>
             <h2>Loan applications</h2>
-            <Table dataSource={loanapps} columns={columnsForLoan} rowKey="laid"/>
+            <Table dataSource={loanapps} columns={columnsForLoan} rowKey="appId"/>
         </div>
     );
 

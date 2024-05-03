@@ -378,7 +378,7 @@ export const allApplication=(id)=>{
         console.log(response);
         // 检查网络响应是否ok
         if (!response.ok&&response.status===422) {
-            throw new Error('You do not have any application');
+            throw new Error('You do not have any application for Checking or Saving');
         }
         return response.json(); // 解析响应体
 
@@ -411,7 +411,7 @@ export const allLoanApplication=(id)=>{
         console.log(response);
         // 检查网络响应是否ok
         if (!response.ok&&response.status===422) {
-            throw new Error('You do not have any application');
+            throw new Error('You do not have any application for Loan');
         }
         return response.json(); // 解析响应体
 

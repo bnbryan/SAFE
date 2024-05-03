@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {Button, Card, Form, Input, message, Select} from "antd";
-import { CreditCardOutlined, DollarOutlined } from "@ant-design/icons";
-import {allAccount, getIdByEmail, transfer} from '../utils';
+import { getIdByEmail } from '../utils';
 
 function userInfo({ accountEmail }) {
     // eslint-disable-next-line react-hooks/rules-of-hooks

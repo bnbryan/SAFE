@@ -11,7 +11,9 @@ function WithdrawForm({ accountEmail }) {
         'L': 'Loan',
         'C': 'Checking',
     };
-
+/*
+have some bug to fix
+ */
     useEffect(() => {
         async function fetchAccounts() {
             try {
@@ -23,7 +25,8 @@ function WithdrawForm({ accountEmail }) {
                         label: `${account.aname} - ${accountTypeMap[account.atype]}`,
                         value: account.anum,
                     }));
-                    setAccounts(allAccounts); // Set combined accounts
+                    setAccounts(allAccounts);
+                    // Set combined accounts
                 } else {
                     throw new Error('Data is not in expected format');
                 }
@@ -62,6 +65,12 @@ function WithdrawForm({ accountEmail }) {
                     placeholder="Select account"
                     options={accounts}
                 />
+            </Form.Item>
+            <Form.Item
+                name="atype"
+                noStyle
+            >
+                <Input type="hidden" />
             </Form.Item>
             <Form.Item
                 name="abalance"
