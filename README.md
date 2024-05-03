@@ -145,10 +145,10 @@ F:
 }
 ```
 
-#### GET /users/record
+#### GET /users/record/{email}
 
 ```
-email=123@gmail.com
+
 ```
 
 Response
@@ -361,7 +361,7 @@ Fail:
     "data": {
         "userApps": [
             {
-                "laid": 1,
+                "appId": 1,
                 "type": "H",					//H或S
                 "status": null
             }
