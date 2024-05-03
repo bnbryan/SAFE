@@ -41,8 +41,9 @@ function Application({ accountID }) {
                 rules={[{ required: true, message: 'Please select your account type!' }]}
             >
                 <Select placeholder="Select a type">
-                    <Select.Option value="C">Checking</Select.Option>
-                    <Select.Option value="S">Saving</Select.Option>
+                    <Select.Option value='C'>Checking</Select.Option>
+                    <Select.Option value='S'>Saving</Select.Option>
+                    <Select.Option value='L'>Loaning</Select.Option>
                 </Select>
             </Form.Item>
 

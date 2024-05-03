@@ -49,14 +49,8 @@ function App() {
         setAccountEmail("")
         setAdminLoggedIn(false)
         setUserId("")
-        localStorage.removeItem("token")
+        localStorage.removeItem('token')
         message.success("Logged Out!")
-       /* logout().then(() => {
-
-            message.success('Successfully Signed out')
-        }).catch((err) => {
-            message.error(err.message)
-        })*/
     }
 
     return (

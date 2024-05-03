@@ -325,6 +325,7 @@ export const adminLogin = (data) => {
 const postApplicationURL = `${SERVER_ORIGIN}/safe/account/app`;
 export const postApplication = (data) => {
     const token = getAuthToken()
+    console.log()
     return fetch(postApplicationURL, {
         method: "POST",
         headers: {
@@ -332,14 +333,14 @@ export const postApplication = (data) => {
             'Authorization': `Bearer ${token}`,
             // Authorization header should not be included in a login request
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(data)
     })
         .then(response => {
             console.log(response);
-            if (!response.ok) {
+            if (!response.ok&&response.status===422) {
                 return response.json().then(json => {
                     // 显示更具体的错误信息
-                    throw new Error(json.message || 'Network response was not ok');
+                    throw new Error(json.message || "Your account in this type has reached the maxium number!");
                 });
             }
             return response.json();
@@ -367,6 +368,39 @@ export const postApplication = (data) => {
 export const allApplication=(id)=>{
     const token = getAuthToken()
     return fetch(`safe/account/app/${id}`, {
+        method: 'GET', // GET请求方法
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        },
+
+    }).then(response => {
+        console.log(response);
+        // 检查网络响应是否ok
+        if (!response.ok&&response.status===422) {
+            throw new Error('You do not have any application');
+        }
+        return response.json(); // 解析响应体
+
+    }).then(json => {
+        console.log(json);
+        // 假设你需要检查响应中的某个状态码
+        if (json.code === 200) {
+            console.log('Checking applications success.');
+        } else {
+            // 处理请求不成功的情况
+            throw Error(json.message || "Failed to checking applications, " + json.msg);
+        }
+        return json; // 继续处理响应的JSON数据
+
+    }).catch(error => {
+        console.error('There has been a problem with your checking operation:', error);
+        throw error; // 重新抛出错误，确保调用者知道失败
+    });
+}
+export const allLoanApplication=(id)=>{
+    const token = getAuthToken()
+    return fetch(`safe/account/apploan/${id}`, {
         method: 'GET', // GET请求方法
         headers: {
             'Content-Type': 'application/json',
