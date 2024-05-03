@@ -16,6 +16,7 @@ import team.ybj.mappers.*;
 import team.ybj.pojo.YbjAccount;
 import team.ybj.service.AccountService;
 import team.ybj.service.ApplicationService;
+import team.ybj.service.LoanAppService;
 import team.ybj.utils.JwtUtil;
 
 import java.util.Date;
@@ -64,6 +65,10 @@ public class AccountControllerTest {
     private AccountAppMapper accountAppMapper;
     @MockBean
     private RecordMapper recordMapper;
+    @MockBean
+    private LoanAppMapper loanAppMapper;
+    @MockBean
+    private LoanAppService loanAppService;
 
     @MockBean
     private YbjAccount  expectedAccount;
