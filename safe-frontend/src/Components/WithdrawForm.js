@@ -48,7 +48,10 @@ have some bug to fix
             message.error(err.message);
         }
     };
-
+    const onAccountChange = (anum) => {
+        const account = accounts.find(acc => acc.value === anum);
+        form.setFieldsValue({ atype: account ? account.atype : '' });
+    };
     return (
         <Form
             form={form}
@@ -64,6 +67,7 @@ have some bug to fix
                 <Select
                     placeholder="Select account"
                     options={accounts}
+                    onChange={onAccountChange}
                 />
             </Form.Item>
             <Form.Item
