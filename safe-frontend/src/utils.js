@@ -433,7 +433,7 @@ export const allLoanApplication=(id)=>{
 }
 export const allActivites=(email)=>{
     const token = getAuthToken()
-    return fetch(`safe/users/record/${email}`, {
+    return fetch(`safe/users/records/${email}`, {
         method: 'GET', // GET请求方法
         headers: {
             'Content-Type': 'application/json',
