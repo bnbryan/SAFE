@@ -21,7 +21,9 @@ function App() {
         setSelectedKey(key);
     };
 
-
+    const signinOnSuccessAdmin=()=>{
+        setAdminLoggedIn(true)
+    }
     const signinOnSuccess = (email,id) => {
         setLoggedIn(true);
         setAccountEmail(email)
@@ -54,14 +56,16 @@ function App() {
     }
 
     return (
+
         <Layout>
             <Header>
                 <PageHeader  loggedIn={loggedIn}
                              signoutOnClick={signoutOnClick}
-                             signinOnSuccess={signinOnSuccess}></PageHeader>
+                             signinOnSuccess={signinOnSuccess}
+                signinOnSuccessAdmin={signinOnSuccessAdmin} adminloggedIn={adminLoggedIn}></PageHeader>
             </Header>
             {/* to imp  welcomepage*/}
-            {!loggedIn?
+            {!(loggedIn||adminLoggedIn)?
                 (WelcomePage):(
                 <Layout>
                 <Sider width={300} className="site-layout-background">

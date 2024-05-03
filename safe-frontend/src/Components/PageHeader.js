@@ -3,12 +3,13 @@ import Register from './Register'
 import Login from './Login'
 import PasswordReset from './passwordReset'
 import React from 'react'
+import AdminLogin from "./AdminLogin";
 
 
 const { Header } = Layout
 
 
-function PageHeader({ loggedIn, signoutOnClick, signinOnSuccess }) {
+function PageHeader({ loggedIn, signoutOnClick, signinOnSuccess,signinOnSuccessAdmin,adminloggedIn }) {
     const securityQuestions = [
         "What's your mother's name",
         "What was the name of your first pet",
@@ -23,16 +24,17 @@ function PageHeader({ loggedIn, signoutOnClick, signinOnSuccess }) {
 
                 </Col>
                 <Col>
-                    {loggedIn && (
+                    {loggedIn||adminloggedIn && (
                         <>
                             <Button shape="round" onClick={signoutOnClick}>Logout</Button>
                         </>
                     )}
-                    {!loggedIn && (
+                    {!(loggedIn||adminloggedIn) && (
                         <>
                             <Login onSuccess={signinOnSuccess} />
                             <Register securityQuestions={securityQuestions}/>
                             <PasswordReset securityQuestions={securityQuestions}/>
+                            <AdminLogin onSuccess={signinOnSuccessAdmin}/>
                         </>
                     )}
                 </Col>

@@ -9,6 +9,7 @@ import AllApplication from "./AllApplication";
 import AllActivities from "./AllActivities";
 import Application from "./Application";
 import UserInfo from "./userInfo";
+import AppLoan from "./AppLoan";
 const  HomePage=({ loggedIn, activeMenuKey, accountEmail, userId})=>{
     /*
     根据
@@ -32,6 +33,8 @@ const  HomePage=({ loggedIn, activeMenuKey, accountEmail, userId})=>{
                     return <UserInfo accountEmail={accountEmail}/>
                 case 'application':
                     return <Application accountID={userId}/>
+                case'appLoan':
+                    return <AppLoan accountID={userId}/>
                 default:
                     return <AccountsInfo accountEmail={accountEmail}/>;
             }
