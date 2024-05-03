@@ -280,7 +280,6 @@ export const allAccount=(email)=>{
 }
 
 const adminLoginURL = `${SERVER_ORIGIN}/safe/admin/login`;
-
 export const adminLogin = (data) => {
     return fetch(adminLoginURL, {
         method: "POST",
@@ -322,6 +321,117 @@ export const adminLogin = (data) => {
             throw error; // Re-throw the error to make sure the caller is aware of the failure
         });
 };
+const adminApproveURL = `${SERVER_ORIGIN}/safe/admin/app/approve`;
+export const adminApprove = (aid) => {
+    const token = getAuthToken()
+    return fetch(adminApproveURL, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+            // Authorization header should not be included in a login request
+        },
+        body: JSON.stringify(data),
+    })
+        .then(response => {
+            console.log(response)
+            // Check if the network response was ok
+            if (!response.ok) {
+                    throw new Error('Network response was not ok');
+
+            }
+            return response.json(); // Parse the body of the response
+        })
+        .then(json => {
+            console.log(json);
+            // Assuming the token is in the 'data' object of the response
+            // and you check the status with a 'code' property
+            if (json.code === 200 && json.data.token) {
+
+            } else {
+                // Handle any situation where the login was not successful
+                throw Error(json.message || "Fail to approve");
+            }
+            return json; // Continue with the JSON response
+        })
+        .catch(error => {
+            console.error('There has been a problem with your operation:', error);
+            throw error; // Re-throw the error to make sure the caller is aware of the failure
+        });
+};
+const adminRejectURL = `${SERVER_ORIGIN}/safe/admin/app/reject`;
+export const adminReject = (aid) => {
+    const token = getAuthToken()
+    return fetch(adminApproveURL, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+            // Authorization header should not be included in a login request
+        },
+        body: JSON.stringify(data),
+    })
+        .then(response => {
+            console.log(response)
+            // Check if the network response was ok
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+
+            }
+            return response.json(); // Parse the body of the response
+        })
+        .then(json => {
+            console.log(json);
+            // Assuming the token is in the 'data' object of the response
+            // and you check the status with a 'code' property
+            if (json.code === 200 && json.data.token) {
+
+            } else {
+                // Handle any situation where the login was not successful
+                throw Error(json.message || "Fail to reject");
+            }
+            return json; // Continue with the JSON response
+        })
+        .catch(error => {
+            console.error('There has been a problem with your operation:', error);
+            throw error; // Re-throw the error to make sure the caller is aware of the failure
+        });
+};
+export const adminGetApp=()=>{
+    const token = getAuthToken()
+    return fetch(`safe/admin/`, {
+        method: 'GET', // GET请求方法
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        },
+
+    }).then(response => {
+        console.log(response);
+        // 检查网络响应是否ok
+        if (!response.ok&&response.status===422) {
+            throw new Error('network response has some problem now');
+        }
+        return response.json(); // 解析响应体
+
+    }).then(json => {
+        console.log(json);
+        // 假设你需要检查响应中的某个状态码
+        if (json.code === 200) {
+            console.log('fetching applications success.');
+        } else {
+            // 处理请求不成功的情况
+            throw Error(json.message || "Failed to fetch applications, " + json.msg);
+        }
+        return json; // 继续处理响应的JSON数据
+
+    }).catch(error => {
+        console.error('There has been a problem with your fetching operation:', error);
+        throw error; // 重新抛出错误，确保调用者知道失败
+    });
+
+
+}
 const postApplicationURL = `${SERVER_ORIGIN}/safe/account/app`;
 export const postApplication = (data) => {
     const token = getAuthToken()

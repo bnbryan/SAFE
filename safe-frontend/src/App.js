@@ -5,6 +5,7 @@ import {logout} from "./utils";
 import PageSider from "./Components/PageSider";
 import HomePage from "./Components/HomePage";
 import WelcomePage from "./Components/WelcomePage";
+import AdminPageSider from "./Components/AdminPageSider";
 
 
 const { Header, Content, Sider } = Layout;
@@ -70,7 +71,7 @@ function App() {
                 <Layout>
                 <Sider width={300} className="site-layout-background">
                     {adminLoggedIn ? (
-                        <div> to imp</div>
+                        <AdminPageSider onMenuClick={handleMenuClick}> </AdminPageSider>
                     ) : (
 
                         <PageSider onMenuClick={handleMenuClick}></PageSider>
