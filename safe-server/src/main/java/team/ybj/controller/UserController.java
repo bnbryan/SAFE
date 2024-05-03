@@ -86,9 +86,9 @@ public class UserController {
         return responseResult;
     }
 
-    @GetMapping("records")
+    @GetMapping("records/{email}")
     @ResponseBody
-    public ResponseResult ListRe(@RequestParam("email") String email) {
+    public ResponseResult ListRe(@PathVariable("email") String email) {
         ResponseResult responseResult;
         try {
             responseResult = recordService.ListRe(email);
