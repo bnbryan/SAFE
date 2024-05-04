@@ -14,4 +14,6 @@ public interface AccountAppMapper {
     List<AccountApp> findAccountAppsByCid(Long cid);
 
     int updateAccountAppStatus(Long appId, Character status);
+
+    List<AccountApp> findAllNullAccountApps();
 }

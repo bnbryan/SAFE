@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import team.ybj.dto.ApproveAccountRequest;
 import team.ybj.dto.ApproveLoanAccRequest;
 import team.ybj.dto.ResponseResult;
+import team.ybj.pojo.AccountApp;
 import team.ybj.pojo.YbjAdmin;
 import team.ybj.pojo.YbjLoanApp;
 import team.ybj.service.AccountService;
@@ -84,6 +85,13 @@ public class AdminController {
     public ResponseResult getAllLoanApp() {
         List<YbjLoanApp> loanApps = loanAppService.getAllLoanApps();
         return new ResponseResult<>(200, "success", loanApps);
+    }
+
+    @GetMapping("/app/all")
+    @ResponseBody
+    public ResponseResult<List<AccountApp>> getAllApps() {
+        List<AccountApp> allApps = applicationService.getAllApps();
+        return new ResponseResult<>(200, "success", allApps);
     }
 
     @GetMapping("test")

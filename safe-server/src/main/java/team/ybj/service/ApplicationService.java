@@ -15,4 +15,6 @@ public interface ApplicationService {
     Long rejectApp(Long appId);
 
     Long approveApp(Long appId);
+
+    List<AccountApp> getAllApps();
 }
