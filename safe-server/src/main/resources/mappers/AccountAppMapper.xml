@@ -22,5 +22,10 @@
         update account_app set status=#{status} where app_id=#{appId}
     </update>
 
+    <select id="findAllNullAccountApps" resultType="team.ybj.pojo.AccountApp">
+        select * from account_app where status is NULL
+    </select>
+
+
 
 </mapper>
