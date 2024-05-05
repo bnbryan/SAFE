@@ -1,4 +1,4 @@
-import tokenUse from './tokenUse'
+
 const SERVER_ORIGIN = "";
 
 const loginUrl = `${SERVER_ORIGIN}/safe/users/login`;
@@ -474,7 +474,48 @@ export const postApplication = (data) => {
             throw error; // Re-throw the error to make sure the caller is aware of the failure
         });
 };
+const postLoanApplicationURL = `${SERVER_ORIGIN}/safe/account/apploan`;
+export const postLoanApplication = (data) => {
+    const token = getAuthToken()
+    console.log(JSON.stringify(data))
+    return fetch(postLoanApplicationURL, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+            // Authorization header should not be included in a login request
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+            console.log(response);
+            if (!response.ok&&response.status===422) {
+                return response.json().then(json => {
+                    // 显示更具体的错误信息
+                    throw new Error(json.message || "Your account in this type has reached the maxium number!");
+                });
+            }
+            return response.json();
+        })
+        .then(json => {
+            console.log(json);
+            // Assuming the token is in the 'data' object of the response
+            // and you check the status with a 'code' property
+            if (json.code === 200) {
+                console.log('Sending application success.');
+                // Save the token in localStorage
 
+            } else {
+                // Handle any situation where the login was not successful
+                throw Error(json.message || "Fail to Sumbit application");
+            }
+            return json; // Continue with the JSON response
+        })
+        .catch(error => {
+            console.error('There has been a problem with your login operation:', error);
+            throw error; // Re-throw the error to make sure the caller is aware of the failure
+        });
+};
 export const allApplication=(id)=>{
     const token = getAuthToken()
     return fetch(`safe/account/app/${id}`, {
