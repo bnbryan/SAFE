@@ -1,7 +1,6 @@
 import WithdrawForm from "./WithdrawForm";
 import TransferForm from "./TransferForm";
 import AccountsInfo from "./AccountsInfo";
-import {Card, Tabs} from "antd";
 import React from "react";
 import DepositForm from "./Deposit";
 import userInfo from "./userInfo";

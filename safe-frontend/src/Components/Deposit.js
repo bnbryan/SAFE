@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import {Button, Form, Input, InputNumber, message, Select} from "antd";
+import {Button, Form, Input, message, Select} from "antd";
 import { DollarOutlined } from "@ant-design/icons";
-import {allAccount, deposit, withdraw} from '../utils';
+import {allAccount, deposit} from '../utils';
 
 function DepositForm({ accountEmail }) {
     const [form] = Form.useForm();

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {Button, DatePicker, Form, Input, message, Select} from "antd";
 
 import {postLoanApplication} from '../utils';
-import {DollarOutlined} from "@ant-design/icons";  // Assuming corrected spelling from 'postAllication' to 'postAllocation'
 const { Option } = Select;
 function AppLoan({ accountID }) {
     const [type, setType] = useState('')
