@@ -579,7 +579,7 @@ INSERT INTO ybj_admin (aid, username, password) VALUES
 (123, 'admin1','$2a$10$iBVWNCuhgmFbF/QXU3WDTOyUjq1JSbvrog/7PB2mvox0/9e.s9DLa');
 
 INSERT INTO account_app (cid, type, income, career)VALUES
-(5, 'C', '10000.00', 'student');
+(5, 'C', '100000.00', 'student');
 
 INSERT INTO account_app (cid, type, income, career, status)VALUES
 (8, 'C', '10000.00', 'student', 'P');
