@@ -1,7 +1,7 @@
 import { Button, Form, Input, message, Modal } from 'antd'
 import React, { useState } from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import {adminLogin, login} from '../utils'
+import {adminLogin} from '../utils'
 
 
 function Login({ onSuccess }) {
@@ -23,6 +23,7 @@ function Login({ onSuccess }) {
         adminLogin(data)
             .then(() => {
                 setDisplayModal(false)
+                onSuccess()
                 message.success(`Welcome back`)
             }).catch((err) => {
             message.error(err.message)
@@ -34,7 +35,7 @@ function Login({ onSuccess }) {
     return (
         <>
             <Button shape="round" onClick={signinOnClick} style={{ marginRight: '20px' }}>
-                Login
+                ADMIN
             </Button>
             <Modal
                 title="Log in"
@@ -49,18 +50,18 @@ function Login({ onSuccess }) {
                     preserve={false}
                 >
                     <Form.Item
-                        name="cemail"
+                        name="username"
                         rules={[{ required: true, message: 'Please input your admin account!' }]}
                     >
-                        <Input prefix={<UserOutlined />} placeholder="Username" />
+                        <Input prefix={<UserOutlined />} placeholder="Admin account" />
                     </Form.Item>
                     <Form.Item
-                        name="cpassword"
+                        name="password"
                         rules={[{ required: true, message: 'Please input your password!' }]}
                     >
                         <Input.Password
                             prefix={<LockOutlined />}
-                            placeholder="Password"
+                            placeholder="Admin password"
                         />
                     </Form.Item>
                     <Form.Item>

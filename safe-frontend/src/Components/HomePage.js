@@ -3,17 +3,18 @@ import TransferForm from "./TransferForm";
 import AccountsInfo from "./AccountsInfo";
 import {Card, Tabs} from "antd";
 import React from "react";
-import TabPane from "antd/lib/tabs/TabPane";
 import DepositForm from "./Deposit";
-const  HomePage=({ loggedIn, activeMenuKey, accountEmail })=>{
+import userInfo from "./userInfo";
+import AllApplication from "./AllApplication";
+import AllActivities from "./AllActivities";
+import Application from "./Application";
+import UserInfo from "./userInfo";
+import AppLoan from "./AppLoan";
+const  HomePage=({ loggedIn, activeMenuKey, accountEmail, userId})=>{
     /*
     根据
      */
     const renderContent = (key) => {
-        if(!loggedIn) {
-            return <div>Please log in or register to get start!</div>
-        }
-        else {
             switch (key) {
                 case 'withdraw':
                     return <WithdrawForm accountEmail={accountEmail}/>;
@@ -25,17 +26,18 @@ const  HomePage=({ loggedIn, activeMenuKey, accountEmail })=>{
                 case 'deposit':
                     return <DepositForm accountEmail={accountEmail}/>
                 case 'activityRecords':
-                    return <div>to imp</div>
+                    return <AllActivities email={accountEmail}/>
                 case 'allApplication':
-                    return <div>to imp</div>
+                    return <AllApplication accountID={userId}/>
                 case 'userInfo':
-                    return <div>to imp</div>
+                    return <UserInfo accountEmail={accountEmail}/>
                 case 'application':
-                    return <div>to imp</div>
+                    return <Application accountID={userId}/>
+                case'appLoan':
+                    return <AppLoan accountID={userId}/>
                 default:
                     return <AccountsInfo accountEmail={accountEmail}/>;
             }
-        }
     }
     return(
         <div>{renderContent(activeMenuKey)}</div>

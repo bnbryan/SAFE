@@ -3,7 +3,7 @@ import {Button, Form, Input, InputNumber, message, Select} from "antd";
 import { postApplication } from '../utils';
 import {DollarOutlined} from "@ant-design/icons";  // Assuming corrected spelling from 'postAllication' to 'postAllocation'
 
-function Application({ accountID }) {
+function AppLoan({ accountID }) {
     const [form] = Form.useForm();
 
     useEffect(() => {
@@ -76,4 +76,4 @@ function Application({ accountID }) {
     );
 }
 
-export default Application;
+export default AppLoan;

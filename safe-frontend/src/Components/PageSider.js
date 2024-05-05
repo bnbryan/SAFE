@@ -19,7 +19,7 @@ const PageSider = ({ onMenuClick }) => {
     };
 
     return (
-        <Sider width={300} className="site-layout-background">
+        <Sider width={300} className="site-layout-background" >
             <Menu
                 mode="inline"
                 style={{ height: '100%', borderRight: 0 }}
@@ -28,6 +28,7 @@ const PageSider = ({ onMenuClick }) => {
                 <SubMenu key="Accounts" icon={<AccountBookOutlined/>} title="Accounts">
                     <Menu.Item key="accountinfo">Accounts Infomation</Menu.Item>
                     <Menu.Item key="application">New Application</Menu.Item>
+                    <Menu.Item key="appLoan">New Loan Application</Menu.Item>
                     <Menu.Item key="allApplication">View Applications</Menu.Item>
                 </SubMenu>
                 <SubMenu key="Transaction" icon={<TransactionOutlined />} title="Transaction">

@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {Layout, message} from 'antd';
 import PageHeader from "./Components/PageHeader";
-import {logout} from "./utils";
 import PageSider from "./Components/PageSider";
 import HomePage from "./Components/HomePage";
 import WelcomePage from "./Components/WelcomePage";
+import AdminPageSider from "./Components/AdminPageSider";
+import AdminHomePage from "./Components/AdminHomePage";
 
 
 const { Header, Content, Sider } = Layout;
@@ -15,26 +16,33 @@ function App() {
     const [selectedKey, setSelectedKey] = useState('')
     const [accountEmail, setAccountEmail] = useState("")
     const [adminLoggedIn,setAdminLoggedIn] = useState(false)
+    const [userId,setUserId] = useState('')
     const handleMenuClick = (key) => {
         console.log(key)
         setSelectedKey(key);
     };
 
-
-    const signinOnSuccess = (email) => {
+    const signinOnSuccessAdmin=()=>{
+        setAdminLoggedIn(true)
+    }
+    const signinOnSuccess = (email,id) => {
         setLoggedIn(true);
         setAccountEmail(email)
+        setUserId(id)
         console.log(accountEmail)
+        console.log(userId)
+
         /*
         这里要做的事是获取所有的账户信息，
          */
     }
     useEffect(() => {
         if (accountEmail) {
-            console.log(accountEmail); // This will log the updated email
+            console.log(accountEmail);
+            console.log(userId)// This will log the updated email
             // You can also perform any actions that depend on the updated accountEmail here
         }
-    }, [accountEmail]); // Depend on accountEmail to rerun this effect
+    }, [accountEmail,userId]); // Depend on accountEmail to rerun this effect
 
 
 
@@ -43,29 +51,27 @@ function App() {
         setLoggedIn(false)
         setAccountEmail("")
         setAdminLoggedIn(false)
+        setUserId("")
+        localStorage.removeItem('token')
         message.success("Logged Out!")
-       /* logout().then(() => {
-
-            message.success('Successfully Signed out')
-        }).catch((err) => {
-            message.error(err.message)
-        })*/
     }
 
     return (
+
         <Layout>
             <Header>
                 <PageHeader  loggedIn={loggedIn}
                              signoutOnClick={signoutOnClick}
-                             signinOnSuccess={signinOnSuccess}></PageHeader>
+                             signinOnSuccess={signinOnSuccess}
+                signinOnSuccessAdmin={signinOnSuccessAdmin} adminloggedIn={adminLoggedIn}></PageHeader>
             </Header>
             {/* to imp  welcomepage*/}
-            {!loggedIn?
+            {!(loggedIn||adminLoggedIn)?
                 (WelcomePage):(
                 <Layout>
                 <Sider width={300} className="site-layout-background">
                     {adminLoggedIn ? (
-                        <div> to imp</div>
+                        <AdminPageSider onMenuClick={handleMenuClick}> </AdminPageSider>
                     ) : (
 
                         <PageSider onMenuClick={handleMenuClick}></PageSider>
@@ -82,9 +88,9 @@ function App() {
                         }}
                     >
                         {adminLoggedIn ? (
-                            <div> to imp</div>
+                           <AdminHomePage activeMenuKey={selectedKey}/>
                         ) : (
-                            <HomePage activeMenuKey={selectedKey} loggedIn={loggedIn} accountEmail={accountEmail}/>
+                            <HomePage activeMenuKey={selectedKey} loggedIn={loggedIn} accountEmail={accountEmail} userId={userId}/>
                         )
                         }
                     </Content>
