@@ -72,6 +72,7 @@ public class AdminController {
     @PostMapping("/apploan/approve")
     @ResponseBody
     public ResponseResult<Map<String, Long>> acceptLoanApp(@RequestBody ApproveLoanAccRequest request) {
+        System.out.println(request);
         Long acceptedApp = loanAppService.acceptLoanApp(request);
         Map<String, Long> data = new HashMap<>();
         data.put("AccountNumber", acceptedApp);
