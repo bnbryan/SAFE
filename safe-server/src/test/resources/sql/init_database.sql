@@ -578,7 +578,16 @@ INSERT INTO ybj_loan (anum, lrate, lamount, lmonths, lpayment, ltype, hyear, hin
 INSERT INTO ybj_admin (aid, username, password) VALUES
 (123, 'admin1','$2a$10$iBVWNCuhgmFbF/QXU3WDTOyUjq1JSbvrog/7PB2mvox0/9e.s9DLa');
 
-INSERT INTO account_app (cid, type, income, career) VALUES
+INSERT INTO account_app (cid, type, income, career)VALUES
 (5, 'C', '100000.00', 'student');
+
 INSERT INTO account_app (cid, type, income, career, status)VALUES
 (8, 'C', '10000.00', 'student', 'P');
+
+INSERT INTO ybj_loan_app (cid, lamount, lmonths, ltype, hyear, hinsurance, laiaccount, lacomname, ipremium, stuid, stutype, stugraddate, uname, lavalid)
+VALUES
+(6, 15000.00, 48, 'S', NULL, NULL, NULL, NULL, NULL, '202300345', 'U', '2025-12-01', 'State University', NULL),
+(4, 200000.00, 360, 'H', '2015-01-01', '100003453', 23241233, 'PropertyProtect', 800.00, NULL, NULL, NULL, NULL, NULL),
+(7, 18000.00, 60, 'S', NULL, NULL, NULL, NULL, NULL, '202400567', 'G', '2027-06-01', 'Tech Institute', NULL),
+(9, 5000.00, 36, 'S', NULL, NULL, NULL, NULL, NULL, '202500789', 'U', '2024-06-01', 'Central College', 'D'),
+(8, 100000.00, 180, 'H', '2018-05-01', '100008345', 23123412, 'SecureLive', 600.00, NULL, NULL, NULL, NULL, 'P');

@@ -10,6 +10,7 @@ import team.ybj.dto.UserGetAppsResponse;
 import team.ybj.exception.AccountTypeException;
 import team.ybj.exception.NoDataException;
 import team.ybj.exception.ServiceException;
+import team.ybj.exception.accountException;
 import team.ybj.mappers.*;
 import team.ybj.pojo.*;
 import team.ybj.service.LoanAppService;
@@ -46,6 +47,12 @@ public class LoanApplicationServiceImpl implements LoanAppService {
     @Transactional
     public Long applyForLoan(YbjLoanApp loanApp) {
         int success = loanAppMapper.insertLoanApp(loanApp);
+        List<YbjAccount> account = accountMapper.getAccountsByCid(loanApp.getCid());
+        for (YbjAccount acc : account) {
+            if(acc.getAtype().equals('L')){
+                throw new accountException("Account already exist");
+            }
+        }
         if (success > 0) {
             return loanApp.getLaid();
         } else {
@@ -107,14 +114,16 @@ public class LoanApplicationServiceImpl implements LoanAppService {
 
             YbjAccount account = new YbjAccount(null,
                         customerMapper.getCustomerByCid(loanApp.getCid()).getCfname()+" Loan", now,
-                        'L', loanApp.getCid().longValue(), cusAddLinkMapper.getAddressIdsByCustomerId(loanApp.getCid()).get(0));
+                        'L', loanApp.getCid(), cusAddLinkMapper.getAddressIdsByCustomerId(loanApp.getCid()).get(0));
             accountMapper.insertAccount(account);
             Long anum = account.getAnum();
             YbjLoan loan = new YbjLoan(anum, request.getLrate(), loanApp.getLamount(), loanApp.getLmonths(),
                     request.getLpayment(), "STU", null, null, null, loanApp.getStuid(),
                     loanApp.getStutype(), loanApp.getStugraddate(), uID, 'L', 'Y');
-            try{loanMapper.insertLoan(loan);
-            loanAppMapper.updateLoanAppStatus(request.getLaid(), 'P');}
+            try{
+                loanMapper.insertLoan(loan);
+            loanAppMapper.updateLoanAppStatus(request.getLaid(), 'P');
+            }
             catch(Exception e){throw new ServiceException(e.getMessage());}
             return anum;
         }
