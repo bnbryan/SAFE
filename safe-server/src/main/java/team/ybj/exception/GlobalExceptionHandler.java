@@ -39,4 +39,10 @@ public class GlobalExceptionHandler {
     public ResponseResult<String> noDataExceptionHandler(NoDataException e) {
         return new ResponseResult<>(422, "exception handler: no data exception", e.getMessage());
     }
+
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    @ExceptionHandler(value = accountException.class)
+    public ResponseResult<String> accountExceptionHandler(accountException e) {
+        return new ResponseResult<>(422, "exception handler: account exist exception", e.getMessage());
+    }
 }

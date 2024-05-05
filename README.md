@@ -474,6 +474,29 @@ Response
 }
 ```
 
+#### GET admin/app/all
+
+Response
+
+```json
+{
+    "code": 200,
+    "msg": "success",
+    "data": [
+        {
+            "appId": 1,
+            "cid": 5,
+            "type": "C",
+            "income": 100000.0,
+            "career": "student",
+            "status": null
+        }
+    ]
+}
+```
+
+
+
 #### GET admin/apploan/
 
 Response

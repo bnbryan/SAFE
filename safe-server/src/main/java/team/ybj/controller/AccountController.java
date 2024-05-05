@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import team.ybj.dto.AccountDetail;
 import team.ybj.dto.ResponseResult;
 import team.ybj.dto.UserGetAppsResponse;
+import team.ybj.exception.ServiceException;
+import team.ybj.exception.accountException;
 import team.ybj.pojo.AccountApp;
 import team.ybj.pojo.YbjAccount;
 import team.ybj.pojo.YbjLoanApp;
@@ -74,6 +76,7 @@ public class AccountController {
     @GetMapping("/apploan/{cid}")
     @ResponseBody
     public ResponseResult<Map<String, List<UserGetAppsResponse>>> getAllActiveLoanApps(@PathVariable Long cid) {
+
         List<UserGetAppsResponse> userApps = loanAppService.getUserLoanApps(cid);
         Map<String, List<UserGetAppsResponse>> data = new HashMap<>();
         data.put("userLoanApps", userApps);

@@ -85,5 +85,10 @@ public class ApplicationServiceImpl implements ApplicationService {
         }
     }
 
+    @Override
+    public List<AccountApp> getAllApps() {
+        return accountAppMapper.findAllNullAccountApps();
+    }
+
 
 }
