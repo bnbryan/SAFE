@@ -29,7 +29,7 @@ function ReviewLoan(){
     const handleClickDeny = async (laid) => {
         console.log(laid)
         try {
-            await adminLoanReject( laid );
+            await adminLoanReject( {laid} );
             message.success("Application rejected successfully");
         } catch (err) {
             message.error('Error rejecting application: ' + err.message);
