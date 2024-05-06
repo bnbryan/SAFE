@@ -1,25 +1,11 @@
 import React, {useEffect, useState} from "react";
-import { adminApprove } from "../utils";
+import {adminApprove, adminLoanApprove} from "../utils";
 import { Button, Form, Input, message, Modal } from "antd";
 import moment from "moment";
 
-function AdminApproveForm({ appId, cid, type,displayModal,setDisplayModal}) {
+function AdminLoanApproveForm({ laid,displayModal,setDisplayModal}) {
 
     const [form] = Form.useForm();
-    useEffect(() => {
-        if (type === 'C') {
-            // 选 'H' 时禁用学生相关字段
-            form.setFieldsValue({
-               srate:null
-            });
-        } else if (type === 'S') {
-            // 选 'S' 时禁用家庭相关字段
-            form.setFieldsValue({
-                ccharge:null
-            });
-        }
-    }, []);
-
 
     const handleApproveCancel = () => {
         setDisplayModal(false);
@@ -28,12 +14,9 @@ function AdminApproveForm({ appId, cid, type,displayModal,setDisplayModal}) {
     const handleFormSubmit = async (values) => {
         console.log(values)
         try {
-            await adminApprove({
+            await adminLoanApprove({
                 ...values,
-                appId: appId,
-                type: type,
-                cid: cid,
-                adate: Date.now(),
+               laid:laid
             });
             message.success("Approved successfully");
             setDisplayModal(false);
@@ -53,41 +36,32 @@ function AdminApproveForm({ appId, cid, type,displayModal,setDisplayModal}) {
             >
                 <Form form={form} onFinish={handleFormSubmit}>
                     <Form.Item
-                        disabled={type === 'S'}
-                        name="ccharge"
+                        name="lrate"
                         rules={[
                             {
-                                message: "Please input the charge rate!",
+                                message: "Please input the loan rate!",
                             },
                         ]}
                     >
-                        <Input disabled= {type === 'S'}
-                            placeholder="Charge rate"
+                        <Input
+                               placeholder="loan rate"
                         />
                     </Form.Item>
                     <Form.Item
-                        disabled={type === 'C'}
-                        name="srate"
+                        name="lpayment"
                         rules={[
                             {
-                                message: "Please input the saving rate!",
+                                message: "Please input the payment amount!",
                             },
                         ]}
                     >
-                        <Input disabled= {type === 'C'}
-                            placeholder="Saving rate"
+                        <Input
+                               placeholder="payment amount"
                         />
                     </Form.Item>
-                    <Form.Item name="adate" noStyle>
+                    <Form.Item name="laid" noStyle>
                         <Input type="hidden"></Input>
                     </Form.Item>
-                    <Form.Item name="appId" noStyle></Form.Item>
-                    <Input type="hidden"></Input>
-                    <Form.Item name="cid" noStyle></Form.Item>
-                    <Input type="hidden"></Input>
-                    <Form.Item name="type" noStyle></Form.Item>
-                    <Input type="hidden"></Input>
-
                     <Form.Item>
                         <Button
                             type="primary"
@@ -103,4 +77,4 @@ function AdminApproveForm({ appId, cid, type,displayModal,setDisplayModal}) {
     );
 }
 
-export default AdminApproveForm;
+export default AdminLoanApproveForm;

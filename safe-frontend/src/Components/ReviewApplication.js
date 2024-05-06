@@ -45,7 +45,7 @@ function ReviewApplication() {
         { title: 'Type', dataIndex: 'type', key: 'type' },
         { title: 'Income', dataIndex: 'income', key: 'income' },
         { title: 'Career', dataIndex: 'career', key: 'career' },
-        { title: 'Status', dataIndex: 'status', key: 'status', render: text => text || 'N/A' },
+        { title: 'Status', dataIndex: 'status', key: 'status', render: text => text || 'Pending' },
         {
             title: 'Actions',
             key: 'actions',
@@ -61,19 +61,16 @@ function ReviewApplication() {
     return (
         <>
             <Table dataSource={applications} columns={columns} rowKey="appId" />
-            <Modal title="Approve Application"
-                   visible={isModalVisible}
-                   onCancel={handleCloseModal}
-                   footer={null}
-            >
+
                 {currentApplication && (
                     <AdminApproveForm
                         appId={currentApplication.appId}
                         cid={currentApplication.cid}
                         type={currentApplication.type}
+                        displayModal={isModalVisible}
+                        setDisplayModal={setIsModalVisible}
                     />
                 )}
-            </Modal>
         </>
     );
 }

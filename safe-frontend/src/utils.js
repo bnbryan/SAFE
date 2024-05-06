@@ -662,7 +662,7 @@ export const adminLoanApprove = (data) => {
             console.log(json);
             // Assuming the token is in the 'data' object of the response
             // and you check the status with a 'code' property
-            if (json.code === 200 && json.data.token) {
+            if (json.code === 200) {
 
             } else {
                 // Handle any situation where the login was not successful
@@ -701,7 +701,7 @@ export const adminLoanReject = (data) => {
             console.log(json);
             // Assuming the token is in the 'data' object of the response
             // and you check the status with a 'code' property
-            if (json.code === 200 && json.data.token) {
+            if (json.code === 200) {
 
             } else {
                 // Handle any situation where the login was not successful
@@ -716,7 +716,7 @@ export const adminLoanReject = (data) => {
 };
 export const adminGetLoanApp=()=>{
     const token = getAuthToken()
-    return fetch(`safe/admin/apploan`, {
+    return fetch(`safe/admin/apploan/`, {
         method: 'GET', // GET请求方法
         headers: {
             'Content-Type': 'application/json',
