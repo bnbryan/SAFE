@@ -1,6 +1,7 @@
 package team.ybj.service.impl;
 
 import jakarta.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import team.ybj.exception.AccountTypeException;
@@ -8,10 +9,12 @@ import team.ybj.exception.LackBalanceException;
 import team.ybj.exception.ServiceException;
 import team.ybj.mappers.AccountMapper;
 import team.ybj.mappers.CheckingMapper;
+import team.ybj.mappers.LoanMapper;
 import team.ybj.mappers.SavingMapper;
 import team.ybj.dto.TransferRequest;
 import team.ybj.pojo.YbjAccount;
 import team.ybj.pojo.YbjChecking;
+import team.ybj.pojo.YbjLoan;
 import team.ybj.pojo.YbjSaving;
 import team.ybj.service.TransferService;
 import team.ybj.service.RecordService;
@@ -25,6 +28,8 @@ public class TransferServiceImpl implements TransferService {
     CheckingMapper checkingMapper;
     @Resource
     SavingMapper savingMapper;
+    @Autowired
+    private LoanMapper loanMapper;
 
     @Override
     @Transactional
@@ -59,6 +64,9 @@ public class TransferServiceImpl implements TransferService {
         } else if (toAccountType == 'S') {
             YbjSaving toAccount = savingMapper.getSavingByAnum(toAccountNum);
             toSuccess = savingMapper.updateSbalanceByAnum(toAccountNum, toAccount.getSbalance() + amount);
+        } else if(toAccountType == 'L') {
+//            YbjLoan toAccount = loanMapper.getLoanByAnum(toAccountNum);
+            toSuccess = loanMapper.updateLamountAndLpaymentByAnum(toAccountNum, amount);
         } else {
             throw new AccountTypeException("Invalid to account type");
         }
@@ -81,6 +89,8 @@ public class TransferServiceImpl implements TransferService {
         } else if (toAccountType == 'S') {
             YbjSaving toAccount = savingMapper.getSavingByAnum(toAccountNum);
             toSuccess = savingMapper.updateSbalanceByAnum(toAccountNum, toAccount.getSbalance() + amount);
+        } else if (toAccountType == 'L') {
+            toSuccess = loanMapper.updateLamountAndLpaymentByAnum(toAccountNum, amount);
         } else {
             throw new AccountTypeException("Invalid to account type");
         }
