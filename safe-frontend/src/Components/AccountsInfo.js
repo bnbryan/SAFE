@@ -53,9 +53,6 @@ function Accountsinfo({accountEmail}){
                                     <div style={{display: 'flex', justifyContent: 'space-between', width: '100%'}}>
                                         <span>Account Name: {item.aname}</span>
                                         <span>Open Date: {formatMomentDate(item.adate)}</span>
-                                        <span style={{marginRight: '16px'}}>
-                                    Type: {accountTypeMap[item.atype] || item.atype}
-                                </span>
                                         <span>Balance:{item.balance} </span>
                                         <span>Rate: {item.rate}</span>
                                     </div>
@@ -79,8 +76,6 @@ function Accountsinfo({accountEmail}){
                                     <div style={{display: 'flex', justifyContent: 'space-between', width: '100%'}}>
                                         <span>Account Name: {item.aname}</span>
                                         <span>Open Date: {formatMomentDate(item.adate)}</span>
-                                        <span
-                                            style={{marginRight: '16px'}}>Type: {accountTypeMap[item.atype] || item.atype}</span>
                                         <span>Balance:{item.balance} </span>
                                         <span>Charge: {item.charge}</span>
                                     </div>
@@ -104,8 +99,6 @@ function Accountsinfo({accountEmail}){
                                     <div style={{display: 'flex', justifyContent: 'space-between', width: '100%'}}>
                                         <span>Account Name: {item.aname}</span>
                                         <span>Open Date: {formatMomentDate(item.adate)}</span>
-                                        <span
-                                            style={{marginRight: '16px'}}>Type: {accountTypeMap[item.atype] || item.atype}</span>
                                         <span>Balance:{item.balance} </span>
                                         <span>Rate: {item.rate}</span>
                                     </div>
