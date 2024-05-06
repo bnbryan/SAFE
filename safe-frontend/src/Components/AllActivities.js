@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
-import {allActivites, allApplication} from "../utils";
+import {allActivites} from "../utils";
 import {message, Table} from "antd";
-import { List, Card } from 'antd';
 
 function AllActivities({email}){
     const [activities, setActivites] = useState([]);

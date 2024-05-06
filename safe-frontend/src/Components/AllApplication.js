@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
-import {allAccount, allApplication, allLoanApplication} from "../utils";
+import {allApplication, allLoanApplication} from "../utils";
 import {message, Table} from "antd";
-import { List, Card } from 'antd';
 
 function AllApplication({accountID}){
     const [applications, setApplications] = useState([]);
