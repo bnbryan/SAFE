@@ -114,7 +114,7 @@ fail
     "cemail":"email address",
     "cpassword":"password",
     "securityQuestion":"question",
-    "answer":"answer",
+    "answer":"answer"
 }
 ```
 
