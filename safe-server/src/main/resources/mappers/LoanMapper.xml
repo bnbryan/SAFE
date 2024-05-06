@@ -41,5 +41,9 @@
         delete from ybj_loan where anum=#{anum}
     </delete>
 
+    <update id="updateLamountAndLpaymentByAnum">
+        update ybj_loan set lamount=lamount-#{money}, lpayment=lpayment-#{money} where anum=#{anum}
+    </update>
+
 
 </mapper>

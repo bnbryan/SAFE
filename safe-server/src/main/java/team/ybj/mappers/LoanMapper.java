@@ -18,5 +18,7 @@ public interface LoanMapper {
 
     int updateLmonthsByAnum(@Param("anum") Long anum, @Param("lmonths") Short lmonths);
 
+    int updateLamountAndLpaymentByAnum(@Param("anum") Long anum, @Param("money") Double money);
+
     int deleteLoanByAnum(Long anum);
 }
