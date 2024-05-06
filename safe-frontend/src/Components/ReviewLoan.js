@@ -2,6 +2,8 @@ import React, {useEffect, useState} from "react";
 import {adminGetApp, adminGetLoanApp, adminLoanReject, adminReject} from "../utils";
 import {Button, message, Table} from "antd";
 import moment from "moment";
+import AdminApproveForm from "./AdminApproveForm";
+import AdminLoanApproveForm from "./AdminLoanApproveForm";
 
 function ReviewLoan(){
     const [houseLoan, setHouseLoan] = useState()
@@ -9,6 +11,7 @@ function ReviewLoan(){
     const [currentApplication, setCurrentApplication] = useState(null);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const typeMap ={'S':'Student','H':'House'}
+    const typeStuMap ={'U':'Undergrad','G':'Graduate'}
     useEffect(() => {
         async function fetchApplications() {
             try {
@@ -24,8 +27,9 @@ function ReviewLoan(){
         fetchApplications();
     }, []);
     const handleClickDeny = async (laid) => {
+        console.log(laid)
         try {
-            await adminLoanReject({ laid });
+            await adminLoanReject( laid );
             message.success("Application rejected successfully");
         } catch (err) {
             message.error('Error rejecting application: ' + err.message);
@@ -56,7 +60,7 @@ function ReviewLoan(){
             render: (_, record) => (
                 <>
                     <Button type="link" onClick={() => handleApprove(record)}>Approve</Button>
-                    <Button type="link" onClick={() => handleClickDeny(record.appId)}>Deny</Button>
+                    <Button type="link" onClick={() => handleClickDeny(record.laid)}>Deny</Button>
                 </>
             )
         },
@@ -67,8 +71,8 @@ function ReviewLoan(){
         { title: 'Loan Type', dataIndex: 'ltype', key: 'ltype',render: text => typeMap[text] },
         { title: 'Loan Rate', dataIndex: 'lrate', key: 'lrate' },
         { title: 'Student Id', dataIndex: 'stuid', key: 'stuid' },
-        { title: 'Student Type', dataIndex: 'stutype', key: 'stutype' },
-        { title: 'Is graduate', dataIndex: 'stugraddate', key: 'stugraddate' },
+        { title: 'Student Type', dataIndex: 'stutype', key: 'stutype' ,render: text => typeStuMap[text]},
+        { title: 'Graduate Year', dataIndex: 'stugraddate', key: 'stugraddate', render: date =>moment(date).year()  },
         { title: 'University Name', dataIndex: 'uname', key: 'uname' },
         { title: 'Status', dataIndex: 'lavalid', key: 'lavalid', render: text => text || 'Pending' },
         {
@@ -77,7 +81,7 @@ function ReviewLoan(){
             render: (_, record) => (
                 <>
                     <Button type="link" onClick={() => handleApprove(record)}>Approve</Button>
-                    <Button type="link" onClick={() => handleClickDeny(record.appId)}>Deny</Button>
+                    <Button type="link" onClick={() => handleClickDeny(record.laid)}>Deny</Button>
                 </>
             )
         },
@@ -88,6 +92,13 @@ function ReviewLoan(){
             <Table dataSource={houseLoan} columns={columnsForHouse} rowKey="laid"/>
             <h2>StudentLoan</h2>
             <Table dataSource={studentLoan} columns={columnsForHStudent} rowKey="laid"/>
+            {currentApplication && (
+                <AdminLoanApproveForm
+                    laid={currentApplication.laid}
+                    displayModal={isModalVisible}
+                    setDisplayModal={setIsModalVisible}
+                />
+            )}
         </div>
 
     );

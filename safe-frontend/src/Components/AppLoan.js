@@ -112,20 +112,29 @@ function AppLoan({ accountID }) {
                 <Input disabled={type === 'S'} />
             </Form.Item>
 
-            <Form.Item label="Study Type" name="stutype" disabled={type === 'H'}>
+            <Form.Item label="Student Type" name="stutype" disabled={type === 'H'}>
+                <Select
+                    style={{ width: 200 }}
+                    placeholder="Select a Student type"
+                    disabled={type === 'H'}
+                    // 可以添加 onChange 事件处理函数来处理选项变化
+                >
+                    <Option value="U">Undergrad</Option>
+                    <Option value="G">Graduate</Option>
+                </Select>
+
+            </Form.Item>
+            <Form.Item label="Student id" name="stuid" disabled={type === 'H'}>
                 <Input disabled={type === 'H'} />
             </Form.Item>
-            <Form.Item label="Study id" name="stuid" disabled={type === 'H'}>
-                <Input disabled={type === 'H'} />
-            </Form.Item>
-            <Form.Item label="Study Grad Date" name="stugraddate" disabled={type === 'H'}>
+            <Form.Item label="Student expect graduate date" name="stugraddate" disabled={type === 'H'}>
                 <DatePicker disabled={type === 'H'}
                     showTime={{ format: 'HH:mm' }} // 显示时间选择器，具体时间格式
                     format="YYYY-MM-DDTHH:mm:ss" // 定义日期时间的格式
                     style={{ width: '100%' }}
                 />
             </Form.Item>
-            <Form.Item label="Username" name="uname" disabled={type === 'H'}>
+            <Form.Item label="University Name" name="uname" disabled={type === 'H'}>
                 <Input disabled={type === 'H'} />
             </Form.Item>
             <Form.Item>
