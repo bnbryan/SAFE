@@ -72,7 +72,7 @@ CREATE TABLE ybj_customer (
 ALTER TABLE ybj_customer ADD CONSTRAINT ybj_customer_pk PRIMARY KEY ( cid );
 ALTER TABLE ybj_customer MODIFY cid BIGINT NOT NULL AUTO_INCREMENT COMMENT 'Customer id';
 ALTER TABLE ybj_customer ADD UNIQUE (cemail);
-CREATE UNIQUE INDEX ybj_customer__idx ON
+CREATE INDEX ybj_customer__idx ON
     ybj_customer (cemail);
 
 CREATE TABLE ybj_record (
@@ -147,7 +147,7 @@ CREATE TABLE ybj_loan_app (
 
 ALTER TABLE ybj_loan_app ADD CONSTRAINT ybj_loan_app_pk PRIMARY KEY ( laid );
 ALTER TABLE ybj_loan_app MODIFY laid BIGINT NOT NULL AUTO_INCREMENT COMMENT 'Loan application id';
-CREATE UNIQUE INDEX ybj_loan_app__idx ON
+CREATE INDEX ybj_loan_app__idx ON
     ybj_loan_app (cid);
 
 ALTER TABLE ybj_loan
@@ -221,7 +221,7 @@ ALTER TABLE account_app
     ADD CONSTRAINT account_app_ybj_customer_fk FOREIGN KEY (cid)
         REFERENCES ybj_customer (cid);
 
-CREATE UNIQUE INDEX ybj_account_app__idx ON
+CREATE INDEX ybj_account_app__idx ON
     account_app (cid);
 
 ALTER TABLE ybj_account
