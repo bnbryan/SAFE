@@ -3,8 +3,8 @@ import { adminApprove } from "../utils";
 import { Button, Form, Input, message, Modal } from "antd";
 import moment from "moment";
 
-function AdminApproveForm({ appId, cid, type }) {
-    const [displayModal, setDisplayModal] = useState(false);
+function AdminApproveForm({ appId, cid, type,displayModal,setDisplayModal}) {
+
     const [form] = Form.useForm();
     useEffect(() => {
         if (type === 'C') {
@@ -55,11 +55,6 @@ function AdminApproveForm({ appId, cid, type }) {
 
     return (
         <>
-            <Button onClick={handleApproveOnClick}
-                    type="link"
-                    style={{ padding: 0 }}>
-                Approve
-            </Button>
             <Modal title="Approve Application"
                    visible={displayModal}
                    onCancel={handleApproveCancel}

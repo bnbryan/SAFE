@@ -716,7 +716,7 @@ export const adminLoanReject = (data) => {
 };
 export const adminGetLoanApp=()=>{
     const token = getAuthToken()
-    return fetch(`safe/admin/apploan`, {
+    return fetch(`safe/admin/apploan/`, {
         method: 'GET', // GET请求方法
         headers: {
             'Content-Type': 'application/json',
