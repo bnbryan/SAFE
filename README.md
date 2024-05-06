@@ -39,7 +39,12 @@ success
             "cid": 1,
             "clname": "Smith",
             "cfname": "John",
-            "cemail": "123@gmail.com"
+            "cemail": "123@gmail.com",
+            "apt": null,
+            "street": "123 Main St",
+            "city": "Downtown",
+            "state": "CA",
+            "zip": "90001"
         }
     }
 }

@@ -19,6 +19,13 @@
         where adid=#{adid}
     </update>
 
+    <select id="getAddressByCid" resultType="team.ybj.pojo.YbjAddress">
+        SELECT adstreet,adcity,adstate,adzip,adapt FROM ybj_customer as c
+        join ybj_cust_addr as ca on c.cid=ca.cid
+        join ybj_address as a on ca.adid=a.adid
+        where c.cid=#{cid};
+    </select>
+
     <delete id="deleteAddressByAdid">
         delete from ybj_address where adid=#{adid}
     </delete>
