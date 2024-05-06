@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {Button, Form, Input, InputNumber, message, Select} from "antd";
 import { postApplication } from '../utils';
 import {DollarOutlined} from "@ant-design/icons";  // Assuming corrected spelling from 'postAllication' to 'postAllocation'

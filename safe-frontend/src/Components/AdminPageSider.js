@@ -2,9 +2,7 @@
 import React from 'react';
 import {Layout, Menu} from 'antd';
 import {
-    UserOutlined,
-    TransactionOutlined,
-    BookOutlined,
+
     AccountBookOutlined
 } from '@ant-design/icons';
 

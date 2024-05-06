@@ -24,7 +24,7 @@ function PageHeader({ loggedIn, signoutOnClick, signinOnSuccess,signinOnSuccessA
 
                 </Col>
                 <Col>
-                    {loggedIn||adminloggedIn && (
+                    {(loggedIn||adminloggedIn) && (
                         <>
                             <Button shape="round" onClick={signoutOnClick}>Logout</Button>
                         </>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {Button, Card, Form, Input, message, Select} from "antd";
+import {Card, message} from "antd";
 import { getIdByEmail } from '../utils';
 
 function userInfo({ accountEmail }) {
