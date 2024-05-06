@@ -14,6 +14,8 @@ public interface AddressMapper {
 
     int deleteAddressByAdid(Long adid);
 
+    YbjAddress getAddressByCid(Long cid);
+
     @Select("SELECT LAST_INSERT_ID()")
     Long getLastInsertId();
 
