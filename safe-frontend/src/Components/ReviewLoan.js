@@ -95,6 +95,7 @@ function ReviewLoan(){
             {currentApplication && (
                 <AdminLoanApproveForm
                     laid={currentApplication.laid}
+
                     displayModal={isModalVisible}
                     setDisplayModal={setIsModalVisible}
                 />

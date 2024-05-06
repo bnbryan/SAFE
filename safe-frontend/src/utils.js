@@ -38,7 +38,7 @@ export const login = (data) => {
                 console.log('Login successful. Token saved.');
             } else {
                 // Handle any situation where the login was not successful
-                throw Error(json.message || "Fail to login");
+                throw Error(json.msg|| "Fail to login");
             }
             return json; // Continue with the JSON response
         })
@@ -70,7 +70,6 @@ export const register = (data) => {
     })
 
         .then(response => {
-            console.log(response)
 
             if (!response.ok) {
 
@@ -79,9 +78,8 @@ export const register = (data) => {
             return response.json();
         })
         .then((json) => {
-            console.log(json)
             if (json.code !== 200) {
-                throw Error(json.message || "Fail to register");
+                throw Error("Fail to register+"+json.msg);
             }
             return json;
         })
@@ -143,7 +141,14 @@ export const withdraw=(data)=>{
         console.log(response)
         // Check if the network response was ok
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            if(response.status===422){
+                return response.json().then(error=>{
+                    throw new Error("Fail to withdraw, "+error.msg+','+error.data)
+                })
+            }
+            else {
+                throw new Error('Network response was not ok');
+            }
         }
         return response.json(); // Parse the body of the response
 
@@ -181,7 +186,14 @@ export const deposit=(data)=>{
         console.log(response)
         // Check if the network response was ok
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            if(response.status===422){
+                return response.json().then(error=>{
+                    throw new Error("Fail to deposit, "+error.msg+','+error.data)
+                })
+            }
+            else {
+                throw new Error('Network response was not ok');
+            }
         }
         return response.json(); // Parse the body of the response
 
@@ -194,12 +206,12 @@ export const deposit=(data)=>{
             console.log('withdraw success.');
         } else {
             // Handle any situation where the login was not successful
-            throw Error(json.message || "Fail to withdraw, "+json.msg);
+            throw Error(json.message || "Fail to deposit, "+json.msg);
         }
         return json; // Continue with the JSON response
 
     }).catch(error=>{
-        console.error('There has been a problem with your fetch operation:', error);
+        console.error('There has been a problem with your deposit operation:', error);
         throw error; // Re-throw the error to make sure the caller is aware of the failure
 
     })
@@ -221,7 +233,14 @@ export const transfer=(data)=>{
         console.log(response)
         // Check if the network response was ok
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            if(response.status===422){
+                return response.json().then(error=>{
+                    throw new Error("Fail to tranfer, "+error.msg+','+error.data)
+                })
+            }
+            else {
+                throw new Error('Network response was not ok');
+            }
         }
         return response.json(); // Parse the body of the response
     }).then(json=>{
@@ -233,11 +252,11 @@ export const transfer=(data)=>{
             console.log('transfer success.');
         } else {
             // Handle any situation where the login was not successful
-            throw Error(json.message || "Fail to tranfer, "+json.msg);
+            throw Error( "Fail to tranfer, "+json.msg);
         }
         return json; // Continue with the JSON response
     }).catch(error=>{
-        console.error('There has been a problem with your fetch operation:', error);
+        console.error('There has been a problem with your transfer operation:', error);
         throw error; // Re-throw the error to make sure the caller is aware of the failure
 
     })
@@ -256,9 +275,16 @@ export const allAccount=(email)=>{
         console.log(response);
         // 检查网络响应是否ok
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            if(response.status===422){
+                return response.json().then(error=>{
+                    throw new Error("Fail to get all account, "+error.msg+','+error.data)
+                })
+            }
+            else {
+                throw new Error('Network response was not ok');
+            }
         }
-        return response.json(); // 解析响应体
+        return response.json()
 
     }).then(json => {
         console.log(json);
@@ -310,7 +336,7 @@ export const adminLogin = (data) => {
                 console.log('Login successful. Token saved.');
             } else {
                 // Handle any situation where the login was not successful
-                throw Error(json.message || "Fail to login");
+                throw Error(json.msg || "Fail to login");
             }
             return json; // Continue with the JSON response
         })
@@ -348,7 +374,7 @@ export const adminApprove = (data) => {
 
             } else {
                 // Handle any situation where the login was not successful
-                throw Error(json.message || "Fail to approve");
+                throw Error(json.msg || "Fail to approve");
             }
             return json; // Continue with the JSON response
         })
@@ -373,8 +399,14 @@ export const adminReject = (data) => {
             console.log(response)
             // Check if the network response was ok
             if (!response.ok) {
-                throw new Error('Network response was not ok');
-
+                if(response.status===422){
+                    return response.json().then(error=>{
+                        throw new Error("Fail to reject, "+error.msg+','+error.data)
+                    })
+                }
+                else {
+                    throw new Error('Network response was not ok');
+                }
             }
             return response.json(); // Parse the body of the response
         })
@@ -386,7 +418,7 @@ export const adminReject = (data) => {
 
             } else {
                 // Handle any situation where the login was not successful
-                throw Error(json.message || "Fail to reject");
+                throw Error(json.msg || "Fail to reject");
             }
             return json; // Continue with the JSON response
         })
@@ -418,7 +450,7 @@ export const adminGetApp=()=>{
             console.log('fetching applications success.');
         } else {
             // 处理请求不成功的情况
-            throw Error(json.message || "Failed to fetch applications, " + json.msg);
+            throw Error("Failed to fetch applications, " + json.msg);
         }
         return json; // 继续处理响应的JSON数据
 
@@ -444,11 +476,15 @@ export const postApplication = (data) => {
     })
         .then(response => {
             console.log(response);
-            if (!response.ok&&response.status===422) {
-                return response.json().then(json => {
-                    // 显示更具体的错误信息
-                    throw new Error(json.message || "Your account in this type has reached the maxium number!");
-                });
+            if (!response.ok) {
+                if(response.status===422){
+                    return response.json().then(error=>{
+                        throw new Error("Fail to post application, "+error.msg+','+error.data)
+                    })
+                }
+                else {
+                    throw new Error('Network response was not ok');
+                }
             }
             return response.json();
         })
@@ -486,11 +522,15 @@ export const postLoanApplication = (data) => {
     })
         .then(response => {
             console.log(response);
-            if (!response.ok&&response.status===422) {
-                return response.json().then(json => {
-                    // 显示更具体的错误信息
-                    throw new Error(json.message || "Your account in this type has reached the maxium number!");
-                });
+            if (!response.ok) {
+                if(response.status===422){
+                    return response.json().then(error=>{
+                        throw new Error("Fail to post loan application, "+error.msg+','+error.data)
+                    })
+                }
+                else {
+                    throw new Error('Network response was not ok');
+                }
             }
             return response.json();
         })
@@ -523,13 +563,17 @@ export const allApplication=(id)=>{
         },
 
     }).then(response => {
-        console.log(response);
-        // 检查网络响应是否ok
-        if (!response.ok&&response.status===422) {
-            throw new Error('You do not have any application for Checking or Saving');
+        if (!response.ok) {
+            if(response.status===422){
+                return response.json().then(error=>{
+                    throw new Error("Fail to fetch applications, "+error.msg+','+error.data)
+                })
+            }
+            else {
+                throw new Error('Network response was not ok');
+            }
         }
-        return response.json(); // 解析响应体
-
+        return response.json()
     }).then(json => {
         console.log(json);
         // 假设你需要检查响应中的某个状态码
@@ -558,10 +602,17 @@ export const allLoanApplication=(id)=>{
     }).then(response => {
         console.log(response);
         // 检查网络响应是否ok
-        if (!response.ok&&response.status===422) {
-            throw new Error('You do not have any application for Loan');
+        if (!response.ok) {
+            if(response.status===422){
+                return response.json().then(error=>{
+                    throw new Error("Fail to fetch loan applications, "+error.msg+','+error.data)
+                })
+            }
+            else {
+                throw new Error('Network response was not ok');
+            }
         }
-        return response.json(); // 解析响应体
+        return response.json()
 
     }).then(json => {
         console.log(json);
@@ -588,21 +639,26 @@ export const allActivites=(email)=>{
             'Authorization': `Bearer ${token}`,
         },
     }).then(response => {
-        console.log(response);
         // 检查网络响应是否ok
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            if(response.status===422){
+                return response.json().then(error=>{
+                    throw new Error("Fail to fetch all activities, "+error.msg+','+error.data)
+                })
+            }
+            else {
+                throw new Error('Network response was not ok');
+            }
         }
         return response.json(); // 解析响应体
 
     }).then(json => {
-        console.log(json);
         // 假设你需要检查响应中的某个状态码
         if (json.code === 200) {
             console.log('Fetch applications success.');
         } else {
             // 处理请求不成功的情况
-            throw Error(json.message || "Failed to fetch applications, " + json.msg);
+            throw Error("Failed to fetch applications, " + json.msg);
         }
         return json; // 继续处理响应的JSON数据
 
@@ -621,15 +677,20 @@ export const getIdByEmail=(email)=>{
         },
     }).then(response => {
         if (!response.ok) {
-            console.log(response)
-            throw new Error('Network response was not ok');
-
+            if(response.status===422){
+                return response.json().then(error=>{
+                    throw new Error("Fail to fetch user information, "+error.msg+','+error.data)
+                })
+            }
+            else {
+                throw new Error('Network response was not ok');
+            }
         }
 
         return response.json();
     }).then(json => {
         if (json.code !== 200) {
-            throw new Error(json.message || "Failed to get informations, " + json.msg);
+            throw new Error("Failed to get informations, " + json.msg);
         }
         return json.data;
     }).catch(error => {
@@ -666,7 +727,7 @@ export const adminLoanApprove = (data) => {
 
             } else {
                 // Handle any situation where the login was not successful
-                throw Error(json.message || "Fail to approve");
+                throw Error(json.msg || "Fail to approve");
             }
             return json; // Continue with the JSON response
         })
@@ -705,7 +766,7 @@ export const adminLoanReject = (data) => {
 
             } else {
                 // Handle any situation where the login was not successful
-                throw Error(json.message || "Fail to reject");
+                throw Error(json.msg || "Fail to reject");
             }
             return json; // Continue with the JSON response
         })
@@ -725,9 +786,15 @@ export const adminGetLoanApp=()=>{
 
     }).then(response => {
         console.log(response);
-        // 检查网络响应是否ok
-        if (!response.ok&&response.status===422) {
-            throw new Error('network response has some problem now');
+        if (!response.ok) {
+            if(response.status===422){
+                return response.json().then(error=>{
+                    throw new Error("Fail to fetch loan application, "+error.msg+','+error.data)
+                })
+            }
+            else {
+                throw new Error('Network response was not ok');
+            }
         }
         return response.json(); // 解析响应体
 
@@ -738,7 +805,7 @@ export const adminGetLoanApp=()=>{
             console.log('fetching applications success.');
         } else {
             // 处理请求不成功的情况
-            throw Error(json.message || "Failed to fetch applications, " + json.msg);
+            throw Error("Failed to fetch applications, " + json.msg);
         }
         return json; // 继续处理响应的JSON数据
 
