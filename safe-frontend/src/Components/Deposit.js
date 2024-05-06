@@ -17,13 +17,16 @@ function DepositForm({ accountEmail }) {
             try {
                 const result = await allAccount(accountEmail);
                 if (result.data && Array.isArray(result.data)) {
-                    // Combine all accounts into one array
-                    const allAccounts = result.data.map(account => ({
+                    // 先使用 filter 函数移除 atype 为 'H' 的账户
+                    const filteredAccounts = result.data.filter(account => account.atype !== 'L');
+
+                    // 然后将剩余账户组合成一个新数组
+                    const allAccounts = filteredAccounts.map(account => ({
                         ...account,
                         label: `${account.aname} - ${accountTypeMap[account.atype]}`,
                         value: account.anum,
                     }));
-                    setAccounts(allAccounts); // Set combined accounts
+                    setAccounts(allAccounts); // 设置组合后的账户数组
                 } else {
                     throw new Error('Data is not in expected format');
                 }

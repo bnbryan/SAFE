@@ -56,6 +56,8 @@ function Accountsinfo({accountEmail}){
                                         <span style={{marginRight: '16px'}}>
                                     Type: {accountTypeMap[item.atype] || item.atype}
                                 </span>
+                                        <span>Balance:{item.balance} </span>
+                                        <span>Rate: {item.rate}</span>
                                     </div>
                                 </Card>
                             </List.Item>
@@ -74,10 +76,13 @@ function Accountsinfo({accountEmail}){
                         renderItem={item => (
                             <List.Item>
                                 <Card title={`Account Number: ${item.anum}`}>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                                    <div style={{display: 'flex', justifyContent: 'space-between', width: '100%'}}>
                                         <span>Account Name: {item.aname}</span>
                                         <span>Open Date: {formatMomentDate(item.adate)}</span>
-                                        <span style={{ marginRight: '16px' }}>Type: {accountTypeMap[item.atype] || item.atype}</span>
+                                        <span
+                                            style={{marginRight: '16px'}}>Type: {accountTypeMap[item.atype] || item.atype}</span>
+                                        <span>Balance:{item.balance} </span>
+                                        <span>Charge: {item.charge}</span>
                                     </div>
                                 </Card>
                             </List.Item>
@@ -96,12 +101,14 @@ function Accountsinfo({accountEmail}){
                         renderItem={item => (
                             <List.Item>
                                 <Card title={`Account Number: ${item.anum}`}>
-                                <div style={{display: 'flex', justifyContent: 'space-between', width: '100%'}}>
-                                    <span>Account Name: {item.aname}</span>
-                                    <span>Open Date: {formatMomentDate(item.adate)}</span>
-                                    <span
-                                        style={{marginRight: '16px'}}>Type: {accountTypeMap[item.atype] || item.atype}</span>
-                                </div>
+                                    <div style={{display: 'flex', justifyContent: 'space-between', width: '100%'}}>
+                                        <span>Account Name: {item.aname}</span>
+                                        <span>Open Date: {formatMomentDate(item.adate)}</span>
+                                        <span
+                                            style={{marginRight: '16px'}}>Type: {accountTypeMap[item.atype] || item.atype}</span>
+                                        <span>Balance:{item.balance} </span>
+                                        <span>Rate: {item.rate}</span>
+                                    </div>
                                 </Card>
                             </List.Item>
                         )}

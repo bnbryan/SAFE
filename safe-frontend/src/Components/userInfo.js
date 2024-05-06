@@ -23,10 +23,15 @@ function userInfo({ accountEmail }) {
 
 
     return (
-        <Card title={`Customer: ${userInfo.clname}`} bordered={true} style={{ width: 300 }}>
+        <Card title={`Customer: ${userInfo.clname}`} bordered={true} style={{width: 300}}>
             <p><strong>Customer ID:</strong> {userInfo.cid}</p>
             <p><strong>Name:</strong> {userInfo.cfname} {userInfo.clname}</p>
             <p><strong>Email:</strong> {userInfo.cemail}</p>
+            <p><strong>Apartment:</strong> {userInfo.apt ? userInfo.apt : 'N/A'}</p>
+            <p><strong>Street:</strong> {userInfo.street ? userInfo.street : 'N/A'}</p>
+            <p><strong>City:</strong> {userInfo.city ? userInfo.city : 'N/A'}</p>
+            <p><strong>State:</strong> {userInfo.state ? userInfo.state : 'N/A'}</p>
+            <p><strong>Zipcode:</strong> {userInfo.zip ? userInfo.zip : 'N/A'}</p>
         </Card>
 
     );
