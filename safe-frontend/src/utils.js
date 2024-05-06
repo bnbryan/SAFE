@@ -344,7 +344,7 @@ export const adminApprove = (data) => {
             console.log(json);
             // Assuming the token is in the 'data' object of the response
             // and you check the status with a 'code' property
-            if (json.code === 200 && json.data.token) {
+            if (json.code === 200) {
 
             } else {
                 // Handle any situation where the login was not successful
@@ -382,7 +382,7 @@ export const adminReject = (data) => {
             console.log(json);
             // Assuming the token is in the 'data' object of the response
             // and you check the status with a 'code' property
-            if (json.code === 200 && json.data.token) {
+            if (json.code === 200) {
 
             } else {
                 // Handle any situation where the login was not successful
@@ -397,17 +397,16 @@ export const adminReject = (data) => {
 };
 export const adminGetApp=()=>{
     const token = getAuthToken()
-    return fetch(`safe/admin/all`, {
+    return fetch(`safe/admin/app/all`, {
         method: 'GET', // GET请求方法
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
         },
-
     }).then(response => {
         console.log(response);
         // 检查网络响应是否ok
-        if (!response.ok&&response.status===422) {
+        if (!response.ok) {
             throw new Error('network response has some problem now');
         }
         return response.json(); // 解析响应体
