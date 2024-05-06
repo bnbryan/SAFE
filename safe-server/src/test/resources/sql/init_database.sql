@@ -12,6 +12,10 @@ ALTER TABLE ybj_account
 
 ALTER TABLE ybj_account ADD CONSTRAINT ybj_account_pk PRIMARY KEY ( anum );
 ALTER TABLE ybj_account MODIFY anum BIGINT NOT NULL AUTO_INCREMENT COMMENT 'Account number';
+
+CREATE INDEX ybj_account__idx ON
+    ybj_account (cid);
+
 CREATE TABLE ybj_address (
                              adid     BIGINT NOT NULL COMMENT 'Address id',
                              adstreet VARCHAR(30) NOT NULL COMMENT 'Street of the address',
@@ -68,6 +72,8 @@ CREATE TABLE ybj_customer (
 ALTER TABLE ybj_customer ADD CONSTRAINT ybj_customer_pk PRIMARY KEY ( cid );
 ALTER TABLE ybj_customer MODIFY cid BIGINT NOT NULL AUTO_INCREMENT COMMENT 'Customer id';
 ALTER TABLE ybj_customer ADD UNIQUE (cemail);
+CREATE INDEX ybj_customer__idx ON
+    ybj_customer (cemail);
 
 CREATE TABLE ybj_record (
                             rid BIGINT NOT NULL COMMENT 'Record''s id',
@@ -141,6 +147,8 @@ CREATE TABLE ybj_loan_app (
 
 ALTER TABLE ybj_loan_app ADD CONSTRAINT ybj_loan_app_pk PRIMARY KEY ( laid );
 ALTER TABLE ybj_loan_app MODIFY laid BIGINT NOT NULL AUTO_INCREMENT COMMENT 'Loan application id';
+CREATE INDEX ybj_loan_app__idx ON
+    ybj_loan_app (cid);
 
 ALTER TABLE ybj_loan
     ADD CONSTRAINT ch_inh_ybj_loan CHECK ( ltype IN ( 'HOME', 'L', 'STU' ) );
@@ -212,6 +220,9 @@ ALTER TABLE account_app ADD constraint check (status in ('P', 'D') );
 ALTER TABLE account_app
     ADD CONSTRAINT account_app_ybj_customer_fk FOREIGN KEY (cid)
         REFERENCES ybj_customer (cid);
+
+CREATE INDEX ybj_account_app__idx ON
+    account_app (cid);
 
 ALTER TABLE ybj_account
     ADD CONSTRAINT ybj_account_ybj_address_fk FOREIGN KEY ( adid )
