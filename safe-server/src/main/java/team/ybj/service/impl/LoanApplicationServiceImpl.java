@@ -102,6 +102,15 @@ public class LoanApplicationServiceImpl implements LoanAppService {
         Instant instant = currentDate.toInstant();
         instant = instant.plus(-1, ChronoUnit.SECONDS); // 加上一秒
         Date now = Date.from(instant);
+        double lrate = request.getLrate(); // 贷款利率
+        double lamount = loanApp.getLamount(); // 贷款本金
+        int lmonths = loanApp.getLmonths(); // 贷款总月数
+
+        // 计算月利率
+        double monthlyRate = lrate / 100 / 12;
+
+        // 计算每月付款额
+        double lpayment = (monthlyRate * lamount) / (1 - Math.pow(1 + monthlyRate, -lmonths));
         if(loanApp.getLtype() == 'S') {
             Long uID;
             if(universityMapper.getUniversityByUname(loanApp.getUname()) == null){
@@ -118,8 +127,9 @@ public class LoanApplicationServiceImpl implements LoanAppService {
             accountMapper.insertAccount(account);
             Long anum = account.getAnum();
             YbjLoan loan = new YbjLoan(anum, request.getLrate(), loanApp.getLamount(), loanApp.getLmonths(),
-                    request.getLpayment(), "STU", null, null, null, loanApp.getStuid(),
+                    lpayment, "STU", null, null, null, loanApp.getStuid(),
                     loanApp.getStutype(), loanApp.getStugraddate(), uID, 'L', 'Y');
+            System.out.println(loan);
             try{
                 loanMapper.insertLoan(loan);
             loanAppMapper.updateLoanAppStatus(request.getLaid(), 'P');
@@ -138,7 +148,7 @@ public class LoanApplicationServiceImpl implements LoanAppService {
                 accountMapper.insertAccount(account);
                 Long anum = account.getAnum();
                 YbjLoan loan = new YbjLoan(anum, request.getLrate(), loanApp.getLamount(), loanApp.getLmonths(),
-                    request.getLpayment(), "HOME", loanApp.getHyear(), loanApp.getHinsurance(), insurance.getIid(), null,
+                    lpayment, "HOME", loanApp.getHyear(), loanApp.getHinsurance(), insurance.getIid(), null,
                     null, null, null, 'L', 'Y');
             try{loanMapper.insertLoan(loan);
             loanAppMapper.updateLoanAppStatus(request.getLaid(), 'P');}
