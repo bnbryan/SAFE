@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
     public CustomerBasic findCustomerByEmail(String email) {
 
         YbjCustomer customer = customerMapper.getCustomerByEmail(email);
-        YbjAddress address = addressMapper.getAddressByAdid(customer.getCid());
+        YbjAddress address = addressMapper.getAddressByCid(customer.getCid());
         if (customer == null) {
             throw new NoDataException("Can't find customer by email: " + email);
         } else {
