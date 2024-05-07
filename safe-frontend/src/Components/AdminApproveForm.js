@@ -4,6 +4,7 @@ import { Button, Form, Input, message, Modal } from "antd";
 import moment from "moment";
 
 function AdminApproveForm({ appId, cid, type,displayModal,setDisplayModal}) {
+    console.log("Props in AdminApproveForm:", { appId, cid, type, displayModal });
 
     const [form] = Form.useForm();
     useEffect(() => {
@@ -18,7 +19,7 @@ function AdminApproveForm({ appId, cid, type,displayModal,setDisplayModal}) {
                 ccharge:null
             });
         }
-    }, []);
+    }, [type, form]);
 
 
     const handleApproveCancel = () => {
@@ -81,11 +82,11 @@ function AdminApproveForm({ appId, cid, type,displayModal,setDisplayModal}) {
                     <Form.Item name="adate" noStyle>
                         <Input type="hidden"></Input>
                     </Form.Item>
-                    <Form.Item name="appId" noStyle></Form.Item>
+                    <Form.Item name="appId" initialValue={appId} noStyle></Form.Item>
                     <Input type="hidden"></Input>
-                    <Form.Item name="cid" noStyle></Form.Item>
+                    <Form.Item name="cid" initialValue={cid} noStyle></Form.Item>
                     <Input type="hidden"></Input>
-                    <Form.Item name="type" noStyle></Form.Item>
+                    <Form.Item name="type" initialValue={type} noStyle></Form.Item>
                     <Input type="hidden"></Input>
 
                     <Form.Item>
