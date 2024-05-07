@@ -19,6 +19,11 @@ function ReviewApplication() {
         }
         fetchApplications();
     }, []);
+    useEffect(() => {
+        if (currentApplication) {
+            setIsModalVisible(true);
+        }
+    }, [currentApplication]);
 
     const handleClickDeny = async (appId) => {
         try {
@@ -31,6 +36,7 @@ function ReviewApplication() {
     };
 
     const handleApprove = (app) => {
+        console.log(app)
         setCurrentApplication(app);
         setIsModalVisible(true);
     };

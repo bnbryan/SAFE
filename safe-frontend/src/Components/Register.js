@@ -142,6 +142,14 @@ function Register({securityQuestions}) {
                         />
                     </Form.Item>
                     <Form.Item
+                    name="adapt"
+                    rules={[{ required: true, message: 'Please input your apartment!' }]}
+                >
+                    <Input
+                        placeholder="apartment"
+                    />
+                </Form.Item>
+                    <Form.Item
                         name="adcity"
                         rules={[{ required: true, message: 'Please input your city!' }]}
                     >
@@ -157,6 +165,7 @@ function Register({securityQuestions}) {
                             placeholder="state"
                         />
                     </Form.Item>
+
                     <Form.Item
                         name="adzip"
                         rules={[{ required: true, message: 'Please input your zip code!' }]}

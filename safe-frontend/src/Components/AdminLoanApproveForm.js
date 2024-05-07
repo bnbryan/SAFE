@@ -47,18 +47,6 @@ function AdminLoanApproveForm({ laid,displayModal,setDisplayModal}) {
                                placeholder="loan rate"
                         />
                     </Form.Item>
-                    <Form.Item
-                        name="lpayment"
-                        rules={[
-                            {
-                                message: "Please input the payment amount!",
-                            },
-                        ]}
-                    >
-                        <Input
-                               placeholder="payment amount"
-                        />
-                    </Form.Item>
                     <Form.Item name="laid" noStyle>
                         <Input type="hidden"></Input>
                     </Form.Item>

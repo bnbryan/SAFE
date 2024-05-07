@@ -16,7 +16,7 @@ function Application({ accountID }) {
         postApplication(data)  // Make sure this is correctly spelled in your imports and usage
             .then(() => {
                 message.success(`Submit Success!`);
-                form.resetFields();  // Move reset inside success callback to ensure form resets only on successful submission
+                //form.resetFields();  // Move reset inside success callback to ensure form resets only on successful submission
             }).catch((err) => {
             message.error(`Submission failed: ${err.message}`);
         });
