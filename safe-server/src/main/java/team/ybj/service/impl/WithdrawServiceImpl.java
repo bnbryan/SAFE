@@ -11,7 +11,7 @@ import team.ybj.service.*;
 
 
 @Service
-public class WithdrawServiceImpl implements WithdrawService {
+public class  WithdrawServiceImpl implements WithdrawService {
 
     @Autowired
     private CheckingMapper checkingMapper;
